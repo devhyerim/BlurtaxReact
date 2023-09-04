@@ -10,6 +10,7 @@ import ReceiptTA from "./pages/receipt/ReceiptTA";
 import InfoTA from "./pages/info/InfoTA";
 import InfoCO from "./pages/info/InfoCO";
 
+
 const Routes = [
   {
     path: "/main/mainta",
