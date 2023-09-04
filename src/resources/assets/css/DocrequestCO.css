@@ -1,0 +1,39 @@
+.docbtn {
+	margin-left: 5px !important;
+	width: 250px !important;
+}
+
+.nav-item-divider {
+	border-top: 1px solid #ccc !important;
+	margin: 8px 0 !important;
+}
+
+.pagetitle {
+	margin-top: 8px !important;
+}
+
+table.total {
+	background-color: #f6f9ff !important;
+}
+
+.tabletop {
+	background-color: #F5F5F5 !important;
+}
+
+.modal { 
+	--bs-modal-width: 750px !important;
+}
+
+
+
+.modal2 { 
+	--bs-modal-footer-border-width: none !important;
+}
+
+.card-title2 {
+    font-size: 24px !important;
+}
+
+.fade:not(.show) {
+    display: none !important;
+}

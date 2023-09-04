@@ -29,7 +29,23 @@ const Routes = [
   {
     path: '/bank/bankta',
     component: BankTA
-  }
+  },
+  {
+    path: '/main/mainco',
+    component: MainCO
+  },
+  {
+    path: '/main/mainta',
+    component: MainTA
+  },
+  {
+    path: '/docrequest/docrequestco',
+    component: DocrequestCO
+  },
+  {
+    path: '/docrequest/docrequestta',
+    component: DocrequestTA
+  },
 ]
 
 export default Routes;
