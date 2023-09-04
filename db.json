@@ -1,0 +1,232 @@
+{
+    "banks": [
+        {
+            "bankcode": "10002",
+            "date": "08-01",
+            "source": "바이오테크",
+            "plusamount": "21,500,000",
+            "minusamount": "",
+            "total": "21,500,000",
+            "memo": "외상대",
+            "connect": "1"
+        },
+        {
+            "bankcode": "10003",
+            "date": "08-01",
+            "source": "행복한마을",
+            "plusamount": "1,000,000",
+            "minusamount": "",
+            "total": "22,500,000",
+            "memo": "외상대",
+            "connect": "1"
+        },
+        {
+            "bankcode": "10004",
+            "date": "08-01",
+            "source": "GS주유소(구리점)",
+            "plusamount": "",
+            "minusamount": "-80,000",
+            "total": "22,420,000",
+            "memo": "주유비결제",
+            "connect": "1"
+        },
+        {
+            "bankcode": "10005",
+            "date": "08-02",
+            "source": "이마트(구로점)",
+            "plusamount": "",
+            "minusamount": "-120,000",
+            "total": "22,300,000",
+            "memo": "사무용품 구입",
+            "connect": "1"
+        },
+        {
+            "bankcode": "10006",
+            "date": "08-06",
+            "source": "급여지급",
+            "plusamount": "",
+            "minusamount": "-1,250,000",
+            "total": "42,801,230",
+            "memo": "",
+            "connect": "2"
+        },
+        {
+            "bankcode": "10007",
+            "date": "08-07",
+            "source": "(주)옥스",
+            "plusamount": "500,000",
+            "minusamount": "",
+            "total": "43,301,230",
+            "memo": "",
+            "connect": "2"
+        }
+    ],
+    "slips": [
+        {
+            "slipcode": "10001",
+            "source": "(주)엣지테크",
+            "memo": "외상대",
+            "account": "외상매출금",
+            "state": "삭제",
+            "total": "49,051,230"
+        },
+        {
+            "slipcode": "10002",
+            "source": "하나로마트",
+            "memo": "직원간식",
+            "account": "복리후생비",
+            "state": "확정",
+            "total": "49,051,230"
+        },
+        {
+            "slipcode": "10003",
+            "source": "기업은행",
+            "memo": "단기차입금으로 변경",
+            "account": "단기차입금",
+            "state": "확정",
+            "total": "49,051,230"
+        },
+        {
+            "slipcode": "10004",
+            "source": "행복한마을",
+            "memo": "",
+            "account": "현금",
+            "state": "제외",
+            "total": "49,051,230"
+        },
+        {
+            "slipcode": "10005",
+            "source": "신용카드대금",
+            "memo": "",
+            "account": "미지급금",
+            "state": "확정가능",
+            "total": "49,051,230"
+        }
+    ],
+    "business": [
+        {
+            "bizcode": "654-236-5475",
+            "bizname": "그린테크소프트",
+            "category": "IT"
+        },
+        {
+            "bizcode": "323-5434-3433",
+            "bizname": "더숲서점",
+            "category": "판매"
+        },
+        {
+            "bizcode": "235-3324-4364",
+            "bizname": "더숲약국",
+            "category": "판매"
+        },
+        {
+          "bizcode": "235-3224-4364",
+          "bizname": "더숲약국",
+          "category": "판매"
+        },
+        {
+          "bizcode": "135-3324-4364",
+          "bizname": "더숲약국",
+          "category": "판매"
+        },
+        {
+          "bizcode": "235-3324-4454",
+          "bizname": "더숲약국",
+          "category": "판매"
+        },
+        {
+          "bizcode": "235-3286-4364",
+          "bizname": "더숲약국",
+          "category": "판매"
+        },
+        {
+            "bizcode": "325-5643-2353",
+            "bizname": "한영테크",
+            "category": "IT"
+        }
+    ],
+    "slipdetail": [
+      {
+        "slipcode" : "10001",
+        "bankcode" : "10002",
+        "sortno" : "3",
+        "accountno": "103",
+        "accountname" : "보통예금",
+        "amount": "21,500,000",
+        "source": "바이오테크",
+        "memo": ""
+      },
+      {
+        "slipcode" : "10002",
+        "bankcode" : "10002",
+        "sortno" : "4",
+        "accountno": "108",
+        "accountname" : "외상매출금",
+        "amount": "21,500,000",
+        "source": "바이오테크",
+        "memo": ""
+      },
+      {
+        "slipcode" : "10003",
+        "bankcode" : "10003",
+        "sortno" : "3",
+        "accountno": "103",
+        "accountname" : "보통예금",
+        "amount": "1,000,000",
+        "source": "행복한마을",
+        "memo": ""
+      },
+      {
+        "slipcode" : "10004",
+        "bankcode" : "10003",
+        "sortno" : "4",
+        "accountno": "108",
+        "accountname" : "외상매출금",
+        "amount": "1,000,000",
+        "source": "행복한마을",
+        "memo": ""
+      },
+      {
+        "slipcode" : "10005",
+        "bankcode" : "10004",
+        "sortno" : "3",
+        "accountno": "704",
+        "accountname" : "자동차유류비",
+        "amount": "80,000",
+        "source": "GS주유소(구리점)",
+        "memo": ""
+      },
+      {
+        "slipcode" : "10006",
+        "bankcode" : "10004",
+        "sortno" : "4",
+        "accountno": "103",
+        "accountname" : "보통예금",
+        "amount": "80,000",
+        "source": "GS주유소(구리점)",
+        "memo": ""
+      }
+    ],
+    "accounts": [
+      {
+        "accountno": "101",
+        "accountname": "보통예금"
+      },
+      {
+        "accountno": "102",
+        "accountname": "현금"
+      },
+      {
+        "accountno": "103",
+        "accountname": "외상매출금"
+      },
+      {
+        "accountno": "104",
+        "accountname": "자동차유류비"
+      },
+      {
+        "accountno": "105",
+        "accountname": "외상매입금"
+      }
+    ]
+}

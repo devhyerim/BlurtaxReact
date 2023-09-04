@@ -1,0 +1,391 @@
+
+.pagetitle{
+    margin-top: 8px;
+}
+.intable{
+    width: 100%;
+    border: 0;
+}
+.intable:focus{
+    outline: none;
+}
+.allbtn{
+    margin-top: 10px;
+  margin-left: 5px;
+  width: 250px;
+}
+.allbtn:hover{
+    background-color: #4169E1;
+}
+.nav-item-divider {
+  border-top: 1px solid #ccc;
+}
+.search-biz input{
+    width: 250px;
+}
+.biztype{
+  color: #4169E1 !important;
+  background-color: #F0F8FF;
+}
+
+table {
+  width: 100%; /* 테이블 전체 넓이를 100%로 설정 */
+  table-layout: fixed; /* 테이블 열 너비를 고정으로 설정*/
+}
+th,
+td {
+  text-align: center !important; /* 글자를 가운데로 정렬 */
+  vertical-align: middle; /* 세로 중앙 정렬 */
+}
+.banktable th:first-child,
+.banktable td:first-child,
+.banksliptable th:first-child,
+.banksliptable td:first-child{
+  width: 35px; /* 첫 번째 열 넓이 */
+}
+.banktable th:nth-child(2),
+.banktable td:nth-child(2) {
+  width: 80px; /* 두 번째 열 넓이 */
+}
+.banktable td:nth-child(5),
+.banktable td:nth-child(6),
+.banktable td:nth-child(7) {
+  text-align: right;
+}
+.banktable th:last-child,
+.banktable td:last-child {
+  width: 45px; 
+}
+
+.detailsliptable th:first-child,
+.detailsliptable td:first-child{
+  width: 130px;
+}
+.detailsliptable th:nth-child(2),
+.detailsliptable td:nth-child(2){
+  width: 230px;
+}
+.detailsliptable td:nth-child(4),
+.detailsliptable td:nth-child(5){
+  text-align: right;
+  width: 230px;
+}
+.detailsliptable td:last-child{
+  text-align: left;
+}
+
+.tabletop{
+    background-color: #F5F5F5 !important;
+}
+.total{
+    background-color: #f6f9ff !important;
+}
+
+
+ /* div 위치설정 */
+.listcondition {
+  display: flex;
+  align-items: center; 
+  gap: 10px; 
+  position: relative;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  padding: 13px;
+}
+
+.line {
+  display: flex; 
+  align-items: center; 
+}
+
+.line > * {
+  margin-right: 10px; /* 각 요소 사이의 간격을 조절 */
+}
+
+.listconditionbtn{
+    position: absolute;
+  right: 10px;
+}
+
+ .tab-pane {
+  display: flex;
+  flex-direction: column;
+}
+
+ .left {
+  float: left;
+  width: 49%; 
+  box-sizing: border-box;
+  height: 400px;
+  overflow: auto;
+  margin-bottom: 20px;
+}
+
+
+.right{
+    float: right;
+  width: 49%; 
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  height: 400px;
+  overflow: auto;
+  margin-bottom: 20px;
+}
+
+.totallist{
+    display: flex;
+}
+
+.totalname{
+    margin-right: 150px;
+}
+
+.totalsum{
+    margin-right: 50px;
+}
+
+.diffsum{
+    color: red;
+}
+
+.totalname{
+    font-weight: bold;
+}
+
+  .button-container {
+    display: flex;
+    flex-grow: 1;
+    margin-bottom: 8px;
+  }
+  
+  .button-container button{
+    flex: 1;
+    margin: 0 5px;
+    height: 35px;
+    text-align: center;
+  }
+  
+  .lightbtns{
+       display: flex;
+        flex-grow: 1;
+        height: 50px;
+        justify-content: flex-end;
+  }
+  .lightbtns button{
+        margin: 0 5px;
+        margin-bottom: 5px;
+  }
+
+.bottom {
+  clear: both;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.banklogo{
+    margin-left: 3px;
+}
+.btn-light {
+color: #435971;
+background-color: #fcfdfd;
+border-color: #DCDCDC;
+box-shadow: 0 0.125rem 0.25rem 0 rgba(252, 253, 253, 0.4);
+height: 35px;
+text-align: center;
+}
+.btn-light:hover {
+color: #435971;
+background-color: #fcfdfd;
+border-color: #DCDCDC;
+}
+
+.howmany{
+  font-wieght: bold;
+  margin-left: 8px;
+  display: inline;
+}
+.button-text {
+  display: inline;
+}
+.right .nav {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.right .nav-item {
+  flex: 1;
+}
+#pills-all-tab {
+border: 1px solid;
+color: #8592a3;
+background: transparent;
+}
+#pills-all-tab:hover {
+color: black;
+background-color: #F5F5F5;
+box-shadow: 0 0.125rem 0.25rem 0 rgba(133, 146, 163, 0.4);
+}
+#pills-all-tab.active {
+color: black;
+background-color: #F5F5F5;
+box-shadow: 0 0.125rem 0.25rem 0 rgba(133, 146, 163, 0.4);
+}
+
+#pills-can-tab {
+border: 1px solid;
+color: #198754;
+border-color: #198754;
+background: transparent;
+}
+#pills-can-tab:hover {
+color: #198754;
+background-color: #F0FFF0;
+border-color: #198754;
+box-shadow: 0 0.125rem 0.25rem 0 rgba(113, 221, 55, 0.4);
+}
+#pills-can-tab.active {
+color: #198754;
+background-color: #F0FFF0;
+border-color: #198754;
+box-shadow: 0 0.125rem 0.25rem 0 rgba(113, 221, 55, 0.4);
+}
+
+.btn-outline-info {
+color: #03c3ec;
+border-color: #03c3ec;
+background: transparent;
+}
+.btn-outline-info:hover {
+color: #fff;
+background-color: #03b0d4;
+border-color: #03b0d4;
+box-shadow: 0 0.125rem 0.25rem 0 rgba(3, 195, 236, 0.4);
+}
+#pills-certain-tab{
+  color: #4169E1;
+  border: 1px solid;
+  border-color: #4169E1;
+  background: transparent;
+}
+#pills-certain-tab:hover{
+color: white;
+background-color: #4169E1;
+border-color: #4169E1;
+box-shadow: 0 0.125rem 0.25rem 0 rgba(105, 108, 255, 0.4);
+}
+#pills-certain-tab.active{
+color: white;
+background-color: #4169E1;
+border-color: #4169E1;
+box-shadow: 0 0.125rem 0.25rem 0 rgba(105, 108, 255, 0.4);
+}
+#pills-except-tab {
+color: #ffab00;
+border: 1px solid;
+border-color: #e69a00;
+background: transparent;
+}
+#pills-except-tab:hover {
+color: black;
+background-color: #FFE4B5;
+border-color: #e69a00;
+box-shadow: 0 0.125rem 0.25rem 0 rgba(255, 171, 0, 0.4);
+}
+#pills-except-tab.active {
+color: black;
+background-color: #FFE4B5;
+border-color: #e69a00;
+box-shadow: 0 0.125rem 0.25rem 0 rgba(255, 171, 0, 0.4);
+}
+.btn-outline-danger {
+color: #ff3e1d;
+border-color: #ff3e1d;
+background: transparent;
+}
+.btn-outline-danger:hover {
+color: #fff;
+background-color: white;
+border-color: #e6381a;
+box-shadow: 0 0.125rem 0.25rem 0 rgba(255, 62, 29, 0.4);
+}
+
+#pills-remove-tab {
+color: #233446;
+border: 1px solid;
+background-color: white;
+border-color: #202f3f;
+}
+#pills-remove-tab:hover {
+color: white;
+background-color: #696969;
+border-color: #202f3f;
+box-shadow: 0 0.125rem 0.25rem 0 rgba(35, 52, 70, 0.4);
+/*   transform: translateY(-1px); */
+}
+#pills-remove-tab.active{
+color: white;
+background-color: 	#696969;
+border-color: #202f3f;
+box-shadow: 0 0.125rem 0.25rem 0 rgba(35, 52, 70, 0.4);
+}
+
+.btn-outline-gray {
+color: rgba(67, 89, 113, 0.1);
+border-color: rgba(67, 89, 113, 0.1);
+background: transparent;
+}
+.btn-outline-gray:hover {
+color: #fff;
+background-color: rgba(22, 29, 36, 0.19);
+border-color: rgba(22, 29, 36, 0.19);
+box-shadow: 0 0.125rem 0.25rem 0 rgba(67, 89, 113, 0.4);
+}
+.labeltitle{
+  font-weight: bold;
+}
+.labeltitle2{
+  font-weight: bold;
+  margin-right: 10px;
+  margin-left: 30px;
+}
+.tabletitle{
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.modaltable{
+  background-color: #f6f9ff;
+  margin-bottom: 10px;
+  padding: 30px;
+}
+.modaltable table input{
+  background-color: #f6f9ff;
+}
+.modaltable td:first-child,
+.modaltable td:nth-child(3),
+.modaltable td:nth-child(5){
+  width: 50px;
+  font-weight: bold;
+  text-align: left;
+}
+input.modaltext {
+  width: 363px;
+}
+.cantwrite{
+  background-color: #F5F5F5 !important;
+}
+.button-and-input {
+display: flex;
+flex-wrap: nowrap;
+}
+.searchaccount{
+margin-right: 4px;
+}
+.modalintitle{
+margin-right: 10px;
+}
+.btnmarginright{
+  margin-right: 5px;
+}
+ul#pills-tab {
+  margin-left: 13px;
+}
