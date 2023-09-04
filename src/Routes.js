@@ -4,6 +4,9 @@ import MainTA from "./pages/main/MainTA";
 import MainCO from "./pages/main/MainCO";
 import LoginTA from "./pages/main/LoginTA";
 import LoginCO from "./pages/main/LoginCO";
+import RegisterTA from "./pages/register/RegisterTA";
+import ReceiptCO from "./pages/receipt/ReceiptCO";
+import ReceiptTA from "./pages/receipt/ReceiptTA";
 
 const Routes = [
   {
