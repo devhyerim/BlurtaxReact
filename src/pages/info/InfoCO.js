@@ -52,7 +52,7 @@ const InfoCO = () => {
 
     return (
         <body>
-            <main id="main" className="main nonsidebar mt-3">
+            <main id="main" className="main nonsidebar">
                 <div className="pagetitle">
                     <h1>신고/납부 현황</h1>
                 </div>
