@@ -27,6 +27,18 @@ const Routes = [
     component: BankCO,
   },
   {
+    path: '/bank/bankta',
+    component: BankTA
+  },
+  {
+    path: '/infoTA',
+    component: InfoTA,
+},
+{
+    path: '/infoCO',
+    component: InfoCO
+},
+  {
     path: "/bank/bankta",
     component: BankTA,
   },
@@ -47,5 +59,6 @@ const Routes = [
     component: ReceiptCO,
   },
 ];
+
 
 export default Routes;
