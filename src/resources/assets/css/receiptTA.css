@@ -1,0 +1,121 @@
+.listcondition {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  padding: 13px;
+}
+
+.listconditionbtn {
+  position: absolute;
+  right: 10px;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+}
+
+.line > * {
+  margin-right: 10px;
+  /* 각 요소 사이의 간격을 조절 */
+}
+
+.pagetitle {
+  margin-top: 8px;
+}
+
+.allbtn {
+  margin-top: 10px;
+  margin-left: 5px;
+  width: 250px;
+}
+
+.allbtn:hover {
+  background-color: #4169e1;
+}
+
+.nav-item-divider {
+  border-top: 1px solid #ccc;
+}
+
+.search-biz input {
+  width: 250px;
+}
+
+.biztype {
+  color: #4169e1;
+  background-color: #f0f8ff;
+}
+
+table {
+  width: 100%;
+  /* 테이블 전체 넓이를 100%로 설정 */
+  table-layout: fixed;
+  /* 테이블 열 너비를 고정으로 설정*/
+}
+
+th,
+td {
+  text-align: center;
+  /* 글자를 가운데로 정렬 */
+  vertical-align: middle;
+  /* 세로 중앙 정렬 */
+}
+
+th:first-child,
+td:first-child {
+  width: 50px;
+  /* 첫 번째 열 넓이 */
+}
+
+.tabletop {
+  background-color: #f5f5f5 !important;
+}
+
+.left {
+  padding-top: 15px;
+  float: left;
+  width: 25%;
+  box-sizing: border-box;
+  height: 900px;
+  overflow: auto;
+}
+
+.right {
+  padding-left: 15px;
+  float: right;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  height: 900px;
+  overflow: auto;
+  width: 75%;
+}
+
+.bottom {
+  clear: both;
+  width: 100%;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.custom-image {
+  width: 100%;
+  height: auto;
+  /* 높이를 자동으로 조절 */
+}
+
+.modal-footer .form-control {
+  display: inline-block;
+  width: 80%;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+.selected {
+  --bs-table-bg: #f0f0f0;
+}
+.textSlip {
+  text-align: center;
+}

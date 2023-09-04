@@ -8,6 +8,10 @@ import HomeCO from "./pages/home/HomeCO";
 import HomeTA from "./pages/home/HomeTA";
 import DocrequestCO from "./pages/docrequest/DocrequestCO";
 import DocrequestTA from "./pages/docrequest/DocrequestTA";
+import RegisterTA from "./pages/register/RegisterTA";
+import ReceiptCO from "./pages/receipt/ReceiptCO";
+import ReceiptTA from "./pages/receipt/ReceiptTA";
+
 
 const Routes = [
   {
