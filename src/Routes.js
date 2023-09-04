@@ -11,6 +11,7 @@ import InfoTA from "./pages/info/InfoTA";
 import InfoCO from "./pages/info/InfoCO";
 
 
+
 const Routes = [
   {
     path: "/main/mainta",
@@ -37,12 +38,28 @@ const Routes = [
     component: BankTA,
   },
   {
-    path: "/infoTA",
+    path: '/home/homeco',
+    component: HomeCO
+  },
+  {
+    path: '/home/hometa',
+    component: HomeTA
+  },
+  {
+    path: '/docrequest/docrequestco',
+    component: DocrequestCO
+  },
+  {
+    path: '/docrequest/docrequestta',
+    component: DocrequestTA
+  },
+  {
+    path: '/info/infoTA',
     component: InfoTA,
   },
   {
-    path: "/infoCO",
-    component: InfoCO,
+    path: '/info/infoCO',
+    component: InfoCO
   },
   {
     path: "/bank/bankta",
