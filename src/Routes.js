@@ -4,9 +4,14 @@ import MainTA from "./pages/main/MainTA";
 import MainCO from "./pages/main/MainCO";
 import LoginTA from "./pages/main/LoginTA";
 import LoginCO from "./pages/main/LoginCO";
+import HomeCO from "./pages/home/HomeCO";
+import HomeTA from "./pages/home/HomeTA";
+import DocrequestCO from "./pages/docrequest/DocrequestCO";
+import DocrequestTA from "./pages/docrequest/DocrequestTA";
 import RegisterTA from "./pages/register/RegisterTA";
 import ReceiptCO from "./pages/receipt/ReceiptCO";
 import ReceiptTA from "./pages/receipt/ReceiptTA";
+
 
 const Routes = [
   {
@@ -34,13 +39,29 @@ const Routes = [
     component: BankTA
   },
   {
+    path: '/home/homeco',
+    component: HomeCO
+  },
+  {
+    path: '/home/hometa',
+    component: HomeTA
+  },
+  {
+    path: '/docrequest/docrequestco',
+    component: DocrequestCO
+  },
+  {
+    path: '/docrequest/docrequestta',
+    component: DocrequestTA
+  },
+  {
     path: '/infoTA',
     component: InfoTA,
-},
-{
+  },
+  {
     path: '/infoCO',
     component: InfoCO
-},
+  },
   {
     path: "/bank/bankta",
     component: BankTA,
