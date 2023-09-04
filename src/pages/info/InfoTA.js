@@ -1,9 +1,9 @@
-import "../../resources/assets/css/InfoTA.css";
+
 import axios from "axios";
 
 import { useEffect, useState } from "react";
-import Sidebar from "../../common/Sidebar";
-import TAHeader from "../../common/TAHeader";
+
+
 
 const InfoTA = () => {
 
@@ -138,7 +138,7 @@ const InfoTA = () => {
 
   return (
     <div>
-      <TAHeader />
+      
       <div className="nonsidebar m-3">
         {/* <Sidebar/> */}
         <main>

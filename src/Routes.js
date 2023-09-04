@@ -4,6 +4,11 @@ import MainTA from "./pages/main/MainTA";
 import MainCO from "./pages/main/MainCO";
 import LoginTA from "./pages/main/LoginTA";
 import LoginCO from "./pages/main/LoginCO";
+import RegisterTA from "./pages/register/RegisterTA";
+import ReceiptCO from "./pages/receipt/ReceiptCO";
+import ReceiptTA from "./pages/receipt/ReceiptTA";
+import InfoTA from "./pages/info/InfoTA";
+import InfoCO from "./pages/info/InfoCO";
 
 const Routes = [
   {
@@ -27,17 +32,17 @@ const Routes = [
     component: BankCO,
   },
   {
-    path: '/bank/bankta',
-    component: BankTA
+    path: "/bank/bankta",
+    component: BankTA,
   },
   {
-    path: '/infoTA',
+    path: "/infoTA",
     component: InfoTA,
-},
-{
-    path: '/infoCO',
-    component: InfoCO
-},
+  },
+  {
+    path: "/infoCO",
+    component: InfoCO,
+  },
   {
     path: "/bank/bankta",
     component: BankTA,
@@ -59,6 +64,5 @@ const Routes = [
     component: ReceiptCO,
   },
 ];
-
 
 export default Routes;
