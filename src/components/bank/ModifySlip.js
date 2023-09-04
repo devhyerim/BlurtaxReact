@@ -4,14 +4,14 @@ import SlipDetailTable from "./SlipDetailTable";
 import ModalAccount from "../common/ModalAccount";
 import { update } from "lodash";
 import axios from "axios";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { setSlips } from '../../redux/bankSlice';
 
 const ModifySlip = () => {
   const dispatch = useDispatch();
 
   //--------------- 전표입력, 분개내역 조회 관련 -----------------
-  const { control, register } = useForm();
+  const { control, handleSubmit } = useForm();
   const { fields, append, prepend, swap, move, insert } = useFieldArray({
     control,
     name: "modifySlip"
@@ -35,7 +35,7 @@ const ModifySlip = () => {
 
   useEffect(()=>{
     showBankDetail();
-  }, [banks]);   // 요청 사항이 있을 때마다 리렌더링
+  }, [banks]); // 사용자가 선택한 bank가 바뀔 때마다 렌더링
 
     //------------------ 계정코드 모달 관련 ----------------------------
   // 모달을 오픈한 버튼 인덱스

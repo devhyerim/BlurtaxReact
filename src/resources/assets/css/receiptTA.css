@@ -65,8 +65,8 @@ td {
   /* 세로 중앙 정렬 */
 }
 
-th:first-child,
-td:first-child {
+.th-first,
+.td-first {
   width: 50px;
   /* 첫 번째 열 넓이 */
 }

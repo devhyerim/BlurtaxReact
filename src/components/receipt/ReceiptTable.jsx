@@ -29,7 +29,7 @@ function ReceiptTable({ receipts }) {
       {receipts.map((receipt) => {
         return (
           <tr key={receipt.id}>
-            <td>
+            <td className="td-first">
               <input className="selectRadiobtn form-check-input" type="radio" />
               <span hidden className="recreqno">
                 {receipt.id}
