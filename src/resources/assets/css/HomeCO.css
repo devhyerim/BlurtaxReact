@@ -1,6 +1,4 @@
-
-
-.bi-people{
+.bi-people {
   font-size: 55px;
   color: blue;
 }
@@ -9,54 +7,54 @@
   padding: 20px 0 0 0;
 }
 
-#footer{
-	margin-left: 0px !important;
+#footer {
+  margin-left: 0px !important;
 }
 
 .login {
-    max-width: 30% !important;
+  max-width: 30% !important;
 }
 .menu {
-    max-width: 70% !important;
-    width: 100% !important;
+  max-width: 70% !important;
+  width: 100% !important;
 }
 .menu2 {
-    max-width: 25% !important;
-    width: 100% !important;
-    cursor: pointer !important; /* 커서 모양을 포인터로 변경하여 클릭 가능함을 나타냄 */
+  max-width: 25% !important;
+  width: 100% !important;
+  cursor: pointer !important; /* 커서 모양을 포인터로 변경하여 클릭 가능함을 나타냄 */
 }
 
 .col-lg-6 {
-    width: 98% !important;
+  width: 98% !important;
 }
 
 .col-lg-3 {
   width: 24.45% !important;
 }
 
-.menu-icon{
-	font-size: 50px !important;
-	padding: 20px 15px 15px 30px !important;
+.menu-icon {
+  font-size: 50px !important;
+  padding: 20px 15px 15px 30px !important;
 }
 
-.menu-icon .iconfont{
-	font-size: 20px !important;
-	font-family: "Poppins", sans-serif !important;
-	padding: 20px 15px 15px 0px !important;
+.menu-icon .iconfont {
+  font-size: 20px !important;
+  font-family: "Poppins", sans-serif !important;
+  padding: 20px 15px 15px 0px !important;
 }
 
 .row2 {
-    width: 100% !important;
-    max-width: 66.66% !important;
+  width: 100% !important;
+  max-width: 66.66% !important;
 }
 
 .row3 {
-    width: 100% !important;
-    max-width: 33.33% !important;
+  width: 100% !important;
+  max-width: 33.33% !important;
 }
 
 .cardf {
-    margin-bottom: 0px !important;
+  margin-bottom: 0px !important;
 }
 
 .card {
@@ -64,18 +62,18 @@
 }
 
 .dashboard .info-card {
-	padding: 10px 10px 10px 10px !important;
+  padding: 10px 10px 10px 10px !important;
 }
 .service-item {
-    height: 100%;
-    position: relative !important;
-    z-index: 1 !important;
-    padding: 30px !important;
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.1) !important;
-    background-color: #fff !important;
-    border-radius: 10px !important;
-    border-top-right-radius: 50px !important;
-    transition: all .3s !important;
+  height: 100%;
+  position: relative !important;
+  z-index: 1 !important;
+  padding: 30px !important;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1) !important;
+  background-color: #fff !important;
+  border-radius: 10px !important;
+  border-top-right-radius: 50px !important;
+  transition: all 0.3s !important;
 }
 .service-item .icon {
   margin-left: 0px !important;
@@ -83,18 +81,18 @@
   background-repeat: no-repeat !important;
   width: 50px !important;
   height: 50px !important;
-  transition: all .3s !important;
+  transition: all 0.3s !important;
 }
 
 .service-item h4 {
-  transition: all .3s !important;
+  transition: all 0.3s !important;
   font-size: 20px !important;
   font-weight: 700 !important;
   margin-bottom: 15px !important;
 }
 
 .service-item p {
-  transition: all .3s !important;
+  transition: all 0.3s !important;
   font-size: 15px !important;
   margin-bottom: 20px !important;
 }
@@ -106,6 +104,7 @@
 }
 
 .first-service .icon {
+<<<<<<< HEAD
   background-image: url('../../../../public/img/service-icon-01.png');
 }
 
@@ -119,10 +118,25 @@
 
 .second-service:hover .icon {
   background-image: url('../../../../public/img/service-icon-hover-02.png');
+=======
+  background-image: url("../../../../public/img/service-icon-01.png");
 }
 
+.first-service:hover .icon {
+  background-image: url("../../../../public/img/service-icon-hover-01.png");
+}
+
+.second-service .icon {
+  background-image: url("../../../../public/img/service-icon-02.png");
+}
+
+.second-service:hover .icon {
+  background-image: url("../../../../public/img/service-icon-hover-02.png");
+>>>>>>> 895872cacbc389ea0a741c812bca88523f7e2728
+}
 
 .third-service .icon {
+<<<<<<< HEAD
   background-image: url('../../../../public/img/service-icon-03.png');
 }
 
@@ -140,10 +154,29 @@
 
 .service-item:hover {
   background-image: url('../../../../public/img/service-bg.jpg');
+=======
+  background-image: url("../../../../public/img/service-icon-03.png");
+}
+
+.third-service:hover .icon {
+  background-image: url("../../../../public/img/service-icon-hover-03.png");
+}
+
+.fourth-service .icon {
+  background-image: url("../../../../public/img/service-icon-04.png");
+}
+
+.fourth-service:hover .icon {
+  background-image: url("../../../../public/img/service-icon-hover-04.png");
+}
+
+.service-item:hover {
+  background-image: url("../../../../public/img/service-bg.jpg");
+>>>>>>> 895872cacbc389ea0a741c812bca88523f7e2728
   background-position: right top !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
-} 
+}
 
 .importantmenu {
   display: flex !important;
@@ -151,9 +184,8 @@
   gap: 10px !important;
   margin-top: 10px !important;
   margin-bottom: 10px !important;
-  
 }
 
-.customers-card{
-	height: 170px !important;
+.customers-card {
+  height: 170px !important;
 }

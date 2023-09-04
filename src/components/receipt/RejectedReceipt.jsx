@@ -9,7 +9,7 @@ function RejectedReceipt() {
       <table className="table table-hover table-bordered">
         <thead>
           <tr>
-            <th scope="col" className="tabletop">
+            <th scope="col" className="th-first tabletop">
               No.
             </th>
             <th scope="col" className="tabletop">
@@ -30,7 +30,7 @@ function RejectedReceipt() {
           <tr>
             <td>
               <input
-                className="unconfirmed form-check-input"
+                className="td-first unconfirmed form-check-input"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseExample2"
                 aria-controls="collapseExample"

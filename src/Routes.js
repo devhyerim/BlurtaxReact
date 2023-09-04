@@ -42,20 +42,20 @@ const Routes = [
     component: BankTA,
   },
   {
-    path: '/home/homeco',
-    component: HomeCO
+    path: "/home/homeco",
+    component: HomeCO,
   },
   {
-    path: '/home/hometa',
-    component: HomeTA
+    path: "/home/hometa",
+    component: HomeTA,
   },
   {
-    path: '/docrequest/docrequestco',
-    component: DocrequestCO
+    path: "/docrequest/docrequestco",
+    component: DocrequestCO,
   },
   {
-    path: '/docrequest/docrequestta',
-    component: DocrequestTA
+    path: "/docrequest/docrequestta",
+    component: DocrequestTA,
   },
   {
     path: '/info/infoTA',
