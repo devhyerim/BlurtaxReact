@@ -1,6 +1,6 @@
 import COHeader from '../../components/common/COHeader';
 import HomeCOBody from '../../components/home/HomeCOBody';
-//import '../../resources/assets/css/HomeCO.css';
+import '../../resources/assets/css/HomeCO.css';
 
 const HomeCO = () => {
     return (

@@ -35,11 +35,11 @@ const BankTA = () => {
               <div className="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
                 <BankSearch/>
         
-                <div className="left" id="left">
+                <div className="left" id="leftbank">
                   <BankContents/>
                 </div>
                 
-                <div className="right" id="right">
+                <div className="right" id="rightbank">
                   <BankSlip/>
                 </div>
 
