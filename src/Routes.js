@@ -29,7 +29,15 @@ const Routes = [
   {
     path: '/bank/bankta',
     component: BankTA
-  }
+  },
+  {
+    path: '/infoTA',
+    component: InfoTA,
+},
+{
+    path: '/infoCO',
+    component: InfoCO
+}
 ]
 
 export default Routes;
