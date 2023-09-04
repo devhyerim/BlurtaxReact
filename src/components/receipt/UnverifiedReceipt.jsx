@@ -68,28 +68,8 @@ function UnverifiedReceipt() {
           </button>
         </div>
       </div>
-      <table className="receiptTable table table-hover table-bordered">
-        <thead>
-          <tr>
-            <th scope="col" className="th-first tabletop">
-              No.
-            </th>
-            <th scope="col" className="tabletop">
-              증빙내용
-            </th>
-            <th scope="col" className="tabletop">
-              적합여부
-            </th>
-            <th scope="col" className="tabletop">
-              부적합사유
-            </th>
-            <th scope="col" className="tabletop">
-              메모
-            </th>
-          </tr>
-        </thead>
+
         <ReceiptTable receipts={filteredReceipts} />
-      </table>
     </div>
   );
 }

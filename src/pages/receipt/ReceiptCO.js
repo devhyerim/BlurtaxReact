@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Card, Image } from "react-bootstrap";
 
 function ReceiptCO() {
-  const [uploadFile, setUploadFile] = useState(null);
+  const [uploadFiles, setUploadFiles] = useState([]);
   const [purpose, setPurpose] = useState("");
 
   const checkExtension = (fileName) => {
@@ -16,8 +16,10 @@ function ReceiptCO() {
   };
 
   const handleFileChange = (e) => {
-    const files = e.target.files;
-    setUploadFile(files[0]);
+    const selectedFiles = Array.from(e.target.files); // 파일선택창에서 선택한 파일들
+
+    // 선택한 파일들을 기존 파일 배열에 추가
+    setUploadFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
   };
 
   const handlePurposeChange = (e) => {
@@ -25,17 +27,21 @@ function ReceiptCO() {
   };
 
   const handleUpload = () => {
-    if (!uploadFile) {
+    if (uploadFiles.length === 0) {
       alert("파일을 선택해주세요.");
       return;
     }
-    if (!checkExtension(uploadFile.name)) {
+    if (!checkExtension(uploadFiles[0].name)) {
       return;
     }
 
     const today = new Date(); // 현재 날짜
     const formattedDate = today.toISOString().split("T")[0]; // 날짜를 문자열로 변환하고 'T'를 기준으로 자름
-
+    const formData = new FormData();
+    uploadFiles.forEach((file) => {
+      // 파일 데이터 저장
+      formData.append('multipartFiles', file);
+  });
     const dataToPost = {
       purpose, // 사용자가 입력한 목적을 사용
       memo: "",
@@ -44,9 +50,14 @@ function ReceiptCO() {
     };
 
     axios
-      .post("http://localhost:3001/receipts", dataToPost)
-      .then((response) => {
-        console.log("response: ", response);
+      .post("http://localhost:8081/receipt/uploadFiles", formData,{
+        headers: {
+          "Content-Type": "multipart/form-data", // 파일 업로드를 위한 헤더 설정
+        },
+        params: dataToPost, // 기타 데이터는 URL 매개변수로 보낼 수 있습니다.
+      })
+      .then(() => {
+        alert("등록이 완료되었습니다!");
       })
       .catch((error) => {
         console.error("POST 요청 실패:", error);
@@ -71,6 +82,7 @@ function ReceiptCO() {
                     className="form-control"
                     type="file"
                     onChange={handleFileChange}
+                    multiple
                   />
                   <span className="input-group-text">증빙목적</span>
                   <textarea
