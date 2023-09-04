@@ -11,7 +11,8 @@ import DocrequestTA from "./pages/docrequest/DocrequestTA";
 import RegisterTA from "./pages/register/RegisterTA";
 import ReceiptCO from "./pages/receipt/ReceiptCO";
 import ReceiptTA from "./pages/receipt/ReceiptTA";
-
+import InfoTA from "./pages/info/InfoTA";
+import InfoCO from "./pages/info/InfoCO";
 
 const Routes = [
   {
@@ -35,32 +36,32 @@ const Routes = [
     component: BankCO,
   },
   {
-    path: '/bank/bankta',
-    component: BankTA
+    path: "/bank/bankta",
+    component: BankTA,
   },
   {
-    path: '/home/homeco',
-    component: HomeCO
+    path: "/home/homeco",
+    component: HomeCO,
   },
   {
-    path: '/home/hometa',
-    component: HomeTA
+    path: "/home/hometa",
+    component: HomeTA,
   },
   {
-    path: '/docrequest/docrequestco',
-    component: DocrequestCO
+    path: "/docrequest/docrequestco",
+    component: DocrequestCO,
   },
   {
-    path: '/docrequest/docrequestta',
-    component: DocrequestTA
+    path: "/docrequest/docrequestta",
+    component: DocrequestTA,
   },
   {
-    path: '/infoTA',
+    path: "/infoTA",
     component: InfoTA,
   },
   {
-    path: '/infoCO',
-    component: InfoCO
+    path: "/infoCO",
+    component: InfoCO,
   },
   {
     path: "/bank/bankta",
@@ -83,6 +84,5 @@ const Routes = [
     component: ReceiptCO,
   },
 ];
-
 
 export default Routes;

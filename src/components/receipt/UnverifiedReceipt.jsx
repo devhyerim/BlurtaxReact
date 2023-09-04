@@ -72,7 +72,7 @@ function UnverifiedReceipt() {
       <table className="receiptTable table table-hover table-bordered">
         <thead>
           <tr>
-            <th scope="col" className="tabletop">
+            <th scope="col" className="th-first tabletop">
               No.
             </th>
             <th scope="col" className="tabletop">
