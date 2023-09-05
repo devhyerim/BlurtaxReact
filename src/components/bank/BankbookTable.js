@@ -5,11 +5,13 @@ import ModalReqMemo from './ModalReqMemo';
 import { useDispatch } from 'react-redux';
 import { setBanks, setRequestWhat } from '../../redux/bankSlice';
 import axios from 'axios';
+import { filter } from 'lodash';
+import ModalWriteMemo from './ModalWriteMemo';
 
 // 은행 내역
 // banks 은행내역정보와 사용자가 선택한 탭 정보 activeTabs 파라미터로 받아서
 // 탭 정보에 맞는 것만 출력
-const BankbookTable = ({ banks, activeTab }) => {
+const BankbookTable = ({ banks, activeTab, requestFrom }) => {
 
 	// 선택한 탭에 따라 걸러질 은행 내역
 	let filteredBanks = banks;
@@ -17,6 +19,7 @@ const BankbookTable = ({ banks, activeTab }) => {
 	const [checkAll, setCheckAll] = useState(false);
 	// 모달 표시 여부
 	const [showModal, setShowModal] = useState(false);
+  const [showMemoModal, setShowMemoModal] = useState(false);
 	// 사용자가 체크한 은행 내역
 	const [selectedBanks, setSelectedBanks] = useState([]);
 	// 리덕스 함수 사용 위한 dispatch 생성
@@ -39,6 +42,16 @@ const BankbookTable = ({ banks, activeTab }) => {
 		setShowModal(false);
 	}
 
+  // 메모 모달 열기
+  const openMemoModal = () => {
+    setShowMemoModal(true);
+  }
+
+  // 메모 모달 닫기
+  const closeMemoModal = () => {
+    setShowMemoModal(false);
+  }
+
 	// 전체 체크 -> 탭 변경시 false 초기화
 	useEffect(()=>{
 		setCheckAll(false);
@@ -50,8 +63,7 @@ const BankbookTable = ({ banks, activeTab }) => {
 		setCheckAll(!checkAll);
 	}
 
-	// handleCheckAllChange 비동기화 처리
-	//-> checkAll 변경할 때마다 SelectedBanks 변경
+	//checkAll 변경할 때마다 SelectedBanks 변경
 	useEffect(()=>{
 		if(checkAll){
 			setSelectedBanks(filteredBanks);
@@ -68,6 +80,8 @@ const BankbookTable = ({ banks, activeTab }) => {
 		}else{
 			setSelectedBanks([...selectedBanks, bank]);
 		}
+
+    console.log("체크한 은행**************: " + selectedBanks);
 	}
 	
 	// 전표입력 클릭 시 리덕스의 setBanks 함수 -> 선택한 은행 내역 넘겨주기
@@ -121,6 +135,7 @@ const BankbookTable = ({ banks, activeTab }) => {
 					{
 						// 날짜 기준 역순 출력
             //.sort((a, b) => new Date(b.bhdate) - new Date(a.bhdate)) 에러
+            filteredBanks &&
 						filteredBanks
 							.map((bank) => {
                 let formattedDate = new Intl.DateTimeFormat('en-US', {
@@ -184,8 +199,7 @@ const BankbookTable = ({ banks, activeTab }) => {
 				</tbody>
 			</table>
 
-			{
-				activeTab === 'banknone' &&
+			{ (requestFrom==='ta' && activeTab === 'banknone') &&
 				<div>
 					<button
 						type="button"
@@ -206,17 +220,7 @@ const BankbookTable = ({ banks, activeTab }) => {
 				</div>
 			}
 
-			{ // 모달 상태에 따라 모달 렌더링
-				showModal &&
-				<ModalReqMemo 
-					openModal={openModal} 
-					closeModal={closeModal}
-					selectedBanks={selectedBanks}
-				/>
-			}
-
-			{
-				activeTab === 'bankconn' &&
+			{ (requestFrom==='ta' && activeTab === 'bankconn') &&
 				<div>
 					<button
 						type="button"
@@ -228,6 +232,37 @@ const BankbookTable = ({ banks, activeTab }) => {
 					</button>
 				</div>
 			}
+
+      { requestFrom==='co' &&
+				<div>
+					<button
+						type="button"
+						id="watchslipbtn"
+						className="btn btn-primary btn-small"
+						onClick={()=>openMemoModal()}
+					>
+						메모입력
+					</button>
+				</div>
+			}
+
+      { // 모달 상태에 따라 모달 렌더링
+				showModal &&
+				<ModalReqMemo 
+					openModal={openModal} 
+					closeModal={closeModal}
+					selectedBanks={selectedBanks}
+				/>
+			}
+      {
+        // 메모 입력 모달
+        showMemoModal &&
+        <ModalWriteMemo
+          openModal={showMemoModal}
+          closeModal={closeMemoModal}
+          selectedBanks={selectedBanks}
+        />
+      }
 		</div>
 	);
 }

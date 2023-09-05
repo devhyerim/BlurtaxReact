@@ -14,9 +14,10 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.4.0",
+    "axios": "^1.5.0",
     "bootstrap": "^5.3.1",
     "date-fns": "^2.30.0",
+    "chart.js": "^4.4.0",
     "echarts": "^5.4.3",
     "jquery": "^3.7.0",
     "lodash": "^4.17.21",
@@ -34,7 +35,8 @@
     "simple-datatables": "^7.3.0",
     "styled-components": "^5.3.11",
     "tinymce": "^6.6.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "ws": "^8.13.0"
   },
   "scripts": {
     "start": "react-scripts start",

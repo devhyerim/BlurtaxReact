@@ -13,6 +13,9 @@ import ReceiptCO from "./pages/receipt/ReceiptCO";
 import ReceiptTA from "./pages/receipt/ReceiptTA";
 import InfoTA from "./pages/info/InfoTA";
 import InfoCO from "./pages/info/InfoCO";
+import ChatMessage from "./components/chat/ChatMessage";
+import ChatTestPage from "./pages/receipt/ChatTestPage";
+
 
 
 const Routes = [
@@ -37,24 +40,24 @@ const Routes = [
     component: BankCO,
   },
   {
-    path: '/bank/bankta',
-    component: BankTA
+    path: "/bank/bankta",
+    component: BankTA,
   },
   {
-    path: '/home/homeco',
-    component: HomeCO
+    path: "/home/homeco",
+    component: HomeCO,
   },
   {
-    path: '/home/hometa',
-    component: HomeTA
+    path: "/home/hometa",
+    component: HomeTA,
   },
   {
-    path: '/docrequest/docrequestco',
-    component: DocrequestCO
+    path: "/docrequest/docrequestco",
+    component: DocrequestCO,
   },
   {
-    path: '/docrequest/docrequestta',
-    component: DocrequestTA
+    path: "/docrequest/docrequestta",
+    component: DocrequestTA,
   },
   {
     path: '/info/infoTA',
@@ -84,7 +87,10 @@ const Routes = [
     path: "/receipt/receiptco",
     component: ReceiptCO,
   },
+  {
+    path: "/main/chat",
+    component: ChatTestPage,
+  },
 ];
-
 
 export default Routes;

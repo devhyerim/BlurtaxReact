@@ -1,13 +1,20 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { setStartDate, setEndDate, setWholeBanks, setWholeSlips, setNumber } from '../../redux/bankSlice';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const BankSearch = () => {
+const BankSearch = ({requestFrom}) => {
   const dispatch = useDispatch();
-  const bizno = useSelector((state)=> state.bank.selectedBizno);
+  const tabizno = useSelector((state)=> state.bank.selectedBizno);
   const startDate = useSelector((state)=> state.bank.startDate);
   const endDate = useSelector((state)=> state.bank.endDate);
+  let bizno = null;
+
+  if(requestFrom==='ta'){
+    bizno = tabizno;
+  }else{
+    bizno = '10001';
+  }
   
   let params = {
     bizno: bizno,
@@ -17,7 +24,6 @@ const BankSearch = () => {
   }
 
   const getAllBanksAndSlips = () => {
-
     // {params}로 쓰면 오류..
     axios.post('http://localhost:8081/bank/getHistoryAndSlip', params)
       .then((res) => {
@@ -26,14 +32,17 @@ const BankSearch = () => {
         dispatch(setNumber({
           "all": res.data.all,
           "can": res.data.can,
-          "comfirmed": res.data.comfirmed,
+          "confirmed": res.data.confirmed,
           "except": res.data.except,
           "remove": res.data.remove,
           "total": res.data.total
         }));
     });
-
   }
+
+  useEffect(()=>{
+    
+  }, []);
 
   return(
       <div>
@@ -102,8 +111,6 @@ const BankSearch = () => {
                   >조회</button>
               </div>
           </div>
-          <input type="hidden" name="bizno" id="bizno" value="10001"/>
-          <input type="hidden" name="bankname" id="bankname" value="신한은행"/>
       </div>
   );
 }

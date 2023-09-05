@@ -4,7 +4,7 @@ import { Tab, Nav } from 'react-bootstrap';
 import BankSlipTable from './BankSlipTable';
 import axios from 'axios';
 
-const BankSlip = () => {
+const BankSlip = ({requestFrom}) => {
 
     const [activeTab, setActiveTab] = useState('home');
     const slips = useSelector((state)=> state.bank.wholeSlips);
@@ -14,7 +14,7 @@ const BankSlip = () => {
     const confirmed = useSelector((state)=> state.bank.confirmed);
     const except = useSelector((state)=> state.bank.except);
     const remove = useSelector((state)=> state.bank.remove);
-    
+
     return (
         <div>
             <Nav variant="pills" defaultActiveKey="/home">
@@ -76,7 +76,7 @@ const BankSlip = () => {
             </Nav>
            
             <div className='mt-3'>
-                <BankSlipTable slips={slips} activeTab={activeTab}/>
+                <BankSlipTable slips={slips} activeTab={activeTab} requestFrom={requestFrom}/>
             </div>
             
         </div>

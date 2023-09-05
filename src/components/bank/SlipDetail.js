@@ -13,12 +13,7 @@ const SlipDetail = () => {
   const dispatch = useDispatch();
 
   //--------------- 전표입력, 분개내역 조회 관련 -----------------
-  const { control, register } = useForm();
-  const { fields, append, prepend, swap, move, insert } = useFieldArray({
-    control,
-    name: "modifySlip"
-  });
-
+  
   // 사용자가 선택한 은행 내역, 전표 내역, 무엇을 선택했는지
   const banks = useSelector((state)=> state.bank.banks);
   const slips = useSelector((state)=> state.bank.slips);
@@ -51,47 +46,7 @@ const SlipDetail = () => {
     }
   }, [requestWhat, banks]);   // 요청 사항이 있을 때마다 리렌더링
 
-  //------------------ 전표 입력, 수정 관련 --------------------------
 
-  // 수정된 값을 가진 전표 내역
-  const [modifiedDetailSlips, setModifiedDetailSlips] = useState([detailSlips]);
-
-  // 전표 값 수정 할 때마다 호출되는 함수
-  const detailSlipChange = (index, fieldName, value) => {
-    // 수정된 데이터를 복사하여 업데이트
-    const updatedData = [...modifiedDetailSlips];
-    updatedData[index] = {
-      ...updatedData[index],
-      [fieldName]: value,
-    };
-    setModifiedDetailSlips(updatedData);
-  };
-
-  // 저장 버튼 클릭 시 서버로 수정된 데이터를 보냄
-  const modifyDetailSlip = () => {
-    modifiedDetailSlips.map((modify)=>{
-      console.log(modify);
-    });
-    axios.post('http://localhost:8081/bank/updatedetailslips'
-          , {modifiedDetailSlips});
-    alert("수정이 완료되었습니다.");
-  };
-
-  // 전표 입력: detailSlips사용자 입력을 처리
-  /*
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setWriteDetailSlip({
-      ...writeDetailSlip,
-      [name]: value,
-    });
-  };
-  */
-  // 서버로 데이터를 전송하는 함수
-  const sendWrtieDetailSlip = () => {
-    
-    
-  };
 
   //------------------ 계정코드 모달 관련 ----------------------------
   // 모달을 오픈한 버튼 인덱스
@@ -120,11 +75,6 @@ const SlipDetail = () => {
     setSelectedAccount(updatedSelectedAccount);
 	}
 
-  // 클릭한 버튼으로 인덱스 변경
-  const changeIndex = (buttonIndex) => {
-    setIndex(buttonIndex);
-  }
-  
   //---------------------------------------------------------
 
   if(banks === undefined || slips === undefined){
