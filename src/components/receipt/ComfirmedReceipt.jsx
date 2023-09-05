@@ -7,7 +7,6 @@ import ModalAccount from "../common/ModalAccount";
 import axios from "axios";
 
 function ComfirmedReceipt({ receipt }) {
-  console.log("confirmed receipt: ", receipt);
   const [open, setOpen] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState(null);
   // 모달 표시 여부
@@ -28,7 +27,7 @@ function ComfirmedReceipt({ receipt }) {
   const handleStatusChange = (receiptId = 1) => {
     // axios.patch 요청을 보내서 해당 영수증의 status를 변경
     axios
-      .patch(`http://localhost:3001/receipts/${receiptId}`, {
+      .patch(`http://localhost:8081/receipt/${receiptId}`, {
         status: "부적합", // 변경하려는 status 값
       })
       .then((res) => {

@@ -94,10 +94,10 @@ const ModifySlip = () => {
     // Banks 배열에서 bhno 속성만 추출해 새로운 배열 생성
     const bhnoList = banks.map((bank)=>bank.bhno).join(',');
 
-    axios.get(`http://localhost:8081/bank/detailslip?bhno=${bhnoList}`)
-          .then((res)=>{
-            setDetailSlips(res.data);
-          });
+    // axios.get(`http://localhost:8081/bank/detailslip?bhno=${bhnoList}`)
+    //       .then((res)=>{
+    //         setDetailSlips(res.data);
+    //       });
   }
 
   useEffect(()=>{

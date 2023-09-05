@@ -17,12 +17,7 @@ function ModalMemo({ memo }) {
       >
         <i className="ri-article-fill"></i>
       </button>
-      <Modal
-        centered
-        show={show}
-        onHide={handleClose}
-        // backdrop="static"
-      >
+      <Modal centered show={show} onHide={handleClose}>
         <Modal.Header className="modal-header">
           <Modal.Title className="modal-title fs-5" id="memoModalLabel">
             메모
