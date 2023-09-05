@@ -13,6 +13,7 @@ import ReceiptCO from "./pages/receipt/ReceiptCO";
 import ReceiptTA from "./pages/receipt/ReceiptTA";
 import InfoTA from "./pages/info/InfoTA";
 import InfoCO from "./pages/info/InfoCO";
+import ChatBotComponent from "./components/common/ChatBotComponent";
 
 
 
@@ -85,6 +86,11 @@ const Routes = [
     path: "/receipt/receiptco",
     component: ReceiptCO,
   },
+  {
+    path: "/main/chatbot",
+    component: ChatBotComponent,
+  },
+
 ];
 
 export default Routes;

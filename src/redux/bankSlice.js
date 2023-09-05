@@ -15,6 +15,7 @@ const initialState = {
   wholeSlips: [],     // 전체 전표 내역
   slips: [],          // 선택 전표 내역
   requestWhat: "",    // write or show
+  reqMemoWaitAction: true
 }
 
 const bankSlice = createSlice({
@@ -52,11 +53,15 @@ const bankSlice = createSlice({
     },
     setRequestWhat : (state, action)=>{
       state.requestWhat = action.payload;
+    },
+    setReqMemoWaitAction : (state, action)=>{
+      state.reqMemoWaitAction = action.payload;
     }
   }
 });
 
-export const { setSelectedBizno, setStartDate, setEndDate, setNumber,
-  setWholeBanks, setWholeSlips, setBanks, setRequestWhat } = bankSlice.actions;
+export const { setSelectedBizno, setStartDate, setEndDate, setNumber, 
+  setWholeBanks, setWholeSlips, setBanks
+  , setRequestWhat, setReqMemoWaitAction} = bankSlice.actions;
 
 export default bankSlice.reducer;
