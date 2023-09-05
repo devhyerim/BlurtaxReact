@@ -33,7 +33,8 @@
     "tinymce": "^6.6.2",
     "util": "^0.12.5",
     "web-vitals": "^2.1.4",
-    "zlib": "^1.0.5"
+    "zlib": "^1.0.5",
+    "ws": "^8.13.0"
   },
   "scripts": {
     "start": "react-scripts start",

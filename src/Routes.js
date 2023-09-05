@@ -14,6 +14,8 @@ import ReceiptTA from "./pages/receipt/ReceiptTA";
 import InfoTA from "./pages/info/InfoTA";
 import InfoCO from "./pages/info/InfoCO";
 import ChatBotComponent from "./components/common/ChatBotComponent";
+import ChatMessage from "./components/chat/ChatMessage";
+import ChatTestPage from "./pages/receipt/ChatTestPage";
 
 
 
@@ -87,10 +89,9 @@ const Routes = [
     component: ReceiptCO,
   },
   {
-    path: "/main/chatbot",
-    component: ChatBotComponent,
+    path: "/main/chat",
+    component: ChatTestPage,
   },
-
 ];
 
 export default Routes;
