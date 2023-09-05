@@ -2,7 +2,7 @@ import { Modal } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 
-const ModalAccount = ({ openModal, closeModal, index, setSelectedAccount }) => {
+const ModalAccount = ({ openModal, closeModal }) => {
 
   const [accounts, setAccounts] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -12,11 +12,12 @@ const ModalAccount = ({ openModal, closeModal, index, setSelectedAccount }) => {
       accountname_like: searchValue
     }
 
-    axios.get('http://localhost:3001/accounts', {params}).then((res)=>{
+    axios.get('http://localhost:8081/common/accountList').then((res)=>{
       setAccounts(res.data);
     });
   }
   
+
   useEffect(()=>{
     getAccounts();
   }, [searchValue]);
@@ -45,11 +46,11 @@ const ModalAccount = ({ openModal, closeModal, index, setSelectedAccount }) => {
                   return(
                     <tr
                       onDoubleClick={()=> {
-                        closeModal(account, index);
+                        closeModal(account.accountNo, account.accountName);
                       }}
                     >
-                      <td>{account.accountno}</td>
-                      <td>{account.accountname}</td>
+                      <td>{account.accountNo}</td>
+                      <td>{account.accountName}</td>
                     </tr>
                   );
                 }) : <tr><td colspan="2">일치하는 계정과목이 없습니다.</td></tr>

@@ -7,15 +7,26 @@ import SlipDetail from '../../components/bank/SlipDetail';
 import TAHeader from '../../components/common/TAHeader';
 import Sidebar from '../../components/common/Sidebar';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 
 const BankTA = () => {
   const isBodyActive = useSelector((state)=> state.sidebar.isBodyActive);
+  const wholeBanks = useSelector((state)=> state.bank.wholeBanks);
+  const wholeSlips = useSelector((state)=> state.bank.wholeSlips);
   
+  const check = () => {
+    //console.log(bizno);
+  }
+
+  useEffect(()=>{
+    check();
+  }, []);
+
   return(
     <div id="main" className={isBodyActive ? 'toggle-sidebar' : ''}>
       <Sidebar/>
-    <div id="mainbody">
+    <div id="mainbody" className='bankmainbody'>
       <div className="pagetitle">
         <h1>통장정리</h1>
       </div>
@@ -33,18 +44,27 @@ const BankTA = () => {
             <div className="tab-content pt-2" id="borderedTabContent">
             
               <div className="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
-                <BankSearch/>
+                <BankSearch requestFrom="ta"/>
         
                 <div className="left" id="leftbank">
-                  <BankContents/>
+                  {
+                    !(wholeBanks.length === 0 && wholeSlips.length === 0) 
+                          && <BankContents requestFrom="ta"/>
+                  }
                 </div>
                 
                 <div className="right" id="rightbank">
-                  <BankSlip/>
+                  {
+                    !(wholeBanks.length === 0 && wholeSlips.length === 0) 
+                          && <BankSlip requestFrom="ta"/>
+                  }
                 </div>
 
                 <div class="bottom" id="bottom">
-                  <SlipDetail/>
+                  {
+                    !(wholeBanks.length === 0 && wholeSlips.length === 0) 
+                          && <SlipDetail/>
+                  }
                 </div>
 
               </div>

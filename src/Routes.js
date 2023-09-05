@@ -13,11 +13,8 @@ import ReceiptCO from "./pages/receipt/ReceiptCO";
 import ReceiptTA from "./pages/receipt/ReceiptTA";
 import InfoTA from "./pages/info/InfoTA";
 import InfoCO from "./pages/info/InfoCO";
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 895872cacbc389ea0a741c812bca88523f7e2728
 
 const Routes = [
   {
@@ -61,21 +58,12 @@ const Routes = [
     component: DocrequestTA,
   },
   {
-<<<<<<< HEAD
     path: '/info/infoTA',
     component: InfoTA,
   },
   {
     path: '/info/infoCO',
     component: InfoCO
-=======
-    path: "/infoTA",
-    component: InfoTA,
-  },
-  {
-    path: "/infoCO",
-    component: InfoCO,
->>>>>>> 895872cacbc389ea0a741c812bca88523f7e2728
   },
   {
     path: "/bank/bankta",
@@ -99,8 +87,4 @@ const Routes = [
   },
 ];
 
-<<<<<<< HEAD
 export default Routes;
-=======
-export default Routes;
->>>>>>> 895872cacbc389ea0a741c812bca88523f7e2728
