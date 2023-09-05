@@ -1,12 +1,12 @@
 import 'react-tooltip/dist/react-tooltip.css'
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setBanks, setRequestWhat } from '../../redux/bankSlice';
+import { setWholeBanks, setWholeSlips, setBanks, setNumber, setRequestWhat } from '../../redux/bankSlice';
 import axios from 'axios';
 
 // 파라미터로 bankslip 데이터와 사용자가 클릭한 탭(=상태명) 정보를 받아서
 // 출력할 때 상태가 탭 정보와 일치하는 bankslip만 출력한다.
-const BankSlipTable = ({slips, activeTab}) => {
+const BankSlipTable = ({slips, activeTab, requestFrom}) => {
 
   // 사용자가 체크한 전표 내역
 	const [selectedSlips, setSelectedSlips] = useState([]);
@@ -80,6 +80,54 @@ const BankSlipTable = ({slips, activeTab}) => {
 		}
 	}
 
+  // 전표 상태변경 --------------------------------------------
+  const bizno = useSelector((state)=> state.bank.selectedBizno);
+  const startDate = useSelector((state)=> state.bank.startDate);
+  const endDate = useSelector((state)=> state.bank.endDate);
+
+  
+  let params = {
+    bizno: bizno,
+    bankname: "신한은행",
+    startdate: startDate,
+    enddate: endDate
+  }
+
+  const getAllBanksAndSlips = () => {
+    // {params}로 쓰면 오류..
+    axios.post('http://localhost:8081/bank/getHistoryAndSlip', params)
+      .then((res) => {
+        dispatch(setWholeBanks(res.data.historyList));
+        dispatch(setWholeSlips(res.data.slipList));
+        dispatch(setNumber({
+          "all": res.data.all,
+          "can": res.data.can,
+          "confirmed": res.data.confirmed,
+          "except": res.data.except,
+          "remove": res.data.remove,
+          "total": res.data.total
+        }));
+    });
+  }
+
+  const changeState = (param) => {
+    const requestBody = selectedSlips.map((slip) => ({
+      bhno: slip.bhno,
+      bhstateno: param
+    }));
+
+    console.log(requestBody);
+
+    axios.post('http://localhost:8081/bank/modifySlipState', requestBody, {
+      headers: {
+        'Content-Type': 'application/json'
+      }})
+    .then((res) => {
+      alert('수정이 완료되었습니다.');
+      getAllBanksAndSlips();
+    });
+  }
+
   return(
       <div>
           <table id="banksliptableAll" className="banksliptable table table-hover table-bordered">
@@ -88,7 +136,7 @@ const BankSlipTable = ({slips, activeTab}) => {
                     <th scope="col" className="tabletop">
                       <input 
                         className="form-check-input" 
-                        type="checkbox"
+                        type={requestFrom==='ta' ? 'checkbox' : 'hidden'}
                         checked={checkAll}
                         onChange={()=>handleCheckAllChange()}
                       />
@@ -111,7 +159,7 @@ const BankSlipTable = ({slips, activeTab}) => {
                   </tr>
                   </thead>
               <tbody>
-                  {
+                  { filteredSlips &&
                     filteredSlips.map((slip)=>{
                       let formattedSum = slip.sum.toLocaleString('en-US');
 
@@ -120,7 +168,7 @@ const BankSlipTable = ({slips, activeTab}) => {
                               <td>
                                   <input 
                                     className="form-check-input" 
-                                    type="checkbox"
+                                    type={requestFrom==='ta' ? 'checkbox' : 'hidden'}
                                     {...(checkAll ? {checked:"checked"} : "")}
                                     onChange={()=>handleCheckChange(slip)}
                                   />
@@ -150,7 +198,7 @@ const BankSlipTable = ({slips, activeTab}) => {
               </tbody>
           </table>
 
-          { activeTab==='allslip' && 
+          { (requestFrom==='ta' && activeTab==='allslip') && 
               <button 
                 type="button"
                 id="detailslipshow" 
@@ -159,12 +207,13 @@ const BankSlipTable = ({slips, activeTab}) => {
               >
                   분개내역조회
               </button> }
-          { activeTab==='canslip' &&
+          { (requestFrom==='ta' && activeTab==='canslip') &&
               <div>
                   <button 
                     type="button" 
                     id="certainslip" 
                     className="btn btn-light btnmarginright"
+                    onClick={()=>changeState("1002")}
                   >확정</button>
                   <button 
                     type="button" 
@@ -176,19 +225,22 @@ const BankSlipTable = ({slips, activeTab}) => {
                     type="button" 
                     id="exceptslip" 
                     className="btn btn-light btnmarginright"
+                    onClick={()=>changeState("1004")}
                   >제외</button>
                   <button 
                     type="button" 
                     id="removeslip" 
                     className="btn btn-light btnmarginright"
+                    onClick={()=>changeState("1005")}
                   >삭제</button>
               </div> }
-          { activeTab==='confirmslip' &&
+          { (requestFrom==='ta' && activeTab==='confirmslip') &&
               <div>
                   <button 
                     type="button" 
                     id="cancelcertainslip"
                     className="btn btn-light btnmarginright"
+                    onClick={()=>changeState("1001")}
                   >확정취소</button>
                   <button 
                     type="button" 
@@ -197,12 +249,13 @@ const BankSlipTable = ({slips, activeTab}) => {
                     onClick={()=>showSlipDetail()}  
                   >분개내역조회</button>
               </div> }
-          { activeTab==='exceptslip' &&
+          { (requestFrom==='ta' && activeTab==='exceptslip') &&
               <div>
                   <button 
                     type="button" 
                     id="cancelexceptslip" 
                     className="btn btn-light btnmarginright"
+                    onClick={()=>changeState("1001")}
                   >제외취소</button>
                   <button 
                     type="button" 
@@ -211,12 +264,13 @@ const BankSlipTable = ({slips, activeTab}) => {
                     onClick={()=>showSlipDetail()}
                   >분개내역조회</button>
               </div> }
-          { activeTab==='removeslip' &&
+          { (requestFrom==='ta' && activeTab==='removeslip') &&
           <div>
               <button 
                 type="button" 
                 id="cancelremoveslip" 
                 className="btn btn-light btnmarginright"
+                onClick={()=>changeState("1001")}
               >삭제취소</button>
               <button 
                 type="button" 

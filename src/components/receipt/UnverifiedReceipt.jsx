@@ -16,22 +16,21 @@ function UnverifiedReceipt() {
   const [filteredReceipts, setFilteredReceipts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/receipts").then((res) => {
+    axios.get("http://localhost:8081/receipt/receiptList").then((res) => {
+      const data = res.data;
+      console.log(data);
+
       setReceipts(res.data);
     });
   }, [filteredReceipts]);
 
   const handleSearchClick = () => {
-    console.log("startDate:", startDate);
-    console.log("endDate:", endDate);
-
     // startDate와 endDate 사이에 있는 데이터를 필터링
     const filteredData = receipts.filter((receipt) => {
-      return (
-        receipt.date >= startDate &&
-        receipt.date <= endDate &&
-        receipt.status === "미확인"
-      );
+      const reqDate = new Date(receipt.reqdate); // 문자열을 JavaScript Date 객체로 변환
+      const startDateObj = new Date(startDate); // 문자열을 JavaScript Date 객체로 변환
+      const endDateObj = new Date(endDate); // 문자열을 JavaScript Date 객체로 변환
+      return reqDate >= startDateObj && reqDate <= endDateObj;
     });
     // 필터링된 데이터를 상태에 저장
     setFilteredReceipts([...filteredData]);
@@ -69,28 +68,8 @@ function UnverifiedReceipt() {
           </button>
         </div>
       </div>
-      <table className="receiptTable table table-hover table-bordered">
-        <thead>
-          <tr>
-            <th scope="col" className="th-first tabletop">
-              No.
-            </th>
-            <th scope="col" className="tabletop">
-              증빙내용
-            </th>
-            <th scope="col" className="tabletop">
-              적합여부
-            </th>
-            <th scope="col" className="tabletop">
-              부적합사유
-            </th>
-            <th scope="col" className="tabletop">
-              메모
-            </th>
-          </tr>
-        </thead>
-        <ReceiptTable receipts={filteredReceipts} />
-      </table>
+
+      <ReceiptTable receipts={filteredReceipts} />
     </div>
   );
 }
