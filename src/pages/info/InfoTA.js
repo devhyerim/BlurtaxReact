@@ -2,6 +2,7 @@ import axios from "axios";
 
 import { useEffect, useState } from "react";
 
+
 const InfoTA = () => {
   const [year, setYear] = useState("");
   const [listCO, setListCO] = useState([]);

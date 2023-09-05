@@ -1,8 +1,48 @@
-import React from 'react';
 import { Modal } from 'react-bootstrap';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addDocrequest } from '../../redux/docrequestSlice';
 
 
 const DocrequestCODAModal = ({ show, closeModal }) => {
+
+    const dispatch = useDispatch();
+
+    const [formData, setFormData] = useState({
+        doctype: '',
+        doctagetdate: '',
+        count: '',
+        purpose: '',
+        wishdate: '',
+        way: '',
+      });
+    
+      // 입력값이 변경될 때 호출될 함수
+      const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+      };
+    
+      // 폼 제출 시 실행될 함수
+      const handleSubmit = () => {
+        // formData 객체를 JSON 문자열로 변환하여 서버로 보냅니다.
+        const formDataJSON = JSON.stringify(formData);
+        // 여기서 axios 또는 fetch 등을 사용하여 서버로 데이터를 보냅니다.
+        axios.post("http://localhost:8081/docrequest/docrequestcreate",formDataJSON, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }).then((res) => {
+            dispatch(addDocrequest(res.data[0]));
+            closeModal();
+          })
+        // 포스트 요청을 보내는 코드를 추가하세요.
+        // 이후 서버에서 JSON 데이터를 파싱하여 처리할 수 있습니다.
+      };
+
+
+
     return (
         <>
 
@@ -26,7 +66,7 @@ const DocrequestCODAModal = ({ show, closeModal }) => {
                                 <div className="row mb-3">
                                     <label className="col-sm-2 col-form-label">신청서류</label>
                                     <div className="col-sm-10">
-                                        <select className="form-select" aria-label="Default select example" name="doctype">
+                                        <select className="form-select" aria-label="Default select example" onChange={handleInputChange} name="doctype">
                                             <option value="">신청 서류 선택</option>
                                             <option value="사업자등록신청서">사업자등록신청서</option>
                                             <option value="사업자등록증재교부신청서">사업자등록증재교부신청서</option>
@@ -48,7 +88,7 @@ const DocrequestCODAModal = ({ show, closeModal }) => {
                                 <div className="row mb-3">
                                     <label className="col-sm-2 col-form-label">신청 서류 기간</label>
                                     <div className="col-sm-10">
-                                        <select className="form-select" aria-label="Default select example" name="doctagetdate">
+                                        <select className="form-select" aria-label="Default select example" onChange={handleInputChange} name="doctagetdate">
                                             <option value="">신청 서류 기간 선택</option>
                                             <option value="2018-01-01">2018-01-01 ~ 2018-12-31</option>
                                             <option value="2019-01-01">2019-01-01 ~ 2019-12-31</option>
@@ -62,7 +102,7 @@ const DocrequestCODAModal = ({ show, closeModal }) => {
                                 <div className="row mb-3">
                                     <label className="col-sm-2 col-form-label">부수</label>
                                     <div className="col-sm-10">
-                                        <select className="form-select" aria-label="Default select example" name="count">
+                                        <select className="form-select" aria-label="Default select example" onChange={handleInputChange} name="count">
                                             <option value="">부수 선택</option>
                                             <option value="1부">1부</option>
                                             <option value="2부">2부</option>
@@ -76,7 +116,7 @@ const DocrequestCODAModal = ({ show, closeModal }) => {
                                 <div className="row mb-3">
                                     <label className="col-sm-2 col-form-label">용도</label>
                                     <div className="col-sm-10">
-                                        <select className="form-select" aria-label="Default select example" name="purpose">
+                                        <select className="form-select" aria-label="Default select example" onChange={handleInputChange} name="purpose">
                                             <option value="">용도 선택</option>
                                             <option value="금융기관 제출용">금융기관 제출용</option>
                                             <option value="공공기관 제출용">공공기관 제출용</option>
@@ -88,14 +128,14 @@ const DocrequestCODAModal = ({ show, closeModal }) => {
                                 <div className="row mb-3">
                                     <label htmlFor="inputDate" className="col-sm-2 col-form-label">발급 희망일자</label>
                                     <div className="col-sm-10">
-                                        <input type="date" className="form-control" name="wishdate" />
+                                        <input type="date" className="form-control" onChange={handleInputChange} name="wishdate" />
                                     </div>
                                 </div>
 
                                 <div className="row mb-3">
                                     <label className="col-sm-2 col-form-label">발급방법</label>
                                     <div className="col-sm-10">
-                                        <select className="form-select" aria-label="Default select example" name="way">
+                                        <select className="form-select" aria-label="Default select example" onChange={handleInputChange} name="way">
                                             <option value="">발급방법 선택</option>
                                             <option value="온라인발급(PDF)">온라인발급(PDF)</option>
                                             <option value="온라인발급(전자문서지갑)">온라인발급(전자문서지갑)</option>
@@ -139,7 +179,7 @@ const DocrequestCODAModal = ({ show, closeModal }) => {
                 </Modal.Body>
                 <Modal.Footer>
                         <button type="button" className="btn btn-secondary" onClick={closeModal}>취소</button>
-                        <button type="submit" className="btn btn-primary">확인</button>
+                        <button type="button" className="btn btn-primary" onClick={handleSubmit}>확인</button>
                 </Modal.Footer>
             </Modal>
         </>
