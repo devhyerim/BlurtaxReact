@@ -40,8 +40,8 @@ function ReceiptCO() {
     const formData = new FormData();
     uploadFiles.forEach((file) => {
       // 파일 데이터 저장
-      formData.append('multipartFiles', file);
-  });
+      formData.append("multipartFiles", file);
+    });
     const dataToPost = {
       purpose, // 사용자가 입력한 목적을 사용
       memo: "",
@@ -50,7 +50,7 @@ function ReceiptCO() {
     };
 
     axios
-      .post("http://localhost:8081/receipt/uploadFiles", formData,{
+      .post("http://localhost:8081/receipt/uploadFiles", formData, {
         headers: {
           "Content-Type": "multipart/form-data", // 파일 업로드를 위한 헤더 설정
         },
@@ -58,6 +58,7 @@ function ReceiptCO() {
       })
       .then(() => {
         alert("등록이 완료되었습니다!");
+        console.log("파일 등록");
       })
       .catch((error) => {
         console.error("POST 요청 실패:", error);

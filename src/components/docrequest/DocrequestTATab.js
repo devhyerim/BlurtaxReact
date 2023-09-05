@@ -1,12 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tab, Nav } from 'react-bootstrap';
 import DocrequestTAModal from './DocrequestTAModal';
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { addDocrequest } from '../../redux/docrequestSlice';
 
 const DocrequestTATab = () => {
-  const [show, setShow] = useState(false);
+  const docrequestList = useSelector(state => state.docrequest.docrequestList);
 
-  const openModal = () => setShow(true);
+  const dispatch = useDispatch();
+
+  const [show, setShow] = useState(false);
+  const [selectDoc, setSelectDoc] = useState({});
+
+  const openModal = (doc) => {
+    setShow(true)
+    setSelectDoc(doc);
+  };
   const closeModal = () => setShow(false);
+
+
+  const docListHandler = () => {
+    axios.get("http://localhost:8081/docrequest/docrequestlist").then((res) => {
+      res.data.forEach((item) => {
+        dispatch(addDocrequest(item))
+      })
+    })
+  };
+
+  useEffect(() => {
+    docListHandler();
+  }, []);
 
 
   return (
@@ -40,24 +64,27 @@ const DocrequestTATab = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td scope="row">membername</td>
-
-                          <td><b>doctype</b>[count]</td>
-
-                          <td>wishdate</td>
-
-                          <td>docreq.purpose</td>
-
-                          <td>
-                            <button
-                              type="button"
-                              class="btn btn-outline-primary request"
-                              onClick={openModal}
-                            >발급하기
-                            </button>
-                          </td>
-                        </tr>
+                        {docrequestList && docrequestList.map((doc) =>
+                          doc.drstate.drstatename === "발급신청" && (
+                            <tr>
+                              <td scope="row">{doc.member.membername}</td>
+                              <td>
+                                <b>{doc.doctype}</b>[{doc.count}]
+                              </td>
+                              <td>{doc.wishdate}</td>
+                              <td>{doc.purpose}</td>
+                              <td>
+                                  <button
+                                    type="button"
+                                    className="btn btn-outline-primary request"
+                                    onClick={() => openModal(doc)}
+                                  >
+                                    발급하기
+                                  </button>
+                                </td>
+                            </tr>
+                          )
+                        )}
                       </tbody>
                     </table>
                   </div>
@@ -78,17 +105,19 @@ const DocrequestTATab = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td scope="row">membername</td>
-
-                          <td><b>doctype</b>[count]</td>
-
-                          <td>wishdate</td>
-
-                          <td>docreq.purpose</td>
-
-                          <td>drstatename</td>
-                        </tr>
+                      {docrequestList && docrequestList.map((doc) =>
+                          (doc.drstate.drstatename === "발급완료" || doc.drstate.drstatename === "수신완료") && (
+                            <tr>
+                              <td scope="row">{doc.member.membername}</td>
+                              <td>
+                                <b>{doc.doctype}</b>[{doc.count}]
+                              </td>
+                              <td>{doc.wishdate}</td>
+                              <td>{doc.purpose}</td>
+                              <td>{doc.drstate.drstatename}</td>
+                            </tr>
+                          )
+                        )}
                       </tbody>
                     </table>
                   </div>
@@ -100,7 +129,8 @@ const DocrequestTATab = () => {
           </div>
         </div>
       </section>
-      <DocrequestTAModal show={show} closeModal={closeModal}></DocrequestTAModal>
+      <DocrequestTAModal show={show} closeModal={closeModal} selectDoc={selectDoc}></DocrequestTAModal>
+
     </>
   );
 }

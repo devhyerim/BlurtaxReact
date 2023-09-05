@@ -22,7 +22,7 @@ const COHeader = () => {
   return (
     <header id="header" className="header fixed-top d-flex align-items-center">
       <div className="d-flex align-items-center justify-content-between">
-        <a href="../main/mainCO" className="logo d-flex align-items-center">
+        <a href="../home/homeco" className="logo d-flex align-items-center">
           <img src="/img/logo.png" alt="" />
           <span className="d-none d-lg-block">BlurTax</span>
           <span className="edge">edge</span>

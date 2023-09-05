@@ -16,7 +16,7 @@ function UnverifiedReceipt() {
   const [filteredReceipts, setFilteredReceipts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8081/receipt/test").then((res) => {
+    axios.get("http://localhost:8081/receipt/receiptList").then((res) => {
       const data = res.data;
       console.log(data);
 
@@ -69,7 +69,7 @@ function UnverifiedReceipt() {
         </div>
       </div>
 
-        <ReceiptTable receipts={filteredReceipts} />
+      <ReceiptTable receipts={filteredReceipts} />
     </div>
   );
 }

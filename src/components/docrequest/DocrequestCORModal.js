@@ -1,8 +1,24 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addDocrequest, removeDocrequest } from '../../redux/docrequestSlice';
 
 
-const DocrequestCORModal = ({ show, closeModal }) => {
+const DocrequestCORModal = ({ show, closeModal ,selectDoc}) => {
+
+    const dispatch = useDispatch();
+
+    const eventHandle = () => {
+      axios.post(`http://localhost:8081/docrequest/received/${selectDoc.docreqno}`)
+        .then((res) => {
+          const targetIndex = res.data.findIndex(obj => obj.docreqno === selectDoc.docreqno);
+          dispatch(removeDocrequest(selectDoc.docreqno));
+          dispatch(addDocrequest(res.data[targetIndex]));
+          closeModal();
+        })
+    };
+
     return (
         <>
 
@@ -22,7 +38,7 @@ const DocrequestCORModal = ({ show, closeModal }) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <button type="button" className="btn btn-secondary" onClick={closeModal}>취소</button>
-                    <button type="submit" className="btn btn-primary">확인</button>
+                    <button type="submit" className="btn btn-primary" onClick={eventHandle}>확인</button>
                 </Modal.Footer>
             </Modal>
         </>
