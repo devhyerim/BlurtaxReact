@@ -1,8 +1,8 @@
-import './resources/assets/css/Bank.css';
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Routes from './Routes';
-import TAHeader from './components/common/TAHeader';
+import "./resources/assets/css/Bank.css";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Routes from "./Routes";
+import TAHeader from "./components/common/TAHeader";
 
 function App() {
   return (
@@ -11,22 +11,21 @@ function App() {
       <Router>
         {/*<TAHeader/>*/}
         <Switch>
-          {
-            Routes.map((route)=>{
-              return(
-                <Route 
-                  key={route.path} 
-                  exact path={route.path} 
-                  render={() => (
-                    <>
-                      {route.path.includes('/main') ? null : <TAHeader />}
-                      <route.component />
-                    </>
-                  )}
-                />
-              );
-            })
-          }
+          {Routes.map((route) => {
+            return (
+              <Route
+                key={route.path}
+                exact
+                path={route.path}
+                render={() => (
+                  <>
+                    {route.path.includes("/main") ? null : <TAHeader />}
+                    <route.component />
+                  </>
+                )}
+              />
+            );
+          })}
         </Switch>
       </Router>
     </div>
