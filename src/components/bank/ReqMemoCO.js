@@ -19,9 +19,12 @@ const ReqMemoCO = ({triggerNextStep}) => {
     // 4-> receiver (로그인한 수임사)
     axios.get(`http://localhost:8081/bank/getMessageList?receiver=4`)
         .then((res)=>{
+          console.log(res);
           setBhno(res.data.bhno);
           setMessage(res.data.message);
         });
+
+    console.log("@@@@@@@@통장내역번호: " + bhno); 
 
     if(bhno!==''){
       axios.get(`http://localhost:8081/bank/detailslip?bhno=${bhno}`)
@@ -29,6 +32,10 @@ const ReqMemoCO = ({triggerNextStep}) => {
             setBhDate(res.data.bhdate);
             setAmount(res.data.amount);
             setSource(res.data.source);
+
+            console.log("@@@@@@@@날짜: " + bhdate);
+            console.log("@@@@@@@@금액: " + amount);
+            console.log("@@@@@@@@거래처" + source);
         });
     }
 
