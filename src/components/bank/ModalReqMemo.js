@@ -1,5 +1,6 @@
 import { Modal } from "react-bootstrap";
 import React, { useState } from 'react';
+import axios from "axios";
 
 const ModalReqMemo = ({ openModal, closeModal, selectedBanks }) => {
 
@@ -9,6 +10,26 @@ const ModalReqMemo = ({ openModal, closeModal, selectedBanks }) => {
   // 요청 메시지 변경 시 호출
   const handleInputChange = (e) => {
     setMessage(e.target.value);
+  }
+
+  const saveReqMemo = () => {
+    let bhno = "";
+
+    selectedBanks.map((bank)=>{
+      bhno = bank.bhno;
+    });
+
+    let data = {
+      bhno: bhno,
+      message: message,
+      receiver: '4',
+      sender: '3'
+    }
+
+    axios.post('http://localhost:8081/bank/requestmessage', data);
+
+    alert("내용 확인이 요청되었습니다.");
+    closeModal(true);
   }
 
   return (
@@ -95,6 +116,7 @@ const ModalReqMemo = ({ openModal, closeModal, selectedBanks }) => {
             type="button"
             className="btn btn-primary"
             id="sendmessagebtn"
+            onClick={saveReqMemo}
           >
             확인
           </button>
