@@ -53,33 +53,6 @@ const bankSlice = createSlice({
     setRequestWhat : (state, action)=>{
       state.requestWhat = action.payload;
     }
-    /*
-    setSlips : (state, action)=>{
-      state.requestWhat = "slips";
-      state.wholeSlips = [...action.payload];
-      
-      //state.slips = [];                 // 초기화
-      console.log(state.banks);
-      console.log(state.wholeSlips);
-      
-      state.banks.map((bank)=>{
-        // 은행코드 일치하는 것 찾아서 slips에 넣기
-        const filteredSlips = state.wholeSlips.filter(slip => {
-          return slip.bankcode === bank.bankcode;
-        });
-
-        console.log(filteredSlips);
-        // 기존에 출력된 내용이라면 제외하기
-        const uniqueFilteredSlips = filteredSlips.filter(
-          slip => !state.slips.some(existingSlip => existingSlip.slipcode === slip.slipcode)
-        );
-
-        // res.data.bankcode === bank.bankcode 이렇게 접근하면 안 된다.
-        // res.data는 배열 형태로 접근해야 bankcode를 가져올 수 있다.
-        state.slips = [...state.slips, ...uniqueFilteredSlips];
-      });
-
-    }*/
   }
 });
 
