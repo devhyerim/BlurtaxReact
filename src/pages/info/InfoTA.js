@@ -1,9 +1,7 @@
-import "../../resources/assets/css/InfoTA.css";
 import axios from "axios";
 
 import { useEffect, useState } from "react";
-import Sidebar from "../../common/Sidebar";
-import TAHeader from "../../common/TAHeader";
+import TAHeader from "../../components/common/TAHeader";
 
 const InfoTA = () => {
 

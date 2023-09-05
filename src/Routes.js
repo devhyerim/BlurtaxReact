@@ -11,6 +11,8 @@ import DocrequestTA from "./pages/docrequest/DocrequestTA";
 import RegisterTA from "./pages/register/RegisterTA";
 import ReceiptCO from "./pages/receipt/ReceiptCO";
 import ReceiptTA from "./pages/receipt/ReceiptTA";
+import InfoTA from "./pages/info/InfoTA";
+import InfoCO from "./pages/info/InfoCO";
 
 
 const Routes = [
@@ -55,11 +57,11 @@ const Routes = [
     component: DocrequestTA
   },
   {
-    path: '/infoTA',
+    path: '/info/infoTA',
     component: InfoTA,
   },
   {
-    path: '/infoCO',
+    path: '/info/infoCO',
     component: InfoCO
   },
   {

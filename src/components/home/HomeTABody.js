@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Carousel } from 'react-bootstrap';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 const HomeTABody = () => {
 
     const [searchKeyword, setSearchKeyword] = useState('');
@@ -125,7 +126,7 @@ const HomeTABody = () => {
                                         <Carousel.Item>
                                             <img
                                                 className="d-block w-100"
-                                                src={process.env.PUBLIC_URL + '/images/mainbn1.jpg'}
+                                                src={process.env.PUBLIC_URL + '/img/mainbn1.jpg'}
                                                 style={{ height: '170px', borderRadius: '5px' }}
                                                 alt="Slide 1"
                                             />
@@ -133,7 +134,7 @@ const HomeTABody = () => {
                                         <Carousel.Item>
                                             <img
                                                 className="d-block w-100"
-                                                src={process.env.PUBLIC_URL + '/images/mainbn2.jpg'}
+                                                src={process.env.PUBLIC_URL + '/img/mainbn2.jpg'}
                                                 style={{ height: '170px', borderRadius: '5px' }}
                                                 alt="Slide 2"
                                             />
@@ -141,7 +142,7 @@ const HomeTABody = () => {
                                         <Carousel.Item>
                                             <img
                                                 className="d-block w-100"
-                                                src={process.env.PUBLIC_URL + '/images/mainbn3.jpg'}
+                                                src={process.env.PUBLIC_URL + '/img/mainbn3.jpg'}
                                                 style={{ height: '170px', borderRadius: '5px' }}
                                                 alt="Slide 3"
                                             />
@@ -149,7 +150,7 @@ const HomeTABody = () => {
                                         <Carousel.Item>
                                             <img
                                                 className="d-block w-100"
-                                                src={process.env.PUBLIC_URL + '/images/mainbn4.jpg'}
+                                                src={process.env.PUBLIC_URL + '/img/mainbn4.jpg'}
                                                 style={{ height: '170px', borderRadius: '5px' }}
                                                 alt="Slide 4"
                                             />
@@ -165,35 +166,43 @@ const HomeTABody = () => {
 
                     <div className="importantmenu">
                         <div className="col-lg-3">
+                        <Link to="/docrequest/docrequestta">
                             <div className="service-item first-service">
                                 <div className="icon"></div>
                                 <h4>민원 서류</h4>
                                 <p>수임고객이 신청한 서류를 실시간으로 확인하여 발급 관리</p>
                             </div>
+                        </Link>
                         </div>
 
                         <div className="col-lg-3">
+                        <Link to="/receipt/receiptta">
                             <div className="service-item second-service">
                                 <div className="icon"></div>
                                 <h4>전표증빙</h4>
                                 <p>수임고객이 촬영한 증빙영수증의 실시간 확인과 편리한 전표처리</p>
                             </div>
+                            </Link>
                         </div>
 
                         <div className="col-lg-3">
+                        <Link to="/bank/bankta">
                             <div className="service-item third-service">
                                 <div className="icon"></div>
                                 <h4>통장 관리</h4>
                                 <p>내용 파악이 어려웠던 통장내역을 함께 확인하고 바로 처리</p>
                             </div>
+                            </Link>
                         </div>
 
                         <div className="col-lg-3">
+                        <Link to="/info/infota">
                             <div className="service-item fourth-service">
                                 <div className="icon"></div>
                                 <h4>신고현황</h4>
                                 <p>언제 어디서든 즉시 확인 가능한 신고서, 납부서</p>
                             </div>
+                            </Link>
                         </div>
                     </div>
                 </div>
