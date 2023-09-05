@@ -16,6 +16,8 @@ import InfoCO from "./pages/info/InfoCO";
 import ChatMessage from "./components/chat/ChatMessage";
 import ChatTestPage from "./pages/receipt/ChatTestPage";
 
+
+
 const Routes = [
   {
     path: "/main/mainta",
@@ -58,12 +60,12 @@ const Routes = [
     component: DocrequestTA,
   },
   {
-    path: "/infoTA",
+    path: '/info/infoTA',
     component: InfoTA,
   },
   {
-    path: "/infoCO",
-    component: InfoCO,
+    path: '/info/infoCO',
+    component: InfoCO
   },
   {
     path: "/bank/bankta",

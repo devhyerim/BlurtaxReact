@@ -28,6 +28,14 @@
   background-color: #F0F8FF;
 }
 
+.bankmainbody{
+  height: 1100px;
+}
+
+#memoinsert input{
+  width: 100%;
+}
+
 table {
   width: 100%; /* 테이블 전체 넓이를 100%로 설정 */
   table-layout: fixed; /* 테이블 열 너비를 고정으로 설정*/
@@ -112,7 +120,7 @@ td {
   flex-direction: column;
 }
 
- .left {
+ #leftbank {
   float: left;
   width: 49%; 
   box-sizing: border-box;
@@ -122,7 +130,7 @@ td {
 }
 
 
-.right{
+#rightbank{
     float: right;
   width: 49%; 
   box-sizing: border-box;

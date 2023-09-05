@@ -24,14 +24,14 @@ const BankCO = () => {
 
           <div className="tab-content pt-2" id="borderedTabContent">
             <div className="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
-              <BankSearch/>
+              <BankSearch requestFrom="co"/>
       
-              <div className="left" id="left">
-                <BankContents/>
+              <div className="left" id="leftbank">
+                <BankContents requestFrom="co"/>
               </div>
               
-              <div className="right" id="right">
-                <BankSlip/>
+              <div className="right" id="rightbank">
+                <BankSlip requestFrom="co"/>
               </div>
             </div>
           </div>

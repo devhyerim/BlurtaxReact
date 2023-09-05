@@ -2,7 +2,7 @@ import { Modal } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const ModalAccount = ({ openModal, closeModal, index, setSelectedAccount }) => {
+const ModalAccount = ({ openModal, closeModal }) => {
   const [accounts, setAccounts] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
@@ -11,11 +11,9 @@ const ModalAccount = ({ openModal, closeModal, index, setSelectedAccount }) => {
       accountname_like: searchValue,
     };
 
-    axios
-      .get("http://localhost:8081/receipt/accountList", { params })
-      .then((res) => {
-        setAccounts(res.data);
-      });
+    axios.get("http://localhost:8081/common/accountList").then((res) => {
+      setAccounts(res.data);
+    });
   };
 
   useEffect(() => {
@@ -48,7 +46,7 @@ const ModalAccount = ({ openModal, closeModal, index, setSelectedAccount }) => {
                   return (
                     <tr
                       onDoubleClick={() => {
-                        closeModal(account, index);
+                        closeModal(account.accountNo, account.accountName);
                       }}
                     >
                       <td>{account.accountNo}</td>
