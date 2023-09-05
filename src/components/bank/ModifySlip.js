@@ -60,13 +60,18 @@ const ModifySlip = () => {
     
     console.log(formData);
 
-    axios.post('http://localhost:8081/bank/updatedetailslips', formData)
-    .then(()=>{
+    axios({
+      method: 'post',
+      url: 'http://localhost:8081/bank/updatedetailslips',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: formData
+    }).then(()=>{
       alert("전표 수정이 완료되었습니다.");
       getAllBanksAndSlips();    // 다시 통장, 전표 내역 불러오기
       dispatch(setRequestWhat(""));
       setDetailSlips([]);       // 초기화
-      //dispatch(setBanks([]));   // 선택한 은행내역 초기화
     });
   }
 
@@ -94,10 +99,10 @@ const ModifySlip = () => {
     // Banks 배열에서 bhno 속성만 추출해 새로운 배열 생성
     const bhnoList = banks.map((bank)=>bank.bhno).join(',');
 
-    // axios.get(`http://localhost:8081/bank/detailslip?bhno=${bhnoList}`)
-    //       .then((res)=>{
-    //         setDetailSlips(res.data);
-    //       });
+    axios.get(`http://localhost:8081/bank/detailslip?bhno=${bhnoList}`)
+           .then((res)=>{
+             setDetailSlips(res.data);
+           });
   }
 
   useEffect(()=>{
@@ -260,7 +265,7 @@ const ModifySlip = () => {
                 <td>
                   <input 
                     type="text" 
-                    defaultValue={slip && slip.summary} 
+                    defaultValue={slip ? slip.summary: ""} 
                     {...register(`modifySlip[${index}].summary`)}
                     className="intable"
                   />
