@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import * as React from 'react';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import ApexCharts from 'react-apexcharts';
 import { Carousel } from 'react-bootstrap';
 
@@ -188,7 +190,7 @@ const HomeCOBody = () => {
                                         <Carousel.Item>
                                             <img
                                                 className="d-block w-100"
-                                                src={process.env.PUBLIC_URL + '/images/mainbn1.jpg'}
+                                                src={process.env.PUBLIC_URL + '/img/mainbn1.jpg'}
                                                 style={{ height: '170px', borderRadius: '5px' }}
                                                 alt="Slide 1"
                                             />
@@ -196,7 +198,7 @@ const HomeCOBody = () => {
                                         <Carousel.Item>
                                             <img
                                                 className="d-block w-100"
-                                                src={process.env.PUBLIC_URL + '/images/mainbn2.jpg'}
+                                                src={process.env.PUBLIC_URL + '/img/mainbn2.jpg'}
                                                 style={{ height: '170px', borderRadius: '5px' }}
                                                 alt="Slide 2"
                                             />
@@ -204,7 +206,7 @@ const HomeCOBody = () => {
                                         <Carousel.Item>
                                             <img
                                                 className="d-block w-100"
-                                                src={process.env.PUBLIC_URL + '/images/mainbn3.jpg'}
+                                                src={process.env.PUBLIC_URL + '/img/mainbn3.jpg'}
                                                 style={{ height: '170px', borderRadius: '5px' }}
                                                 alt="Slide 3"
                                             />
@@ -212,7 +214,7 @@ const HomeCOBody = () => {
                                         <Carousel.Item>
                                             <img
                                                 className="d-block w-100"
-                                                src={process.env.PUBLIC_URL + '/images/mainbn4.jpg'}
+                                                src={process.env.PUBLIC_URL + '/img/mainbn4.jpg'}
                                                 style={{ height: '170px', borderRadius: '5px' }}
                                                 alt="Slide 4"
                                             />
@@ -225,38 +227,45 @@ const HomeCOBody = () => {
                         </div>
                     </div>
                     {/* End menu Card */}
-
                     <div className="importantmenu">
                         <div className="col-lg-3">
+                    <Link to="/docrequest/docrequestco">
                             <div className="service-item first-service">
                                 <div className="icon"></div>
                                 <h4>민원 서류</h4>
                                 <p>원하는 서류 실시간 확인 발급</p>
                             </div>
+                    </Link>
                         </div>
 
                         <div className="col-lg-3">
+                        <Link to="/receipt/receiptco">
                             <div className="service-item second-service">
                                 <div className="icon"></div>
                                 <h4>전표증빙</h4>
                                 <p>영수증 촬영으로 편리한 전표처리</p>
                             </div>
+                        </Link>
                         </div>
 
                         <div className="col-lg-3">
+                        <Link to="/bank/bankco">
                             <div className="service-item third-service">
                                 <div className="icon"></div>
                                 <h4>통장 관리</h4>
                                 <p>편리한 자동분개와 내용 확인</p>
                             </div>
+                        </Link>
                         </div>
 
                         <div className="col-lg-3">
+                        <Link to="/info/infoco">
                             <div className="service-item fourth-service">
                                 <div className="icon"></div>
                                 <h4>신고현황</h4>
                                 <p>즉시 확인 가능한 신고서, 납부서</p>
                             </div>
+                        </Link>
                         </div>
                     </div>
                 </div>
@@ -277,6 +286,10 @@ const HomeCOBody = () => {
                                     </div>
                                 ))}
                             </div>
+
+                            
+
+
                         </div>
                     </div>
                 </div>

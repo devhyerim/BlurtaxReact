@@ -5,6 +5,7 @@ import BlurbirdTalk from '../../components/common/BlurbirdTalk.js'
 import { useEffect, useState } from "react";
 // import FloatingButton from "../components/common/FloatingButton";
 
+
 const InfoTA = () => {
   const [year, setYear] = useState("");
   const [listCO, setListCO] = useState([]);
