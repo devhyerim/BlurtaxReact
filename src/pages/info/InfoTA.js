@@ -1,6 +1,9 @@
 import axios from "axios";
+import ChattingBot from '../../components/common/ChattingBot.js'
+import BlurbirdTalk from '../../components/common/BlurbirdTalk.js'
 
 import { useEffect, useState } from "react";
+// import FloatingButton from "../components/common/FloatingButton";
 
 const InfoTA = () => {
   const [year, setYear] = useState("");
@@ -9,6 +12,8 @@ const InfoTA = () => {
   const [statuscount, setStatuscount] = useState("");
   const [totalcount, setTotalcount] = useState("");
   // const [percentage, setPercentage] = useState('');
+
+  const [showBot, setShowBot] = useState(false);
 
   // 연도 입력하는 것 감지
   const onChangeYear = (e) => {
@@ -21,14 +26,15 @@ const InfoTA = () => {
     e.preventDefault();
     // console.log('year: ' + year);
 
-    axios.get(`http://localhost:3001/listCO?year=${year}`).then((res) => {
+    axios.get(`http://localhost:8081/info/infoTA/year?year=${year}`).then((res) => {
       const receivedData = res.data;
+      // console.log(receivedData);
 
       let sentCount = 0;
 
       setListCO(receivedData); // year에 맞는 데이터만 listCO 상태 업데이트
       receivedData.map((data) => {
-        if (data.status === "전송 완료") {
+        if (data.status === "전송완료") {
           sentCount++;
         }
       });
@@ -36,15 +42,15 @@ const InfoTA = () => {
       setStatuscount(sentCount);
       setTotalcount(receivedData.length);
 
-      console.log("statuscount: " + statuscount);
+      // console.log("statuscount: " + statuscount);
 
-      console.log("totalcount: " + totalcount);
+      // console.log("totalcount: " + totalcount);
     });
   };
 
   // listCO 데이터에 변화 생기면 감지하여 rerendering
   useEffect(() => {
-    // console.log(listCO)
+    // console.log(listCO);
   }, [listCO, statuscount]);
 
   // 신고현황 버튼 클릭 시 버튼 변경 및 정보 추가
@@ -58,58 +64,68 @@ const InfoTA = () => {
 
     // console.log(CO.status);
     switch (CO.status) {
-      case "신고서 제출":
+      case "신고서제출":
         axios
-          .patch(`http://localhost:3001/listCO/${CO.bizno}`, {
+          .patch(`http://localhost:8081/info/infoTA/report`, {
+            bizno: CO.bizno,
+            bizname: CO.bizname,
+            year: CO.year,
+            bizincome: CO.bizincome,
+            tax: CO.tax,
             reportdate: fmt,
-            reportdoc: "접수증 이미지",
-            paymentslip: "납부서 이미지",
-            status: "납부서 전송",
+            reportdoc: "신고서",
+            paymentslip: "납부서",
+            status: "납부서전송"
           })
           .then((res) => {
             //응답받은 데이터
-            const newData = res.data;
-            //일치하지 않는 데이터들
-            const restList = [...listCO].filter(
-              (item) => item.id !== newData.id
-            );
-            //위에 데이터 합
-            const result = [...restList, newData];
-            setListCO(result);
+            // const newData = res.data;
+            // //일치하지 않는 데이터들
+            // const restList = [...listCO].filter(
+            //   (item) => item.id !== newData.id
+            // );
+            // //위에 데이터 합
+            // const result = [...restList, newData];
+            setListCO(res.data);
 
-            axios
-              .get(`http://localhost:3001/listCO?year=${year}`)
-              .then((res) => {
-                const receivedData = res.data;
-              });
-          });
+            // axios
+            //   .get(`http://localhost:8081/info/infoTA/year?year=${year}`)
+            //   .then((res) => {
+            //     const receivedData = res.data;
+            //   });
+          })
+          .catch((error) => console.log('에러: ' + error));
         break;
 
-      case "납부서 전송":
+      case "납부서전송":
+        // console.log("납부서전송버튼을 눌렀습니다.");
         axios
-          .patch(`http://localhost:3001/listCO/${CO.bizno}`, {
+          .patch(`http://localhost:8081/info/infoTA/transfer`, {
+            bizno: CO.bizno,
+            bizname: CO.bizname,
+            year: CO.year,
+            bizincome: CO.bizincome,
+            tax: CO.tax,
+            // reportdate: CO.reportdate,
+            // reportdoc: CO.reportdoc,
+            // paymentslip: CO.paymentslip,
             transdate: fmt,
-            status: "전송 완료",
+            status: "전송완료"
           })
           .then((res) => {
-            //응답받은 데이터
-            const newData = res.data;
-            //일치하지 않는 데이터들
-            const restList = [...listCO].filter(
-              (item) => item.id !== newData.id
-            );
 
-            //위에 데이터 합
-            const result = [...restList, newData];
-            setListCO(result);
+            setListCO(res.data);
+
+
             setStatuscount((prev) => {
               const newStatuscount = Number(prev) + 1;
               // setPercentage(((statuscount / totalcount) * 100).toFixed(1));
-              console.log("statuscount: " + statuscount);
+              // console.log("statuscount: " + statuscount);
               // console.log('percentage: ' + percentage);
               return newStatuscount;
             });
-          });
+          })
+          .catch((error) => console.log('에러!!!!!: ' + error));
         break;
 
       default:
@@ -117,6 +133,7 @@ const InfoTA = () => {
     }
   };
 
+  // 평균 금액보다 높으면 그 이유를 추측할 수 있는 데이터를 뽑아서 설명해주기
   // 1. 2023년 전체 수임처의 결정세액/종합소득금액 평균 구하기
   // 2. 수임처별 결정세액/종합소득금액 평균 구하기
   // 2번의 수치가 1번의 수치를 기준으로 +- 3%이내의 경우 자동 신고 대상 수임처로 분류하기
@@ -130,9 +147,22 @@ const InfoTA = () => {
   // 신고기한 내에는 언제든지 신고내역을 수정하여 제출할 수 있습니다.
   // 4. 확인 버튼 클릭 시 자동 신고 되도록 하기(버튼 바꾸기, 서류 입력, 날짜 입력, 그래프 변경)
 
+  const clickBirdTalk = () => {
+    console.log("채팅창이 열립니다.");
+  }
+
+
+  const openBot = () => {
+    setShowBot((prevShowbot) => !prevShowbot);
+  }
+
+  // const closeBot = () => {
+  //   setShowBot(false);
+  // }
+
   return (
-    <div>
-      
+    <div style={{ height: "100vh" }}>
+
       <div className="nonsidebar m-3">
         {/* <Sidebar/> */}
         <main>
@@ -377,6 +407,8 @@ const InfoTA = () => {
                         </tr>
                       </thead>
 
+
+
                       <tbody id="maketd">
                         {listCO.map((CO) => {
                           return (
@@ -399,9 +431,8 @@ const InfoTA = () => {
                               <td>
                                 <input
                                   type="button"
-                                  className={`btn btn-primary ${
-                                    CO.status === "전송 완료" ? "disabled" : ""
-                                  }`}
+                                  className={`btn btn-primary ${CO.status === "전송완료" ? "disabled" : ""
+                                    }`}
                                   onClick={(e) => {
                                     onClickRptBtn(e, CO);
                                   }}
@@ -414,6 +445,13 @@ const InfoTA = () => {
                         })}
                       </tbody>
                     </table>
+
+
+
+                    {/* <div className="rsc tutorial">
+                      <a class="rsc-float-button sc-fjdhpX godhbL float-end"><svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></a>
+                      <div class="rsc-container sc-iwsKbI losXwd" width="350px" height="520px"><div class="rsc-header sc-gqjmRU glfuN"><h2 class="rsc-header-title sc-VigVT lifvqk">RSC Support</h2><a class="rsc-header-close-button sc-jTzLTM kMqZix"><svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></a></div><div class="rsc-content sc-gZMcBi hvGjDQ" height="520px"><div class="rsc-ts rsc-ts-bot sc-dnqmqq efROPc"><div class="rsc-ts-image-container sc-htoDjs vmYlS"><img class="rsc-ts-image sc-gzVnrw cwuCQv" src="data:image/svg+xml,%3csvg version='1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3e%3cpath d='M303 70a47 47 0 1 0-70 40v84h46v-84c14-8 24-23 24-40z' fill='%2393c7ef'/%3e%3cpath d='M256 23v171h23v-84a47 47 0 0 0-23-87z' fill='%235a8bb0'/%3e%3cpath fill='%2393c7ef' d='M0 240h248v124H0z'/%3e%3cpath fill='%235a8bb0' d='M264 240h248v124H264z'/%3e%3cpath fill='%2393c7ef' d='M186 365h140v124H186z'/%3e%3cpath fill='%235a8bb0' d='M256 365h70v124h-70z'/%3e%3cpath fill='%23cce9f9' d='M47 163h419v279H47z'/%3e%3cpath fill='%2393c7ef' d='M256 163h209v279H256z'/%3e%3cpath d='M194 272a31 31 0 0 1-62 0c0-18 14-32 31-32s31 14 31 32z' fill='%233c5d76'/%3e%3cpath d='M380 272a31 31 0 0 1-62 0c0-18 14-32 31-32s31 14 31 32z' fill='%231e2e3b'/%3e%3cpath d='M186 349a70 70 0 1 0 140 0H186z' fill='%233c5d76'/%3e%3cpath d='M256 349v70c39 0 70-31 70-70h-70z' fill='%231e2e3b'/%3e%3c/svg%3e" alt="avatar"/></div><div class="rsc-ts-bubble sc-bZQynM hQsUiY">Hi! Do you need some help?</div></div><div class="rsc-os sc-EHOje jvzENE"><ul class="rsc-os-options sc-ifAKCX gkhNlr"><li class="rsc-os-option sc-htpNat GgOGn"><a class="rsc-os-option-element sc-bxivhb jdhdOZ">Yes</a></li></ul></div></div><div class="rsc-footer sc-cSHVUG hDUXUW"><input type="textarea" class="rsc-input sc-kAzzGY jZfzBr" placeholder="Type the message ..." disabled="" value=""/><button class="rsc-submit-button sc-chPdSV iUYVrA" disabled=""><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 500 500"><g><g><polygon points="0,497.25 535.5,267.75 0,38.25 0,216.75 382.5,267.75 0,318.75"></polygon></g></g></svg></button></div></div>
+                    </div> */}
                   </div>
 
                   <div
@@ -432,11 +470,51 @@ const InfoTA = () => {
                     aria-labelledby="contact-tab"
                   ></div>
                 </div>
+
               </div>
+
             </div>
           </section>
+          {/* <button className="btn btn-primary float-end rounded-circle">캬캬</button> */}
+          <div
+            className="d-flex justify-content-center"
+          // style={{ 
+          //   // width: "200px", height: "200px"
+          //   boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"
+          // }}
+          >
+            <button type="button"
+              className="btn btn-outline-secondary btn-lg rounded-start-pill border"
+              // style={{ width: "70px", height: "70px", boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"}}
+              onClick={clickBirdTalk}
+              style={{ 
+                // width: "200px", height: "200px"
+                boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"
+              }}
+            >
+              <BlurbirdTalk />
+            </button>
+            <button type="button"
+              className="btn btn-outline-secondary btn-lg rounded-end-pill border"
+              // style={{ width: "70px", height: "70px", boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"}}
+              onClick={openBot}
+              style={{ 
+                // width: "200px", height: "200px"
+                boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"
+              }}
+            >
+              채팅봇
+            </button>
+          </div>
+          { // 모달 상태에 따라 모달 렌더링
+            showBot &&
+            <ChattingBot
+            />
+          }
         </main>
+
       </div>
+
     </div>
   );
 };
