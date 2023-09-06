@@ -164,6 +164,7 @@ function ChatMessage() {
       <div className="chat-messages" ref={chatMessagesRef}>
         {chats.map((chat) => {
           const time = chat.registerDate.split(" ")[0];
+
           return (
             <div className="message" key={chat.chatno}>
               {chat.userno} :
@@ -180,19 +181,24 @@ function ChatMessage() {
             </div>
           );
         })}
-        {messages.map((msg, index) => (
-          <div key={index} className="message">
-            {msg.match(/\.(jpg|png)$/) ? (
-              <img
-                src={"/img/" + msg.contents}
-                alt="Image"
-                style={{ width: "50%" }}
-              />
-            ) : (
-              <span>{msg}</span>
-            )}
-          </div>
-        ))}
+        {messages.map((msg, index) => {
+          const today = new Date(); // 현재 날짜
+          const formattedDate = today.toISOString().split("T")[0]; // 날짜를 문자열로 변환하고 'T'를 기준으로 자름
+          return (
+            <div key={index} className="message">
+              {msg.match(/\.(jpg|png)$/) ? (
+                <img
+                  src={"/img/" + msg.contents}
+                  alt="Image"
+                  style={{ width: "50%" }}
+                />
+              ) : (
+                <span>{msg}</span>
+              )}
+              <p className="fs-6 text-end">{formattedDate}</p>
+            </div>
+          );
+        })}
       </div>
       <div className="input-group mb-3">
         <button
