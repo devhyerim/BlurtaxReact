@@ -112,13 +112,20 @@ function App() {
                 path={route.path}
                 render={() => (
                   <>
-                    {route.path.includes("ta") ? <TAHeader/> : <COHeader/>}
                     {
-                      route.path.includes("ta") 
+                      (route.path.includes("ta") && !route.path.includes("main"))
+                       && <TAHeader/>
+                    }
+                    {
+                      (route.path.includes("co") && !route.path.includes("main"))
+                       && <COHeader/>
+                    }
+                    {
+                      (route.path.includes("ta") && !route.path.includes("main"))
                        && <ChatBotButton steps={taSteps}/>
                     }
                     {
-                      route.path.includes("co") 
+                      (route.path.includes("co") && !route.path.includes("main"))
                        && <ChatBotButton steps={coSteps}/>
                     }
                     <route.component />
