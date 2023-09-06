@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SlipDetailTable from "./SlipDetailTable";
 import ModalAccount from "../common/ModalAccount";
-import { update } from "lodash";
 import axios from "axios";
 import { useFieldArray, useForm } from "react-hook-form";
 import { setWholeBanks, setWholeSlips, setNumber, setRequestWhat } from '../../redux/bankSlice';
@@ -16,8 +15,7 @@ const WriteSlip = () => {
 
   //--------------- 전표입력, 분개내역 조회 -----------------
   const { control, handleSubmit, register, getValues, reset } = useForm();
-  const { fields, append, prepend,
-         swap, move, insert, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "insertSlip"
   });
@@ -91,8 +89,15 @@ const WriteSlip = () => {
   // 전표 등록 요청
   const onSubmit = () => {
     const formData = getValues("insertSlip");
-    
-    console.log(formData);
+
+    formData[0].accountno = selectedAccount[0].accountno;
+    formData[0].accountname = selectedAccount[0].accountname;
+    formData[1].accountno = selectedAccount[1].accountno;
+    formData[1].accountname = selectedAccount[1].accountname;
+    formData[0].memo = " ";
+    formData[0].summary = " ";
+    formData[1].memo = " ";
+    formData[1].summary = " ";
 
     axios.post('http://localhost:8081/bank/insertdetailslips', formData)
     .then(()=>{
@@ -185,7 +190,6 @@ const WriteSlip = () => {
                       <option value="3" selected={slip.sortno === 3}>차변</option>
                       <option value="4" selected={slip.sortno === 4}>대변</option>
                     </select>
-                    
                 </td>
                 <td className="button-and-input">
                   <button

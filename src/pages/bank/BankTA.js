@@ -4,55 +4,10 @@ import BankSearch from '../../components/bank/BankSearch';
 import BankContents from '../../components/bank/BankContents';
 import BankSlip from '../../components/bank/BankSlip';
 import SlipDetail from '../../components/bank/SlipDetail';
-import TAHeader from '../../components/common/TAHeader';
 import Sidebar from '../../components/common/Sidebar';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import ChatBotComponent from '../../components/common/ChatBotComponent';
-import ReqMemoCO from '../../components/bank/ReqMemoCO';
-import ConfirmSlipTA from '../../components/bank/ConfirmSlipTA';
-
 
 const BankTA = () => {
-  let steps = [
-    {
-      id: '1',
-      message: '그린테크소프트의 미확정 전표가 생성되었습니다. 확인하시겠습니까?',
-      trigger: '2',
-    },
-    {
-      id: '2',
-      options:[
-        {value: '내용확인', label: '내용확인', trigger: '3'},
-        {value: '페이지 이동', label: '페이지 이동', trigger: '4'}
-      ]
-    },
-    {
-      id: '3',
-      component: (<ConfirmSlipTA/>),
-    },
-    {
-      id: '4',
-      component: (
-        <div>
-          <a href='/bank/bankta'>통장관리 페이지 이동</a>
-        </div>
-      ),
-      end: true
-    },
-    {
-      id: '5',
-      message: '전표가 확정되었습니다!',
-      trigger: '6',
-    },
-    {
-      id: '6',
-      options:[
-        {value: '확정취소', label: '확정취소', trigger: '1'},
-        {value: '페이지 이동', label: '페이지 이동', trigger: '4'}
-      ]
-    }
-  ]
 
   const isBodyActive = useSelector((state)=> state.sidebar.isBodyActive);
   const wholeBanks = useSelector((state)=> state.bank.wholeBanks);
@@ -96,7 +51,6 @@ const BankTA = () => {
                 </div>
 
                 <div class="bottom" id="bottom">
-                  <ChatBotComponent steps={steps}/>
                   {
                     !(wholeBanks.length === 0 && wholeSlips.length === 0) 
                           && <SlipDetail/>

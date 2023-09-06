@@ -13,12 +13,6 @@ import ReceiptCO from "./pages/receipt/ReceiptCO";
 import ReceiptTA from "./pages/receipt/ReceiptTA";
 import InfoTA from "./pages/info/InfoTA";
 import InfoCO from "./pages/info/InfoCO";
-import ChatBotComponent from "./components/common/ChatBotComponent";
-import ChatMessage from "./components/chat/ChatMessage";
-import ChatTestPage from "./pages/receipt/ChatTestPage";
-
-
-
 
 
 const Routes = [
@@ -63,11 +57,11 @@ const Routes = [
     component: DocrequestTA,
   },
   {
-    path: '/info/infoTA',
+    path: '/info/infota',
     component: InfoTA,
   },
   {
-    path: '/info/infoCO',
+    path: '/info/infoco',
     component: InfoCO
   },
   {
@@ -89,10 +83,6 @@ const Routes = [
   {
     path: "/receipt/receiptco",
     component: ReceiptCO,
-  },
-  {
-    path: "/main/chat",
-    component: ChatTestPage,
   },
 ];
 

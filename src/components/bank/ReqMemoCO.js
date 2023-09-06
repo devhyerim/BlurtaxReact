@@ -148,7 +148,7 @@ const ReqMemoCO = ({triggerNextStep}) => {
           className="btn btn-primary"
           id="sendmessagebtn"
           onClick={()=>{
-            triggerNextStep({ trigger: '3' });
+            triggerNextStep({ trigger: '5' });
             saveMemo();
           }}
         >
