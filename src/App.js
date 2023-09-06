@@ -4,19 +4,16 @@ import React, { useState } from "react";
 import Routes from "./Routes";
 import TAHeader from "./components/common/TAHeader";
 import ConfirmSlipTA from "./components/bank/ConfirmSlipTA";
-import ChatBotComponent from "./components/common/ChatBotComponent";
 import COHeader from "./components/common/COHeader";
-import { useEffect } from "react";
 import ReqMemoCO from "./components/bank/ReqMemoCO";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
 import ChatBotButton from "./components/common/ChatBotButton";
 
 function App() {
-  
+
   // 세무사인 경우 요청 메시지
   const taSteps = [
-    {
+    {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
       id: '1',
       message: "원하는 메뉴를 선택하세요.",
       trigger: '2',
