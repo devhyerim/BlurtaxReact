@@ -8,7 +8,7 @@ import axios from "axios";
 function RejectedReceipt() {
   const [receipts, setReceipts] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:8081/receipt/test").then((res) => {
+    axios.get("http://localhost:8081/receipt/receiptList").then((res) => {
       const data = res.data;
       console.log(data);
 
