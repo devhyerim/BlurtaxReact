@@ -1,23 +1,15 @@
 import React, { useState } from "react";
-import ModalMemo from "./ModalMemo";
-import RejectedCollapse from "./RejectedCollapse";
-import { useEffect } from "react";
 import RejectedTable from "./RejectedTable";
-import axios from "axios";
 
-function RejectedReceipt() {
-  const [receipts, setReceipts] = useState([]);
-  useEffect(() => {
-    axios.get("http://localhost:8081/receipt/receiptList").then((res) => {
-      const data = res.data;
-      console.log(data);
-
-      setReceipts(res.data);
-    });
-  }, []);
+function RejectedReceipt({ receipts, onRecreqno }) {
+  const [recreqno, setRecreqno] = useState(null);
+  const handleRecreqno = (value) => {
+    setRecreqno(value);
+    onRecreqno(value);
+  };
   return (
     <div>
-      <RejectedTable receipts={receipts} />
+      <RejectedTable receipts={receipts} onRecreqno={handleRecreqno} />
     </div>
   );
 }

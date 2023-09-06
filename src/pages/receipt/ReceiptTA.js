@@ -13,7 +13,17 @@ function ReceiptTA() {
   const [image, setImage] = useState("/img//download.png");
   const [selectedRadio, setSelectedRadio] = useState(null);
   const [key, setKey] = useState("UnverifiedReceipt");
+  const [drecreqno, setDrecreqno] = useState(null);
 
+  const onDRecreqno = (value) => {
+    setDrecreqno(value);
+    // console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy : " + value);
+    handleRadioChange(value);
+  };
+  const setRecreqno = (value) => {
+    setRecreqno(value);
+    // console.log("rrrrrrrrrrrrrrrrrr" + value);
+  };
   const isBodyActive = useSelector((state) => state.sidebar.isBodyActive);
   useEffect(() => {
     axios.get("http://localhost:8081/receipt/receiptList").then((res) => {
@@ -25,14 +35,17 @@ function ReceiptTA() {
   const handleRadioChange = (value) => {
     setSelectedRadio(value);
     // 여기에서 선택된 값(value)을 사용할 수 있습니다.
-    console.log("radioButton key : " + value);
     axios
       .get(`http://localhost:8081/receipt/getImgResource?recreqno=${value}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setImage("/img/" + res.data);
       });
   };
+  // const handleToggle = (recreqno) => {
+  //   setOpen(!open);
+  //   console.log("rejected : " + recreqno);
+  // };
   return (
     <div>
       <div id="main" className={isBodyActive ? "toggle-sidebar" : ""}>
@@ -48,10 +61,11 @@ function ReceiptTA() {
                 <div className="left">
                   <div>
                     <img
-                      src={"/img/download.png"}
+                      src={image}
                       alt="receipt"
                       className="img-fluid custom-image"
                     />
+                    {/* <span hidden>{selectedRadio}</span> */}
                   </div>
                 </div>
                 <Card className="card">
@@ -68,10 +82,16 @@ function ReceiptTA() {
                       <UnverifiedReceipt onRadioChange={handleRadioChange} />
                     </Tab>
                     <Tab eventKey="ConfirmedReceipt" title="적합 증빙">
-                      <ConfirmedReceipt />
+                      <ConfirmedReceipt
+                        selectedRadio={selectedRadio}
+                        receipts={receipts}
+                      />
                     </Tab>
                     <Tab eventKey="RejectedReceipt" title="부적합 증빙">
-                      <RejectedReceipt />
+                      <RejectedReceipt
+                        receipts={receipts}
+                        onRecreqno={onDRecreqno}
+                      />
                     </Tab>
                   </Tabs>
                 </Card>
