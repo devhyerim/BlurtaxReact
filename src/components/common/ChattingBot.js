@@ -15,16 +15,19 @@ const theme = {
   userFontColor: '#4a4a4a',
 };
 
-const steps = [
-  {
-    id: '1',
-    message: '하이요',
-    end: true,
-  },
-];
 
 
-const ChattingBot = () => {
+
+const ChattingBot = ({jsonFmt}) => {
+
+  // const steps = [
+  //   {
+  //     id: '1',
+  //     message: `오늘은 ${jsonFmt}입니다.`,
+  //     trigger: '2',
+  //   },
+  // ];
+
   return (
 
     <></>
