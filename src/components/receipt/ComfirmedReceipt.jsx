@@ -5,23 +5,46 @@ import ModalSlip from "./ModalSlip";
 import ConfiredCollapse from "./ConfiredCollapse";
 import ModalAccount from "../common/ModalAccount";
 import axios from "axios";
+import { useEffect } from "react";
 
-function ComfirmedReceipt({ receipt }) {
+function ComfirmedReceipt({ receipts, selectedRadio }) {
   const [open, setOpen] = useState(false);
-  const [selectedAccount, setSelectedAccount] = useState(null);
+  const [accountNo, setAccountNo] = useState(null);
+  const [accountName, setAccountName] = useState(null);
+  const [selectedTypeCheck, setSelectedTypeCheck] = useState("일반");
   // 모달 표시 여부
   const [showModal, setShowModal] = useState(false);
+  const [purpose, setPurpose] = useState("");
+  const [bcnc, setBcnc] = useState("");
+  const [amount, setAmount] = useState("");
 
+  useEffect(() => {
+    setPurpose(
+      receipts
+        .filter((receipt) => receipt.recreqno == selectedRadio)
+        .map((receipt) => {
+          return receipt.purpose;
+        })
+    );
+  }, []);
   // 모달 열기
   const openModal = () => {
     setShowModal(true);
   };
 
   // 모달 닫기
-  const closeModal = (account) => {
+  const closeModal = (accountNo, accountName) => {
     setShowModal(false);
+    console.log(accountNo);
     // 모달이 닫힐 때 선택된 계정 정보 전달
-    setSelectedAccount(account);
+    setAccountNo(accountNo);
+    setAccountName(accountName);
+  };
+  const handleBcnc = (e) => {
+    setBcnc(e.target.value);
+  };
+  const handleAmount = (e) => {
+    setAmount(e.target.value);
   };
 
   const handleStatusChange = (receiptId = 1) => {
@@ -111,24 +134,41 @@ function ComfirmedReceipt({ receipt }) {
                 aria-expanded={open}
               />
               <span hidden className="recreqno"></span>
-              <span hidden className="confirmedNo"></span>
             </td>
             <td>
               <input type=" text" className="regdate form-control" />
             </td>
             <td>
-              <select className="typecheck form-select">
+              <select
+                className="typecheck form-select"
+                value={selectedTypeCheck}
+                onChange={(e) => setSelectedTypeCheck(e.target.value)}
+              >
                 <option value="일반">일반</option>
                 <option value="매입">매입</option>
               </select>
             </td>
             <td></td>
             <td>
-              <input type="text" className="bcnc form-control" />
+              <input
+                type="text"
+                className="bcnc form-control"
+                onBlur={handleBcnc}
+              />
             </td>
-            <td className="summary"></td>
+            <td className="summary">
+              {receipts
+                .filter((receipt) => receipt.recreqno == selectedRadio)
+                .map((receipt) => {
+                  return receipt.purpose;
+                })}
+            </td>
             <td>
-              <input type="text" className="amount form-control" />
+              <input
+                type="text"
+                className="amount form-control"
+                onBlur={handleAmount}
+              />
             </td>
             <td></td>
             <td></td>
@@ -162,16 +202,10 @@ function ComfirmedReceipt({ receipt }) {
                 onClick={() => openModal()}
               >
                 계정과목 <i className="bi bi-info-circle"></i>
-                {
-                  // 모달 상태에 따라 모달 렌더링
-                  showModal && (
-                    <ModalAccount
-                      openModal={openModal}
-                      closeModal={closeModal}
-                      setSelectedAccount={setSelectedAccount}
-                    />
-                  )
-                }
+                {// 모달 상태에 따라 모달 렌더링
+                showModal && (
+                  <ModalAccount openModal={openModal} closeModal={closeModal} />
+                )}
               </button>
             </th>
             <th scope="col" className=" tabletop">
@@ -188,12 +222,18 @@ function ComfirmedReceipt({ receipt }) {
               <input className="form-check-input " type="checkbox" />
               <span hidden className="b_recreqno"></span>
             </td>
-            <td className="b_bcnc"></td>
-            <td className="b_typecheck"></td>
-            <td colSpan="2" className="b_summary"></td>
-            <td className="b_accountCodeNo"></td>
-            <td className="b_accountCodeName"></td>
-            <td className="amount"></td>
+            <td className="b_bcnc">{bcnc}</td>
+            <td className="b_typecheck">{selectedTypeCheck}</td>
+            <td colSpan="2" className="b_summary">
+              {receipts
+                .filter((receipt) => receipt.recreqno == selectedRadio)
+                .map((receipt) => {
+                  return receipt.purpose;
+                })}
+            </td>
+            <td className="b_accountCodeNo">{accountNo}</td>
+            <td className="b_accountCodeName">{accountName}</td>
+            <td className="amount">{amount}</td>
             <td></td>
           </tr>
         </tbody>
@@ -202,7 +242,7 @@ function ComfirmedReceipt({ receipt }) {
         <button
           type="button"
           className="btn btn-outline-danger"
-          onClick={() => handleStatusChange(receipt.receiptId)}
+          onClick={() => handleStatusChange()}
         >
           부적합으로 변경
         </button>

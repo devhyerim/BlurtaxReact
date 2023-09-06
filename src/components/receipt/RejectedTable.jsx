@@ -4,11 +4,18 @@ import { useState } from "react";
 import ModalMemo from "./ModalMemo";
 import RejectedCollapse from "./RejectedCollapse";
 
-function RejectedTable({ receipts }) {
+function RejectedTable({ receipts, onRecreqno }) {
   console.log("receipts: ", receipts);
   const [open, setOpen] = useState(false);
+  const [recreqno, setRecreqno] = useState("");
   // PATCH 요청을 보낼 URL과 데이터를 정의
   // Axios를 사용하여 PATCH 요청
+  const handleToggle = (recreqno) => {
+    setOpen(!open);
+    setRecreqno(recreqno);
+    onRecreqno(recreqno);
+    // console.log("ttttttttttttttttttttttttttt : " + recreqno);
+  };
 
   return (
     <>
@@ -45,9 +52,11 @@ function RejectedTable({ receipts }) {
                       data-bs-target="#collapseExample2"
                       aria-controls="collapseExample"
                       type="checkbox"
-                      onClick={() => setOpen(!open)}
-                      aria-expanded={open}
+                      onClick={() => {
+                        handleToggle(receipt.recreqno);
+                      }}
                     />
+                    <span hidden>{receipt.recreqno}</span>
                   </td>
                   <td>{receipt.purpose}</td>
                   <td>부적합</td>
