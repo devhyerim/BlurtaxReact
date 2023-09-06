@@ -7,6 +7,6 @@ export const store = configureStore({
   reducer: {
     bank: bankSlice,
     sidebar: sidebarSlice,
-    docrequest : docrequestSlice
+    docrequest : docrequestSlice,
   }
 })

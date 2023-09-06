@@ -2,10 +2,9 @@ import 'react-tooltip/dist/react-tooltip.css'
 import React, { useState, useEffect } from 'react';
 import { Tooltip } from "react-tooltip";
 import ModalReqMemo from './ModalReqMemo';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setBanks, setRequestWhat } from '../../redux/bankSlice';
 import axios from 'axios';
-import { filter } from 'lodash';
 import ModalWriteMemo from './ModalWriteMemo';
 
 // 은행 내역
@@ -24,6 +23,7 @@ const BankbookTable = ({ banks, activeTab, requestFrom }) => {
 	const [selectedBanks, setSelectedBanks] = useState([]);
 	// 리덕스 함수 사용 위한 dispatch 생성
 	const dispatch = useDispatch();
+
 
 	if (activeTab === "bankconn") {
 		filteredBanks = banks.filter((bank) => bank.bhstatename !== "미연결");
@@ -56,7 +56,6 @@ const BankbookTable = ({ banks, activeTab, requestFrom }) => {
 	useEffect(()=>{
 		setCheckAll(false);
 	}, [activeTab]);
-
 
 	// 전체 체크or해제 시 은행 내역 변경
 	const handleCheckAllChange = () => {
@@ -233,7 +232,7 @@ const BankbookTable = ({ banks, activeTab, requestFrom }) => {
 				</div>
 			}
 
-      { requestFrom==='co' &&
+      { (requestFrom==='co' && (activeTab === 'bankconn' || activeTab === 'banknone')) &&
 				<div>
 					<button
 						type="button"

@@ -65,15 +65,11 @@ td {
   /* 세로 중앙 정렬 */
 }
 
-<<<<<<< HEAD
-
-=======
 .th-first,
 .td-first {
   width: 50px;
   /* 첫 번째 열 넓이 */
 }
->>>>>>> 45b58f985a3cfa3ece592f8e729cef9082382576
 
 .tabletop {
   background-color: #f5f5f5 !important;

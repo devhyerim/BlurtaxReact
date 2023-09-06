@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SlipDetailTable from "./SlipDetailTable";
 import ModalAccount from "../common/ModalAccount";
-import { update } from "lodash";
 import axios from "axios";
 import { useFieldArray, useForm } from "react-hook-form";
 import { setWholeBanks, setWholeSlips, setNumber, setRequestWhat } from '../../redux/bankSlice';
@@ -16,8 +15,7 @@ const WriteSlip = () => {
 
   //--------------- 전표입력, 분개내역 조회 -----------------
   const { control, handleSubmit, register, getValues, reset } = useForm();
-  const { fields, append, prepend,
-         swap, move, insert, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "insertSlip"
   });
@@ -59,11 +57,12 @@ const WriteSlip = () => {
 
     console.log(bhnoList);
 
-    axios.get(`http://localhost:8081/bank/getBankHistoryDetail?bhno=${bhnoList}`)
+    axios.get(`http://localhost:8081/bank/writebankhistory?bhno=${bhnoList}`)
           .then((res)=>{
             setDetailSlips(res.data);
           });
 
+    //console.log(detailSlips);
   }
 
   useEffect(()=>{
@@ -73,17 +72,15 @@ const WriteSlip = () => {
 
   // detailSlips 배열의 수 * 2 만큼 필드를 추가
   useEffect(() => {
-    console.log("@@@@@@선택한 배열 수: " + detailSlips.length);
-    const desiredFieldsLength = detailSlips.length * 2;
-
-    if (desiredFieldsLength > fields.length) {
+    console.log(detailSlips);
+    if (detailSlips.length > fields.length) {
       // detailSlips의 길이가 fields보다 길 때, 필드를 추가
-      for (let i = fields.length; i < desiredFieldsLength; i++) {
+      for (let i = fields.length; i < detailSlips.length; i++) {
         append(detailSlips[i]);
       }
-    } else if (desiredFieldsLength < fields.length) {
+    } else if (detailSlips.length < fields.length) {
       // detailSlips의 길이가 fields보다 짧을 때, 필드를 제거
-      for (let i = fields.length - 1; i >= desiredFieldsLength; i--) {
+      for (let i = fields.length - 1; i >= detailSlips.length; i--) {
         remove(i);
       }
     }
@@ -91,24 +88,16 @@ const WriteSlip = () => {
 
   // 전표 등록 요청
   const onSubmit = () => {
-
     const formData = getValues("insertSlip");
-    const selectedData = null;
-    
-    console.log(formData);
 
-    /*
-    formData.map((data, index)=>{
-      selectedData = {
-        bhno: data[index].bhno || "",
-        accountno: data[index].accountno || "",
-        accountname: data[index].accountname || "",
-        amount: data[index].amount || "",
-        source: data[index].source || "",
-        summary: data[index].summary || "",
-      }
-    });
-    */
+    formData[0].accountno = selectedAccount[0].accountno;
+    formData[0].accountname = selectedAccount[0].accountname;
+    formData[1].accountno = selectedAccount[1].accountno;
+    formData[1].accountname = selectedAccount[1].accountname;
+    formData[0].memo = " ";
+    formData[0].summary = " ";
+    formData[1].memo = " ";
+    formData[1].summary = " ";
 
     axios.post('http://localhost:8081/bank/insertdetailslips', formData)
     .then(()=>{
@@ -177,11 +166,7 @@ const WriteSlip = () => {
         { 
           detailSlips && fields.map((item, index)=>{
 
-            const slipIndex = Math.floor(index / 2);
-            const isEvenIndex = index % 2 === 0; // 인덱스가 짝수인지 여부 확인
-            const sortno = isEvenIndex ? "3" : "4"; // 짝수일 때 "3", 홀수일 때 "4"
-
-            const slip = detailSlips[slipIndex];
+            const slip = detailSlips[index];
 
             return(
               <tr key={item.id}>
@@ -202,10 +187,9 @@ const WriteSlip = () => {
                     >
                       <option value="1">입금</option>
                       <option value="2">차변</option>
-                      <option value="3" selected={index === 0}>차변</option>
-                      <option value="4" selected={index === 1}>대변</option>
+                      <option value="3" selected={slip.sortno === 3}>차변</option>
+                      <option value="4" selected={slip.sortno === 4}>대변</option>
                     </select>
-                    
                 </td>
                 <td className="button-and-input">
                   <button
@@ -221,7 +205,7 @@ const WriteSlip = () => {
                     type="text" 
                     className="intable" 
                     name="accountno"
-                    defaultValue={selectedAccount[index] 
+                    value={selectedAccount[index] 
                       ? selectedAccount[index].accountno : ''}
                     {...register(`insertSlip[${index}].accountno`)}
                   />
@@ -231,29 +215,29 @@ const WriteSlip = () => {
                     type="text" 
                     className="intable"
                     name="accountname"
-                    defaultValue={selectedAccount[index] 
+                    value={selectedAccount[index] 
                       ? selectedAccount[index].accountname : ''}
                     {...register(`insertSlip[${index}].accountname`)}
                   />
                 </td>
-                <td className={sortno==="3" ? "" : "cantwrite"}>
+                <td className={slip.sortno==="3" ? "" : "cantwrite"}>
                   <input 
                     type="text"
-                    defaultValue={slip && sortno==="3" ?
+                    defaultValue={slip && slip.sortno==="3" ?
                       slip.amount.toLocaleString().toString().replace('-', '')
                       : ""} 
-                    className={sortno==="3" ? "intable" : "intable cantwrite"}
-                    readOnly={sortno==="3" ? "false" : "true"}
+                    className={slip.sortno==="3" ? "intable" : "intable cantwrite"}
+                    readOnly={slip.sortno==="3" ? "false" : "true"}
                   />
                 </td>
-                <td className={sortno!=="3" ? "" : "cantwrite"}>
+                <td className={slip.sortno!=="3" ? "" : "cantwrite"}>
                   <input 
                     type="text"
-                    defaultValue={slip && sortno!=="3" ? 
+                    defaultValue={slip && slip.sortno!=="3" ? 
                       slip.amount.toLocaleString().toString().replace('-', '')
                       : ""} 
-                    className={sortno!=="3" ? "intable" : "intable cantwrite"}
-                    readOnly={sortno!=="3" ? "false" : "true"}
+                    className={slip.sortno!=="3" ? "intable" : "intable cantwrite"}
+                    readOnly={slip.sortno!=="3" ? "false" : "true"}
                   />
                 </td>
                 <td>

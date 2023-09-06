@@ -8,17 +8,25 @@ const ModalAccount = ({ openModal, closeModal }) => {
 
   const getAccounts = () => {
     let params = {
-      accountname_like: searchValue,
+      accountname: searchValue,
     };
 
-    axios.get("http://localhost:8081/common/accountList").then((res) => {
-      setAccounts(res.data);
-    });
+    axios.get("http://localhost:8081/common/accountList", { params })
+      .then((res) => {
+        setAccounts(res.data);
+      });
   };
 
   useEffect(() => {
     getAccounts();
   }, [searchValue]);
+
+  // 검색 함수
+  const onSearch = (e) => {
+    if (e.key == "Enter") {
+      getAccounts(1);
+    }
+  };
 
   const searchAccount = (e) => {
     getAccounts();
@@ -33,6 +41,25 @@ const ModalAccount = ({ openModal, closeModal }) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+        <div className="input-group mb-3">
+            <input
+              type="text"
+              id="searchedaccountno"
+              className="valueToAccount form-control"
+              placeholder="계정코드 입력"
+              value={searchValue}
+              onKeyUp={onSearch}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+            <button
+              className="search-account btn btn-outline-secondary"
+              type="button"
+              id="button-addon2"
+              onclick={searchAccount}
+            >
+              찾기
+            </button>
+          </div>
           <table className="accountTable table table-hover table-bordered">
             <thead>
               <tr>
@@ -63,37 +90,19 @@ const ModalAccount = ({ openModal, closeModal }) => {
           </table>
         </Modal.Body>
         <Modal.Footer>
-          <div className="input-group mb-3">
-            <input
-              type="text"
-              id="searchedaccountno"
-              className="valueToAccount form-control"
-              placeholder="계정코드 입력"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-            />
-            <button
-              className="search-account btn btn-outline-secondary"
-              type="button"
-              id="button-addon2"
-              onclick={searchAccount}
-            >
-              찾기
-            </button>
-          </div>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={closeModal}
-          >
-            닫기
-          </button>
           <button
             type="button"
             className="btn btn-primary"
             data-bs-dismiss="modal"
           >
             저장
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={closeModal}
+          >
+            닫기
           </button>
         </Modal.Footer>
       </Modal>

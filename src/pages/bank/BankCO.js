@@ -2,7 +2,6 @@ import '../../resources/assets/css/BankCO.css';
 import BankSearch from '../../components/bank/BankSearch';
 import BankContents from '../../components/bank/BankContents';
 import BankSlip from '../../components/bank/BankSlip';
-import { useSelector } from 'react-redux';
 
 const BankCO = () => {
 
@@ -33,6 +32,7 @@ const BankCO = () => {
               <div className="right" id="rightbank">
                 <BankSlip requestFrom="co"/>
               </div>
+
             </div>
           </div>
         </div>
