@@ -1,6 +1,8 @@
 import axios from "axios";
 import ChattingBot from '../../components/common/ChattingBot.js'
 import BlurbirdTalk from '../../components/common/BlurbirdTalk.js'
+import ChatBot from "react-simple-chatbot";
+import { ThemeProvider } from 'styled-components';
 
 import { useEffect, useState } from "react";
 // import FloatingButton from "../components/common/FloatingButton";
@@ -21,6 +23,36 @@ const InfoTA = () => {
     e.preventDefault();
     setYear(e.target.value);
   };
+
+
+
+
+  const theme = {
+    background: 'white',
+    fontFamily: 'Helvetica Neue',
+    headerBgColor: '#4169e1',
+    headerFontColor: '#fff',
+    headerFontSize: '15px',
+    botBubbleColor: '#4169e1',
+    botFontColor: '#fff',
+    userBubbleColor: '#fff',
+    userFontColor: '#4a4a4a',
+  };
+
+  const steps = [
+    {
+      id: '1',
+      message: '하이요',
+      end: true,
+    },
+  ];
+
+
+
+
+
+
+
 
   // 조회버튼 클릭 시 이벤트
   const onClickYear = (e) => {
@@ -488,7 +520,7 @@ const InfoTA = () => {
               className="btn btn-outline-secondary btn-lg rounded-start-pill border"
               // style={{ width: "70px", height: "70px", boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"}}
               onClick={clickBirdTalk}
-              style={{ 
+              style={{
                 // width: "200px", height: "200px"
                 boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"
               }}
@@ -496,22 +528,46 @@ const InfoTA = () => {
               <BlurbirdTalk />
             </button>
             <button type="button"
-              className="btn btn-outline-secondary btn-lg rounded-end-pill border"
+              className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              // className="btn btn-outline-secondary btn-lg rounded-end-pill border"
               // style={{ width: "70px", height: "70px", boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"}}
-              onClick={openBot}
-              style={{ 
+              // onClick={openBot}
+              style={{
                 // width: "200px", height: "200px"
                 boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"
               }}
             >
               채팅봇
             </button>
+
           </div>
-          { // 모달 상태에 따라 모달 렌더링
+
+
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+           
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+                <div class="modal-body">
+                  <ThemeProvider theme={theme}>
+                    <ChatBot steps={steps} className='mx-auto' />
+                  </ThemeProvider>
+                </div>
+                {/* <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div> */}
+              </div>
+            </div>
+          </div>
+
+          {/* { 
             showBot &&
             <ChattingBot
             />
-          }
+          } */}
         </main>
 
       </div>
