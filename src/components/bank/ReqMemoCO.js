@@ -1,60 +1,89 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setWholeBanks, setWholeSlips, setNumber } from '../../redux/bankSlice';
+
 
 const ReqMemoCO = ({triggerNextStep}) => {
   // 요청 통장내역
-  const [message, setMessage] = useState([]);
+  const [messageList, setMessageList] = useState([]);
 
   // 화면에 보여줄 내용
   const [bhno, setBhno] = useState('');
   const [bhdate, setBhDate] = useState('');
   const [amount, setAmount] = useState('');
   const [source, setSource] = useState('');
+  const [message, setMessage] = useState('');
 
   // 수임사 입력한 메모
   const [memo, setMemo] = useState('');
 
   // 요청 통장내역 내용 가져오기
   const getMessage = () => {
-    // 4-> receiver (로그인한 수임사)
-    axios.get(`http://localhost:8081/bank/getMessageList?receiver=4`)
-        .then((res)=>{
-          setBhno(res.data.bhno);
-          setMessage(res.data.message);
-        });
+    console.log(messageList);
 
-    if(bhno!==''){
-      axios.get(`http://localhost:8081/bank/detailslip?bhno=${bhno}`)
-        .then((res)=>{
-            setBhDate(res.data.bhdate);
-            setAmount(res.data.amount);
-            setSource(res.data.source);
-        });
+    if(messageList!==null){
+      messageList.map((bank)=>{
+        let formattedAmount = bank.amount.toLocaleString('en-US');
+        let formattedDate = new Intl.DateTimeFormat('en-US', {
+          month: '2-digit',
+          day: '2-digit',
+        }).format(new Date(bank.bhdate)).replace(/\//g, '-');
+        setBhno(bank.bhno);
+        setAmount(formattedAmount);
+        setBhDate(formattedDate);
+        setSource(bank.source);
+        setMessage(bank.message);
+      });
     }
-
-    // 저장된 메시지에서 bhno 가져와서 은행 상세 내역 보여주기
-    /*
-    message.map((message)=>{
-      const mbhno = message.bhno;
-      setBhno(message.bhno);
-
-      
-    });
-    */
   }
 
   useEffect(()=>{
-    getMessage();
+    axios.get('http://localhost:8081/bank/getMessageList?receiver=4')
+    .then((res)=>{
+      setMessageList(res.data);
+    });
   }, []);
+
+  // 중요. messageList에 값이 axios로 가져와져야 그 다음 실행
+  useEffect(()=>{
+    getMessage();
+  }, [messageList]);
+  
+  const dispatch = useDispatch();
+  const startDate = useSelector((state)=> state.bank.startDate);
+  const endDate = useSelector((state)=> state.bank.endDate);
+
+  let params = {
+    bizno: "10001",
+    bankname: "신한은행",
+    startdate: startDate,
+    enddate: endDate
+  }
 
   // 메모 저장
   const saveMemo = () => {
-    axios.get(`http://localhost:8081/bank/sendMemo?bhno=${bhno}&amount=${amount}&memo=${memo}`);
+    axios.get(`http://localhost:8081/bank/sendMemo?bhno=${bhno}&amount=${amount}&memo=${memo}&messageno=10001`);
+  
+    // 수임사 화면 리렌더링
+    axios.post('http://localhost:8081/bank/getHistoryAndSlip', params)
+      .then((res) => {
+        dispatch(setWholeBanks(res.data.historyList));
+        dispatch(setWholeSlips(res.data.slipList));
+        dispatch(setNumber({
+          "all": res.data.all,
+          "can": res.data.can,
+          "confirmed": res.data.confirmed,
+          "except": res.data.except,
+          "remove": res.data.remove,
+          "total": res.data.total
+        }));
+    });
   }
 
   return(
     <div className="reqMemoCO">
-       <h3 style={{textAlign: "center"}}><strong>통장 거래 내역</strong></h3>
+       <h3 style={{textAlign: 'center'}}><strong>통장 거래 내역</strong></h3>
        <br/>
        <table>
           <tr>
@@ -101,11 +130,9 @@ const ReqMemoCO = ({triggerNextStep}) => {
               />
             </td>
           </tr>
-          <tr>
-          <strong>{message}</strong>
-          </tr>
       </table>
       <br/>
+      <strong>{message}</strong>
       <div style={{display: 'flex', alignItems: 'center'}}>
         <input
           type="text"

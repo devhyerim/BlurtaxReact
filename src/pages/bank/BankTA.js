@@ -10,31 +10,54 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import ChatBotComponent from '../../components/common/ChatBotComponent';
 import ReqMemoCO from '../../components/bank/ReqMemoCO';
+import ConfirmSlipTA from '../../components/bank/ConfirmSlipTA';
 
 
 const BankTA = () => {
-  const isBodyActive = useSelector((state)=> state.sidebar.isBodyActive);
-  const wholeBanks = useSelector((state)=> state.bank.wholeBanks);
-  const wholeSlips = useSelector((state)=> state.bank.wholeSlips);
-
   let steps = [
     {
       id: '1',
-      message: '세무사님이 통장의 내용 확인을 요청했습니다.',
+      message: '그린테크소프트의 미확정 전표가 생성되었습니다. 확인하시겠습니까?',
       trigger: '2',
     },
     {
       id: '2',
-      component:(<ReqMemoCO/>)
+      options:[
+        {value: '내용확인', label: '내용확인', trigger: '3'},
+        {value: '페이지 이동', label: '페이지 이동', trigger: '4'}
+      ]
     },
     {
       id: '3',
-      message: '메모가 전달되었습니다!',
+      component: (<ConfirmSlipTA/>),
+    },
+    {
+      id: '4',
+      component: (
+        <div>
+          <a href='/bank/bankta'>통장관리 페이지 이동</a>
+        </div>
+      ),
       end: true
+    },
+    {
+      id: '5',
+      message: '전표가 확정되었습니다!',
+      trigger: '6',
+    },
+    {
+      id: '6',
+      options:[
+        {value: '확정취소', label: '확정취소', trigger: '1'},
+        {value: '페이지 이동', label: '페이지 이동', trigger: '4'}
+      ]
     }
   ]
-  
 
+  const isBodyActive = useSelector((state)=> state.sidebar.isBodyActive);
+  const wholeBanks = useSelector((state)=> state.bank.wholeBanks);
+  const wholeSlips = useSelector((state)=> state.bank.wholeSlips);
+  
   return(
     <div id="main" className={isBodyActive ? 'toggle-sidebar' : ''}>
       <Sidebar/>
