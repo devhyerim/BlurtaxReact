@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import "../../resources/assets/css/Chat.css";
 import axios from "axios";
 import FileCollapse from "./FileCollapse";
+import { ReactSimpleChatbot } from "react-simple-chatbot";
+import ChatBotButton from "../common/ChatBotButton";
 function ChatMessage() {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
@@ -11,6 +13,7 @@ function ChatMessage() {
   const [userno, setUserno] = useState("");
   const [open, setOpen] = useState(false);
   const [chats, setChats] = useState([]);
+  const [imageUploaded, setImageUploaded] = useState(false);
 
   const openWebSocket = () => {
     if (userno) {
@@ -32,7 +35,7 @@ function ChatMessage() {
 
       setSocket(newSocket);
 
-      axios.get("http://localhost:8081/chat").then((res) => {
+      axios.get("http://localhost:8081/chat/getChats").then((res) => {
         console.log(res.data);
       });
     }
@@ -44,15 +47,38 @@ function ChatMessage() {
   };
 
   useEffect(() => {
+    axios.get("http://localhost:8081/chat/getChats").then((res) => {
+      console.log(res.data);
+      setChats(res.data);
+    });
+  }, []);
+
+  useEffect(() => {
     // 메시지 목록이 업데이트될 때마다 스크롤을 최하단으로 이동
     if (chatMessagesRef.current) {
       chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
     }
     console.log(uploadFiles);
-  }, [messages, uploadFiles]);
+    // uploadFiles 상태 변수가 변경되면 이미지를 업로드한 것으로 간주하여 이미지 업로드 상태 변수를 true로 설정
+    if (uploadFiles.length > 0) {
+      setImageUploaded(true);
+    }
+  }, [messages, uploadFiles, chats]);
 
   const sendMessage = () => {
     socket.send(message);
+    const dataToPost = {
+      userno,
+      contents: message,
+    };
+    axios
+      .post("http://localhost:8081/chat/saveChat", dataToPost)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.error("POST 요청 실패:", error);
+      });
     setMessage("");
   };
   const handleFileChange = (e) => {
@@ -109,6 +135,7 @@ function ChatMessage() {
     }
   };
   const handleLoginBtnClick = (e) => {
+    e.preventDefault();
     setUserno(e.target.value);
     console.log(e.target.value);
     openWebSocket();
@@ -133,11 +160,37 @@ function ChatMessage() {
           onClick={handleLoginBtnClick}
         ></button>
       </div>
-      {/* <span>메세지</span> */}
+
       <div className="chat-messages" ref={chatMessagesRef}>
+        {chats.map((chat) => {
+          const time = chat.registerDate.split(" ")[0];
+          return (
+            <div className="message" key={chat.chatno}>
+              {chat.userno} :
+              {chat.contents.match(/\.(jpg|png)$/) ? (
+                <img
+                  src={"/img/" + chat.contents}
+                  alt="Image"
+                  style={{ width: "50%" }}
+                />
+              ) : (
+                <span>{chat.contents}</span>
+              )}
+              <p className="fs-6 text-end">{time}</p>
+            </div>
+          );
+        })}
         {messages.map((msg, index) => (
           <div key={index} className="message">
-            {msg}
+            {msg.match(/\.(jpg|png)$/) ? (
+              <img
+                src={"/img/" + msg.contents}
+                alt="Image"
+                style={{ width: "50%" }}
+              />
+            ) : (
+              <span>{msg}</span>
+            )}
           </div>
         ))}
       </div>
