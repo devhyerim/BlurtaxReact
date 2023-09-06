@@ -2,28 +2,8 @@ import '../../resources/assets/css/BankCO.css';
 import BankSearch from '../../components/bank/BankSearch';
 import BankContents from '../../components/bank/BankContents';
 import BankSlip from '../../components/bank/BankSlip';
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import ChatBotComponent from '../../components/common/ChatBotComponent';
-import ReqMemoCO from '../../components/bank/ReqMemoCO';
 
 const BankCO = () => {
-  let steps = [
-    {
-      id: '1',
-      message: '세무사님이 통장의 내용 확인을 요청했습니다.',
-      trigger: '2',
-    },
-    {
-      id: '2',
-      component:(<ReqMemoCO/>)
-    },
-    {
-      id: '3',
-      message: '메모가 전달되었습니다!',
-      end: true
-    }
-  ]
 
   return(
     <div id="main" className="nonsidebar">
@@ -53,7 +33,6 @@ const BankCO = () => {
                 <BankSlip requestFrom="co"/>
               </div>
 
-              <ChatBotComponent steps={steps}/>
             </div>
           </div>
         </div>

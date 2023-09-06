@@ -151,7 +151,7 @@ const ConfirmSlipTA = ({triggerNextStep}) => {
           type="button"
           className="btn btn-sm mt-2 me-1 btn-primary"
           onClick={()=>{
-            triggerNextStep({ trigger: '5' });
+            triggerNextStep({ trigger: '7' });
             confirmSlip();
           }}
         >
@@ -161,7 +161,7 @@ const ConfirmSlipTA = ({triggerNextStep}) => {
           type="button"
           className="btn btn-sm mt-2 btn-secondary"
           onClick={()=>{
-            triggerNextStep({ trigger: '1' });
+            triggerNextStep({ trigger: '3' });
           }}
         >
           뒤로가기
