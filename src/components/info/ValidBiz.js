@@ -35,10 +35,10 @@ const ValidBiz = () => {
                 if (((data.tax / data.bizincome)) * 100 <= 1) {
                     setInvalidBizCount((prev) => {
                         const invalidCount = Number(prev) + 1;
-                        setValidBiz((prev) => [...prev, data]);
+                        setInvalidBiz((prev) => [...prev, data]);
                         return invalidCount;
                     })
-                } else if (((data.status === '신고서제출') && (data.tax / data.bizincome)) * 100 > 1) {
+                } else if (((data.tax / data.bizincome)) * 100 > 1 && (data.status === '신고서제출')) {
                     setValidBizCount((prev) => {
                         const vaildCount = Number(prev) + 1;
                         setValidBiz((prev) => [...prev, data]);
@@ -60,12 +60,40 @@ const ValidBiz = () => {
 
     return (
         <div>
-        {validBiz.map((biz) => {
-            return(
-                <div>
-                    {biz.bizname}
-                </div>
-                )})}
+            <table className="table table-hover table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col" className="tabletop">
+                            수임처
+                        </th>
+                        <th scope="col" className="tabletop">
+                            소득금액
+                        </th>
+                        <th scope="col" className="tabletop">
+                            결정세액
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="maketd">
+                    {validBiz.map((biz) => {
+                        const formattedBizIncome = parseInt(biz.bizincome).toLocaleString(); // 숫자에 쉼표 추가
+                        const formattedTax = parseInt(biz.tax).toLocaleString(); // 숫자에 쉼표 추가
+                        return (
+                            <tr key={biz.bizno}>
+                              <td>
+                                {biz.bizname}
+                              </td>
+                              <td>
+                                {formattedBizIncome}
+                              </td>
+                              <td>
+                                {formattedTax}
+                              </td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
         </div>
     );
 }
