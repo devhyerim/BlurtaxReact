@@ -259,7 +259,6 @@ function App() {
                 path={route.path}
                 render={() => (
                   <>
-
                     {route.path.includes("ta") &&
                       !route.path.includes("main") && <TAHeader />}
                     {route.path.includes("co") &&

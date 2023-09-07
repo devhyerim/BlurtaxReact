@@ -1,21 +1,31 @@
-import { useState } from "react";
-import axios
- from "axios";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 const LoginTA = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useState([]);
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:8081/login'
+      const response = await axios.post('http://127.0.0.1:8081/user/login'
       , { username, password },{ 
         withCredentials: true,
       });
-      console.log("로그인 확인***********" + response);
+
+      setUser(response.data);
     } catch (error) {
         alert('로그인에 실패했습니다.');
     }
-};
+  };
+
+  useEffect(()=>{
+    console.log(user.bizname);
+    console.log(user.membername);
+    console.log(user.memberno);
+    console.log(user.bizno);
+    console.log(user.authorities);
+  }, [user]);
 
 
   return(
