@@ -1,9 +1,6 @@
 import axios from "axios";
-import InvalidBiz from "../../components/info/InvalidBiz.js";
-import ValidBiz from "../../components/info/ValidBiz.js";
-
 import { useEffect, useState } from "react";
-import InfoBot from "../../components/info/InfoBot.js";
+import { Modal, Button } from 'react-bootstrap';
 
 
 const InfoTA = () => {
@@ -13,6 +10,10 @@ const InfoTA = () => {
   const [statuscount, setStatuscount] = useState("");
   const [totalcount, setTotalcount] = useState("");
   const [fmt, setFmt] = useState("");
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   // const [percentage, setPercentage] = useState('');
 
 
@@ -20,21 +21,6 @@ const InfoTA = () => {
   const onChangeYear = (e) => {
     e.preventDefault();
     setYear(e.target.value);
-  };
-
-
-
-
-  const theme = {
-    background: 'white',
-    fontFamily: 'Helvetica Neue',
-    headerBgColor: '#4169e1',
-    headerFontColor: '#fff',
-    headerFontSize: '15px',
-    botBubbleColor: '#4169e1',
-    botFontColor: '#fff',
-    userBubbleColor: '#fff',
-    userFontColor: '#4a4a4a',
   };
 
 
@@ -129,6 +115,10 @@ const InfoTA = () => {
     }
   };
 
+  const bizDetail = (e, CO) => {
+    console.log(CO.bizname);
+  }
+
   // 평균 금액보다 높으면 그 이유를 추측할 수 있는 데이터를 뽑아서 설명해주기
   // 1. 2023년 전체 수임처의 결정세액/종합소득금액 평균 구하기
   // 2. 수임처별 결정세액/종합소득금액 평균 구하기
@@ -155,13 +145,14 @@ const InfoTA = () => {
   // const closeBot = () => {
   //   setShowBot(false);
   // }
-  
+
 
 
 
 
   return (
     <div style={{ height: "100vh" }}>
+
 
       <div className="nonsidebar m-3">
         {/* <Sidebar/> */}
@@ -413,23 +404,41 @@ const InfoTA = () => {
                         {listCO.map((CO) => {
                           const formattedBizIncome = parseInt(CO.bizincome).toLocaleString(); // 숫자에 쉼표 추가
                           const formattedTax = parseInt(CO.tax).toLocaleString(); // 숫자에 쉼표 추가
+                          const formattedReportdate = CO.reportdate ? new Date(CO.reportdate).toLocaleDateString() : ''; // 원하는 형식으로 날짜 포맷팅
+                          const formattedTransdate = CO.transdate ? new Date(CO.transdate).toLocaleDateString() : ''; // 원하는 형식으로 날짜 포맷팅
+
                           return (
-                            <tr className={bizno} key={CO.bizno}>
+
+                            <tr id={CO.bizno} key={CO.bizno} >
+                              
                               <td>
-                                {CO.bizname}
+                                <Button onClick={handleShow}>
+                                  {CO.bizname}
+                                </Button>
+                                <Modal show={show} onHide={handleClose}>
+                                <Modal.Header closeButton>
+                                  <Modal.Title>{CO.bizname}</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                                <Modal.Footer>
+                                  <Button variant="primary" onClick={handleClose}>
+                                    확인
+                                  </Button>
+                                </Modal.Footer>
+                              </Modal>
                                 <input
                                   type="hidden"
-                                  name="bizno"
                                   value={CO.bizno}
                                 />
+
                               </td>
                               <td>{CO.year}</td>
                               <td>{formattedBizIncome}</td>
                               <td>{formattedTax}</td>
-                              <td>{CO.reportdate}</td>
+                              <td>{formattedReportdate}</td>
                               <td>{CO.reportdoc}</td>
                               <td>{CO.paymentslip}</td>
-                              <td>{CO.transdate}</td>
+                              <td>{formattedTransdate}</td>
                               <td>
                                 <input
                                   type="button"
