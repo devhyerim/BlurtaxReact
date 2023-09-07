@@ -73,26 +73,54 @@ function App() {
       ],
     },
     {
-      id: "201",
-      component: <InfoBot />,
-      trigger: "202",
+
+      id: '201',
+      component: <InfoBot value={1}/>,
+      trigger: '202'
     },
     {
       id: "202",
       options: [
-        { value: 1, label: "재검토 목록 보기", trigger: "203" },
-        { value: 2, label: "자동신고 목록 보기", trigger: "204" },
+
+        { value: 1, label: '재검토 목록 보기', trigger: '203' },
+        { value: 2, label: '자동신고 목록 보기', trigger: '205' },
+        { value: 3, label: '처음으로', trigger: '1' },
       ],
     },
     {
       id: "203",
       component: <InvalidBiz />,
-      trigger: "201",
+
+      trigger:'204',
     },
     {
-      id: "204",
+      id: '204',
+      options: [
+        { value: 1, label: '자동신고 목록 보기', trigger: '205' },
+        { value: 2, label: '자동 신고 하기', trigger: '207' },
+        { value: 3, label: '이전으로', trigger: '202' },
+        { value: 4, label: '처음으로', trigger: '1' },
+      ],
+    },
+    {
+      id: '205',
       component: <ValidBiz />,
-      trigger: "201",
+      trigger: '206'
+    },
+    {
+      id: '206',
+      options: [
+        { value: 1, label: '재검토 목록 보기', trigger: '203' },
+        { value: 2, label: '자동 신고 하기', trigger: '207' },
+        { value: 3, label: '이전으로', trigger: '204' },
+        { value: 4, label: '처음으로', trigger: '1' },
+      ],      
+    },
+    {
+      id: '207',
+      component: <InfoBot value={0} />,
+      trigger: '1',
+
     },
   ];
 
