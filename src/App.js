@@ -8,6 +8,7 @@ import COHeader from "./components/common/COHeader";
 import ReqMemoCO from "./components/bank/ReqMemoCO";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ChatBotButton from "./components/common/ChatBotButton";
+import ChatFloatingButton from "./components/chat/ChatFloatingButton";
 
 function App() {
   // 세무사인 경우 요청 메시지
@@ -116,12 +117,18 @@ function App() {
                       !route.path.includes("main") && <TAHeader />}
                     {route.path.includes("co") &&
                       !route.path.includes("main") && <COHeader />}
-                    {route.path.includes("ta") && !route.path.includes("main")
-                    //  && <ChatBotButton steps={taSteps}/>
-                    }
-                    {route.path.includes("co") && !route.path.includes("main")
-                    //  && <ChatBotButton steps={coSteps}/>
-                    }
+                    {route.path.includes("ta") && !route.path.includes("main") && (
+                      <div>
+                        <ChatBotButton steps={taSteps} />
+                        <ChatFloatingButton />
+                      </div>
+                    )}
+                    {route.path.includes("co") && !route.path.includes("main") && (
+                      <div>
+                        <ChatBotButton steps={coSteps} />
+                        <ChatFloatingButton />
+                      </div>
+                    )}
                     <route.component />
                   </>
                 )}

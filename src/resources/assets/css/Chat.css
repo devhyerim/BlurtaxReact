@@ -1,15 +1,15 @@
 /* ChatMessage.css (또는 원하는 CSS 파일) */
 
 .chat-container {
-  width: 400px;
+  width: auto;
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 10px;
 }
 
 .chat-messages {
-  max-height: 300px;
+  max-height: 315px;
   overflow-y: scroll;
   margin-bottom: 10px;
 }
