@@ -12,6 +12,7 @@ import ChatFloatingButton from "./components/chat/ChatFloatingButton";
 
 function App() {
   // 세무사인 경우 요청 메시지
+
   const taSteps = [
     {
       id: "1",
@@ -113,6 +114,7 @@ function App() {
                 path={route.path}
                 render={() => (
                   <>
+
                     {route.path.includes("ta") &&
                       !route.path.includes("main") && <TAHeader />}
                     {route.path.includes("co") &&
