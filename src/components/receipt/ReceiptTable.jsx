@@ -6,15 +6,47 @@ import { Form } from "react-bootstrap";
 function ReceiptTable({ receipts, onRadioChange }) {
   const [selectedStatus, setSelectedStatus] = useState({});
   const [selectedRadio, setSelectedRadio] = useState(null);
-
+  const [contents, setContents] = useState("");
   //Radio버튼 선택시
   const handleRadioChange = (value) => {
     setSelectedRadio(value);
     // console.log("radio button selected :" + value);
     onRadioChange(value);
   };
+
+  const handleContents = (e) => {
+    setContents(e.target.value);
+  };
+
   // select 태그에서 옵션을 선택했을 때 호출되는 함수
-  const handleStatusChange = (recreqno, newStatus) => {};
+  const handleStatusChange = (recreqno, newStatus) => {
+    setSelectedStatus({ ...selectedStatus, [recreqno]: newStatus });
+    console.log("recreqno : " + recreqno);
+    console.log("newStatus : " + newStatus);
+    console.log("contents" + contents);
+    const FormData = {
+      recreqno,
+      contents,
+    };
+    if (newStatus === "적합") {
+      axios
+        .post("http://localhost:8081/receipt/confirmedReceipt", FormData)
+        .then(() => {
+          alert("증빙을 완료해주세요!!");
+        });
+    }
+    if (newStatus === "부적합") {
+      if (contents == "") {
+        alert("부적합 사유를 먼저 입력하세요!!!");
+      } else {
+        axios
+          .post("http://localhost:8081/receipt/unconfirmedReceipt", FormData)
+          .then((res) => {
+            console.log(res.data);
+          });
+      }
+    }
+  };
 
   return (
     <table className="receiptTable table table-hover table-bordered">
@@ -74,7 +106,11 @@ function ReceiptTable({ receipts, onRadioChange }) {
                   </select>
                 </td>
                 <td>
-                  <input type="text" className="contents form-control" />
+                  <input
+                    type="text"
+                    className="contents form-control"
+                    onChange={handleContents}
+                  />
                 </td>
                 <td>
                   <ModalMemo memo={receipt.memo} />

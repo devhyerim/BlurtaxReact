@@ -69,11 +69,11 @@ const Routes = [
     component: BankTA,
   },
   {
-    path: "/register/registerta",
+    path: "/main/registerta",
     component: RegisterTA,
   },
   {
-    path: "/register/registerco",
+    path: "/main/registerco",
     component: RegisterTA,
   },
   {

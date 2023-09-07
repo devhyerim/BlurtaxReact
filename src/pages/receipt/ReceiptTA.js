@@ -29,7 +29,7 @@ function ReceiptTA() {
     axios.get("http://localhost:8081/receipt/receiptList").then((res) => {
       setReceipts(res.data);
     });
-  }, []);
+  }, [key]);
 
   // 라디오 버튼 값 변경 시 호출될 함수
   const handleRadioChange = (value) => {

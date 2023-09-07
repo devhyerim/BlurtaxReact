@@ -113,7 +113,7 @@ function ChatMessage() {
           console.log("파일 등록");
           setUploadFiles([]);
           console.log(res.data);
-          sendMessage(res.data);
+          setImageUploaded(true);
         })
         .catch((error) => {
           console.error("POST 요청 실패:", error);
@@ -168,7 +168,7 @@ function ChatMessage() {
           return (
             <div className="message" key={chat.chatno}>
               {chat.userno} :
-              {chat.contents.match(/\.(jpg|png)$/) ? (
+              {chat.contents && chat.contents.match(/\.(jpg|png)$/) ? (
                 <img
                   src={"/img/" + chat.contents}
                   alt="Image"
@@ -186,7 +186,7 @@ function ChatMessage() {
           const formattedDate = today.toISOString().split("T")[0]; // 날짜를 문자열로 변환하고 'T'를 기준으로 자름
           return (
             <div key={index} className="message">
-              {msg.match(/\.(jpg|png)$/) ? (
+              {msg && msg.match(/\.(jpg|png)$/) ? (
                 <img
                   src={"/img/" + msg.contents}
                   alt="Image"
@@ -244,6 +244,13 @@ function ChatMessage() {
           </button>
         </div>
       </FileCollapse>
+      {imageUploaded && (
+        <img
+          src={"/img/" + uploadFiles[0].name}
+          alt="Image"
+          style={{ width: "50%" }}
+        />
+      )}
     </div>
   );
 }
