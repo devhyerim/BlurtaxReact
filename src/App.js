@@ -11,6 +11,7 @@ import ChatBotButton from "./components/common/ChatBotButton";
 
 function App() {
   // 세무사인 경우 요청 메시지
+
   const taSteps = [
     {
       id: "1",
@@ -112,6 +113,7 @@ function App() {
                 path={route.path}
                 render={() => (
                   <>
+
                     {route.path.includes("ta") &&
                       !route.path.includes("main") && <TAHeader />}
                     {route.path.includes("co") &&

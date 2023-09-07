@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,9 +18,10 @@ const ReqMemoCO = ({ triggerNextStep }) => {
   // 수임사 입력한 메모
   const [memo, setMemo] = useState("");
 
-  // 요청 통장내역 내용 가져오기
-  const getMessage = () => {
-    console.log(messageList);
+
+//   // 요청 통장내역 내용 가져오기
+//   const getMessage = () => {
+//     console.log(messageList);
 
     if (messageList !== null) {
       messageList.map((bank) => {
