@@ -200,7 +200,7 @@ function ChatMessage() {
           );
         })}
       </div>
-      <div className="input-group mb-3">
+      <div className="input-group">
         <button
           class="btn btn-outline-secondary"
           type="button"
@@ -228,7 +228,7 @@ function ChatMessage() {
         </button>
       </div>
       <FileCollapse open={open}>
-        <div className="input-group mb-3">
+        <div className="input-group mt-2">
           <input
             type="file"
             className="form-control"
