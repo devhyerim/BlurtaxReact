@@ -14,24 +14,7 @@ function ReceiptTable({ receipts, onRadioChange }) {
     onRadioChange(value);
   };
   // select 태그에서 옵션을 선택했을 때 호출되는 함수
-  const handleStatusChange = (recreqno, newStatus) => {
-    setSelectedStatus((prevSelectedStatus) => ({
-      ...prevSelectedStatus,
-      [recreqno]: newStatus,
-    }));
-    // PATCH 요청을 보낼 URL과 데이터를 정의
-    const url = `http://localhost:3001/receipts/${recreqno}`;
-    const data = { status: newStatus };
-    // Axios를 사용하여 PATCH 요청
-    axios
-      .patch(url, data)
-      .then((response) => {
-        console.log(`ID ${recreqno}의 상태가 변경되었습니다.`);
-      })
-      .catch((error) => {
-        console.error(`ID ${recreqno}의 상태 변경 중 오류 발생:`, error);
-      });
-  };
+  const handleStatusChange = (recreqno, newStatus) => {};
 
   return (
     <table className="receiptTable table table-hover table-bordered">

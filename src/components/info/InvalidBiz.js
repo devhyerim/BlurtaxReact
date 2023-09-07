@@ -63,15 +63,41 @@ const InvalidBiz = () => {
     
     return (
         <div>
-            {invalidBiz.map((biz) => {
-                return (
-                    <div>
-                        {biz.bizname}
-                    </div>
+        <table className="table table-hover table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th scope="col" className="tabletop">
+                        수임처
+                    </th>
+                    <th scope="col" className="tabletop">
+                        소득금액
+                    </th>
+                    <th scope="col" className="tabletop">
+                        결정세액
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="maketd">
+                {invalidBiz.map((biz) => {
+                    const formattedBizIncome = parseInt(biz.bizincome).toLocaleString(); // 숫자에 쉼표 추가
+                    const formattedTax = parseInt(biz.tax).toLocaleString(); // 숫자에 쉼표 추가
+                    return (
+                        <tr key={biz.bizno}>
+                          <td>
+                            {biz.bizname}
+                          </td>
+                          <td>
+                            {formattedBizIncome}
+                          </td>
+                          <td>
+                            {formattedTax}
+                          </td>
+                        </tr>
                     )
-            })}
-
-        </div>
+                })}
+            </tbody>
+        </table>
+    </div>
     );
 }
 
