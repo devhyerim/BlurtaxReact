@@ -97,10 +97,10 @@ const InfoBot = ({value}) => {
         <div>
             {(value===1)?
             (<div>
-                오늘은 {formattedDate}입니다.<br />
-                소득세 신고기한은 5월 25일입니다.<br />
-                현재 입력된 금액을 기준으로 자동 신고 대상 수임처는 총 <span className="fs-5">{validBizCount}</span>건 입니다.<br />
-                재검토가 요구되는 수임처는 총 <span className="fs-5">{invalidBizCount}</span>건 입니다.
+                현재 날짜: {formattedDate}<br />
+                소득세 신고기간: 5월 1일 ~ 5월 25일<br />
+                자동 신고 대상 수임처: <span className="fs-5 fw-bolder">{validBizCount}</span>건<br />
+                재검토 대상 수임처: <span className="fs-5 fw-bolder">{invalidBizCount}</span>건
             </div>):
             (<div>
                 <span className="fs-5">확인</span>버튼을 누르시면 자동 신고 대상 수임처 <span className="fs-5">{validBizCount}</span>건의 신고가 자동으로 완료되고 납부서가 전송됩니다.<br />

@@ -80,8 +80,9 @@ function App() {
       id: '202',
       options: [
         { value: 1, label: '재검토 목록 보기', trigger: '203' },
-        { value: 2, label: '자동신고 목록 보기', trigger: '205' },
-        { value: 3, label: '처음으로', trigger: '1' },
+        { value: 2, label: '자동 신고 목록 보기', trigger: '205' },
+        { value: 3, label: '자동 신고 하기', trigger: '207' },
+        { value: 4, label: '처음으로', trigger: '1' },
       ],
     },
     {
@@ -92,7 +93,7 @@ function App() {
     {
       id: '204',
       options: [
-        { value: 1, label: '자동신고 목록 보기', trigger: '205' },
+        { value: 1, label: '자동 신고 목록 보기', trigger: '205' },
         { value: 2, label: '자동 신고 하기', trigger: '207' },
         { value: 3, label: '이전으로', trigger: '202' },
         { value: 4, label: '처음으로', trigger: '1' },
