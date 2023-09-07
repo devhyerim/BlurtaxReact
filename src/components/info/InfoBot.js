@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import InvalidBiz from "./InvalidBiz";
 
 const InfoBot = () => {
     const [validBiz, setValidBiz] = useState([]);
@@ -36,15 +35,17 @@ const InfoBot = () => {
                 if (((data.tax / data.bizincome)) * 100 <= 1) {
                     setInvalidBizCount((prev) => {
                         const invalidCount = Number(prev) + 1;
+                        setInvalidBiz((prev) => [...prev, data]);
                         return invalidCount;
                     })
-                    setInvalidBiz([...invalidBiz, data]);
+                    
                 } else if(((data.status === '신고서제출') && (data.tax / data.bizincome)) * 100 > 1){
                     setValidBizCount((prev) => {
                         const vaildCount = Number(prev) + 1;
+                        setValidBiz((prev) => [...prev, data]);
                         return vaildCount;
                     });
-                    setValidBiz([...validBiz, data]);
+                    
                 }
 
             })
@@ -74,21 +75,23 @@ const InfoBot = () => {
     const toInfoPage = (e) => {
         history.push('/info/infoTA');
         };
-
-    const toInvalidBizList = (e, invalidBiz) => {
-        return (
-            <InvalidBiz invalidBiz={invalidBiz}/>
-        )
-    }
+//
+    // const toInvalidBizList = (e, invalidBiz) => {
+    //     return (
+    //         <InvalidBiz invalidBiz={invalidBiz}/>
+    //     )
+    // }
     
     useEffect(() => {
         invalidList();
         
-        console.log("invalidBizCount : " + invalidBizCount);
-        console.log("invalidBiz: " + invalidBiz);
-        console.log("validBizCount : " + validBizCount);
-        console.log("validBiz: " + validBiz);
+
     },[])
+
+    // console.log("invalidBizCount : " + invalidBizCount);
+    // console.log(invalidBiz);
+    // console.log("validBizCount : " + validBizCount);
+    // console.log(validBiz);
 
 
     return (

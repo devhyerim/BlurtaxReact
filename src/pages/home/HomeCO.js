@@ -15,7 +15,6 @@ const HomeCO = () => {
             </div>
             <div id="main" style={{marginLeft: "0px"}}>
                 <HomeCOBody></HomeCOBody>
-                <ChatBotButton></ChatBotButton>
             </div>
         </>
     );

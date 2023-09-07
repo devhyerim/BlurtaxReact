@@ -26,7 +26,7 @@ const ValidBiz = () => {
 
 
     const invalidList = () => {
-        
+
         axios.get(`http://localhost:8081/info/infoTA/year?year=${year2}`).then((res) => {
             const receivedData2 = res.data;
 
@@ -35,15 +35,15 @@ const ValidBiz = () => {
                 if (((data.tax / data.bizincome)) * 100 <= 1) {
                     setInvalidBizCount((prev) => {
                         const invalidCount = Number(prev) + 1;
+                        setValidBiz((prev) => [...prev, data]);
                         return invalidCount;
                     })
-                    setInvalidBiz([...invalidBiz, data]);
-                } else if(((data.status === '신고서제출') && (data.tax / data.bizincome)) * 100 > 1){
+                } else if (((data.status === '신고서제출') && (data.tax / data.bizincome)) * 100 > 1) {
                     setValidBizCount((prev) => {
                         const vaildCount = Number(prev) + 1;
+                        setValidBiz((prev) => [...prev, data]);
                         return vaildCount;
                     });
-                    setValidBiz([...validBiz, data]);
                 }
 
             })
@@ -53,22 +53,20 @@ const ValidBiz = () => {
 
     useEffect(() => {
         invalidList();
-        
-        console.log("invalidBizCount : " + invalidBizCount);
-        console.log("invalidBiz: " + invalidBiz);
-        console.log("validBizCount : " + validBizCount);
-        console.log("validBiz: " + validBiz);
-    },[])
+    }, [])
+
+    console.log(validBiz);
 
 
     return (
-
-        validBiz.map((biz) => {
+        <div>
+        {validBiz.map((biz) => {
+            return(
                 <div>
                     {biz.bizname}
                 </div>
-            })
-
+                )})}
+        </div>
     );
 }
 

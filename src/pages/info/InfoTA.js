@@ -1,14 +1,9 @@
 import axios from "axios";
-import ChattingBot from '../../components/common/ChattingBot.js'
-import BlurbirdTalk from '../../components/common/BlurbirdTalk.js'
-import ChatBot from "react-simple-chatbot";
-import { ThemeProvider } from 'styled-components';
 import InvalidBiz from "../../components/info/InvalidBiz.js";
 import ValidBiz from "../../components/info/ValidBiz.js";
 
 import { useEffect, useState } from "react";
 import InfoBot from "../../components/info/InfoBot.js";
-// import FloatingButton from "../components/common/FloatingButton";
 
 
 const InfoTA = () => {
@@ -160,31 +155,7 @@ const InfoTA = () => {
   // const closeBot = () => {
   //   setShowBot(false);
   // }
-  const steps = [
-    {
-      id: '201',
-      component: <InvalidBiz/>,
-      // <InfoBot />,
-      trigger: '202'
-    },
-    {
-      id: '202',
-      options: [
-        { value: 1, label: '재검토 목록 보기', trigger: '203' },
-        { value: 2, label: '자동신고 목록 보기', trigger: '204' },
-      ],
-    },
-    {
-      id: '203',
-      component: <InvalidBiz/>,
-      trigger: '201'
-    },
-    {
-      id: '204',
-      component: <ValidBiz/>,
-      trigger: '201'
-    }
-  ];
+  
 
 
 
@@ -506,67 +477,8 @@ const InfoTA = () => {
 
             </div>
           </section>
-          {/* <button className="btn btn-primary float-end rounded-circle">캬캬</button> */}
-          <div
-            className="d-flex justify-content-center"
-          // style={{ 
-          //   // width: "200px", height: "200px"
-          //   boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"
-          // }}
-          >
-            <button type="button"
-              className="btn btn-outline-secondary btn-lg rounded-start-pill border"
-              // style={{ width: "70px", height: "70px", boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"}}
-              // onClick={clickBirdTalk}
-              style={{
-                // width: "200px", height: "200px"
-                boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"
-              }}
-            >
-              <BlurbirdTalk />
-            </button>
-            <button type="button"
-              className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-              // className="btn btn-outline-secondary btn-lg rounded-end-pill border"
-              // style={{ width: "70px", height: "70px", boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"}}
-              // onClick={openBot}
-              style={{
-                // width: "200px", height: "200px"
-                boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"
-              }}
-            >
-              채팅봇
-            </button>
-
-          </div>
-
-
-          <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                  <ThemeProvider theme={theme}>
-                    <ChatBot steps={steps} className='mx-auto' />
-                  </ThemeProvider>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-          {/* { 
-            showBot &&
-            <ChattingBot
-            />
-          } */}
         </main>
-
       </div>
-
     </div>
   );
 };
