@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Modal, Button } from 'react-bootstrap';
+import InfoModal from "../../components/info/InfoModal";
 
 
 const InfoTA = () => {
@@ -114,10 +115,6 @@ const InfoTA = () => {
         break;
     }
   };
-
-  const bizDetail = (e, CO) => {
-    console.log(CO.bizname);
-  }
 
   // 평균 금액보다 높으면 그 이유를 추측할 수 있는 데이터를 뽑아서 설명해주기
   // 1. 2023년 전체 수임처의 결정세액/종합소득금액 평균 구하기
@@ -412,20 +409,7 @@ const InfoTA = () => {
                             <tr id={CO.bizno} key={CO.bizno} >
                               
                               <td>
-                                <Button onClick={handleShow}>
-                                  {CO.bizname}
-                                </Button>
-                                <Modal show={show} onHide={handleClose}>
-                                <Modal.Header closeButton>
-                                  <Modal.Title>{CO.bizname}</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                                <Modal.Footer>
-                                  <Button variant="primary" onClick={handleClose}>
-                                    확인
-                                  </Button>
-                                </Modal.Footer>
-                              </Modal>
+                                <InfoModal CO={CO}/>
                                 <input
                                   type="hidden"
                                   value={CO.bizno}

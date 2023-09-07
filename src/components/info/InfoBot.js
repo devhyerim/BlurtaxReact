@@ -56,7 +56,7 @@ const InfoBot = ({value}) => {
     const confirmBtn = (e, validBiz) => {
         validBiz.map((CO) => {
             axios
-                .patch(`http://localhost:8081/info/infoTA/transfer`, {
+                .patch(`http://localhost:8081/info/infoTA/report`, {
                     bizno: CO.bizno,
                     bizname: CO.bizname,
                     year: CO.year,
