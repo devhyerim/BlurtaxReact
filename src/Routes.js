@@ -13,7 +13,7 @@ import ReceiptCO from "./pages/receipt/ReceiptCO";
 import ReceiptTA from "./pages/receipt/ReceiptTA";
 import InfoTA from "./pages/info/InfoTA";
 import InfoCO from "./pages/info/InfoCO";
-
+import ChatTestPage from "./pages/receipt/ChatTestPage";
 
 const Routes = [
   {
@@ -57,12 +57,12 @@ const Routes = [
     component: DocrequestTA,
   },
   {
-    path: '/info/infota',
+    path: "/info/infota",
     component: InfoTA,
   },
   {
-    path: '/info/infoco',
-    component: InfoCO
+    path: "/info/infoco",
+    component: InfoCO,
   },
   {
     path: "/bank/bankta",
@@ -83,6 +83,10 @@ const Routes = [
   {
     path: "/receipt/receiptco",
     component: ReceiptCO,
+  },
+  {
+    path: "/main/chat",
+    component: ChatTestPage,
   },
 ];
 
