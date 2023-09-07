@@ -1,15 +1,14 @@
 /* ChatMessage.css (또는 원하는 CSS 파일) */
 
 .chat-container {
-  width: 400px;
+  width: auto;
   margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
+  padding: 10px;
   border-radius: 10px;
 }
 
 .chat-messages {
-  max-height: 300px;
+  max-height: 320px;
   overflow-y: scroll;
   margin-bottom: 10px;
 }
@@ -19,6 +18,7 @@
   padding: 5px 10px;
   border-radius: 5px;
   margin-bottom: 5px;
+  border: 1px solid #ccc;
 }
 
 .input-container {
@@ -125,7 +125,7 @@
   right: 32px;
   left: initial;
   width: 350px;
-  height: 550px;
+  height: auto;
   z-index: 999;
   transform: scale(1);
   transform-origin: right bottom;
