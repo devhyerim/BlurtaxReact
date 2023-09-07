@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ApexCharts from 'react-apexcharts';
 import { Carousel } from 'react-bootstrap';

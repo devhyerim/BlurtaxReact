@@ -37,8 +37,6 @@ const DocrequestCODAModal = ({ show, closeModal }) => {
             dispatch(addDocrequest(res.data[0]));
             closeModal();
           })
-        // 포스트 요청을 보내는 코드를 추가하세요.
-        // 이후 서버에서 JSON 데이터를 파싱하여 처리할 수 있습니다.
       };
 
 
