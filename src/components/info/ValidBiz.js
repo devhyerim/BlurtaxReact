@@ -32,13 +32,13 @@ const ValidBiz = () => {
 
             receivedData2.map((data) => {
                 console.log(data.tax);
-                if (((data.tax / data.bizincome)) * 100 <= 1) {
+                if (((data.tax / data.bizincome) * 100) <= 1) {
                     setInvalidBizCount((prev) => {
                         const invalidCount = Number(prev) + 1;
                         setInvalidBiz((prev) => [...prev, data]);
                         return invalidCount;
                     })
-                } else if (((data.tax / data.bizincome)) * 100 > 1 && (data.status === '신고서제출')) {
+                } else if (((data.tax / data.bizincome) * 100 > 1) && (data.status === '신고서제출')) {
                     setValidBizCount((prev) => {
                         const vaildCount = Number(prev) + 1;
                         setValidBiz((prev) => [...prev, data]);
