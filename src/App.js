@@ -65,7 +65,7 @@ function App() {
         {value: '페이지 이동', label: '페이지 이동', trigger: '6'}
       ]
     }
-  ] 
+  ]
 
   // 수임사인 경우 요청 메시지
   const coSteps = [
