@@ -151,3 +151,11 @@
   transform-origin: right bottom;
   transition: transform 0.3s ease 0s;
 }
+
+.glfuN {
+  -webkit-box-align: left;
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  fill: rgba(46, 44, 44, 0.345);
+}

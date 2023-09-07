@@ -2,12 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ReceiptTable from "./ReceiptTable";
 
-function UnverifiedReceipt() {
+function UnverifiedReceipt({ onRadioChange }) {
   const today = new Date(); // 오늘 날짜
   today.setMonth(today.getMonth() - 1); // 오늘 날짜에서 한 달을 빼줌
   const formattedStartDate = today.toISOString().split("T")[0]; // 날짜를 문자열로 변환하고 'T'를 기준으로 자름
   const formattedEndDate = new Date().toISOString().split("T")[0]; // 오늘 날짜를 얻어 문자열로 변환
-
+  const [selectedRadio, setSelectedRadio] = useState(null);
   const [startDate, setStartDate] = useState(formattedStartDate);
   const [endDate, setEndDate] = useState(formattedEndDate);
 
@@ -23,6 +23,13 @@ function UnverifiedReceipt() {
       setReceipts(res.data);
     });
   }, [filteredReceipts]);
+
+  //Radio버튼 선택시
+  const handleRadioChange = (value) => {
+    setSelectedRadio(value);
+    // 라디오 버튼 값 변경 시, 상위 컴포넌트로 전달
+    onRadioChange(value);
+  };
 
   const handleSearchClick = () => {
     // startDate와 endDate 사이에 있는 데이터를 필터링
@@ -69,7 +76,10 @@ function UnverifiedReceipt() {
         </div>
       </div>
 
-      <ReceiptTable receipts={filteredReceipts} />
+      <ReceiptTable
+        receipts={filteredReceipts}
+        onRadioChange={handleRadioChange}
+      />
     </div>
   );
 }

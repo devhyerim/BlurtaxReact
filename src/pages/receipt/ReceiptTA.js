@@ -1,16 +1,51 @@
 import "../../resources/assets/css/receiptTA.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/common/Sidebar";
 import { useSelector } from "react-redux";
 import UnverifiedReceipt from "../../components/receipt/UnverifiedReceipt";
 import ConfirmedReceipt from "../../components/receipt/ComfirmedReceipt";
 import { Card, Tab, Tabs } from "react-bootstrap";
 import RejectedReceipt from "../../components/receipt/RejectedReceipt";
+import axios from "axios";
 
 function ReceiptTA() {
-  const isBodyActive = useSelector((state) => state.sidebar.isBodyActive);
-
+  const [receipts, setReceipts] = useState([]);
+  const [image, setImage] = useState("/img//download.png");
+  const [selectedRadio, setSelectedRadio] = useState(null);
   const [key, setKey] = useState("UnverifiedReceipt");
+  const [drecreqno, setDrecreqno] = useState(null);
+
+  const onDRecreqno = (value) => {
+    setDrecreqno(value);
+    // console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy : " + value);
+    handleRadioChange(value);
+  };
+  const setRecreqno = (value) => {
+    setRecreqno(value);
+    // console.log("rrrrrrrrrrrrrrrrrr" + value);
+  };
+  const isBodyActive = useSelector((state) => state.sidebar.isBodyActive);
+  useEffect(() => {
+    axios.get("http://localhost:8081/receipt/receiptList").then((res) => {
+      setReceipts(res.data);
+    });
+  }, []);
+
+  // 라디오 버튼 값 변경 시 호출될 함수
+  const handleRadioChange = (value) => {
+    setSelectedRadio(value);
+    // 여기에서 선택된 값(value)을 사용할 수 있습니다.
+    axios
+      .get(`http://localhost:8081/receipt/getImgResource?recreqno=${value}`)
+      .then((res) => {
+        // console.log(res.data);
+        setImage("/img/" + res.data);
+      });
+  };
+  // const handleToggle = (recreqno) => {
+  //   setOpen(!open);
+  //   console.log("rejected : " + recreqno);
+  // };
   return (
     <div>
       <div id="main" className={isBodyActive ? "toggle-sidebar" : ""}>
@@ -26,10 +61,11 @@ function ReceiptTA() {
                 <div className="left">
                   <div>
                     <img
-                      src={"/img/download.png"}
+                      src={image}
                       alt="receipt"
                       className="img-fluid custom-image"
                     />
+                    {/* <span hidden>{selectedRadio}</span> */}
                   </div>
                 </div>
                 <Card className="card">
@@ -43,13 +79,19 @@ function ReceiptTA() {
                     justify
                   >
                     <Tab eventKey="UnverifiedReceipt" title="미확인 증빙">
-                      <UnverifiedReceipt />
+                      <UnverifiedReceipt onRadioChange={handleRadioChange} />
                     </Tab>
                     <Tab eventKey="ConfirmedReceipt" title="적합 증빙">
-                      <ConfirmedReceipt />
+                      <ConfirmedReceipt
+                        selectedRadio={selectedRadio}
+                        receipts={receipts}
+                      />
                     </Tab>
                     <Tab eventKey="RejectedReceipt" title="부적합 증빙">
-                      <RejectedReceipt />
+                      <RejectedReceipt
+                        receipts={receipts}
+                        onRecreqno={onDRecreqno}
+                      />
                     </Tab>
                   </Tabs>
                 </Card>

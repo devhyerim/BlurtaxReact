@@ -1,11 +1,9 @@
 import axios from "axios";
-import ChattingBot from '../../components/common/ChattingBot.js'
-import BlurbirdTalk from '../../components/common/BlurbirdTalk.js'
-import ChatBot from "react-simple-chatbot";
-import { ThemeProvider } from 'styled-components';
+import InvalidBiz from "../../components/info/InvalidBiz.js";
+import ValidBiz from "../../components/info/ValidBiz.js";
 
 import { useEffect, useState } from "react";
-// import FloatingButton from "../components/common/FloatingButton";
+import InfoBot from "../../components/info/InfoBot.js";
 
 
 const InfoTA = () => {
@@ -14,9 +12,9 @@ const InfoTA = () => {
   const [bizno, setBizno] = useState("");
   const [statuscount, setStatuscount] = useState("");
   const [totalcount, setTotalcount] = useState("");
+  const [fmt, setFmt] = useState("");
   // const [percentage, setPercentage] = useState('');
 
-  const [showBot, setShowBot] = useState(false);
 
   // 연도 입력하는 것 감지
   const onChangeYear = (e) => {
@@ -39,20 +37,6 @@ const InfoTA = () => {
     userFontColor: '#4a4a4a',
   };
 
-  const steps = [
-    {
-      id: '1',
-      message: '하이요',
-      end: true,
-    },
-  ];
-
-
-
-
-
-
-
 
   // 조회버튼 클릭 시 이벤트
   const onClickYear = (e) => {
@@ -65,7 +49,6 @@ const InfoTA = () => {
 
       let sentCount = 0;
 
-      setListCO(receivedData); // year에 맞는 데이터만 listCO 상태 업데이트
       receivedData.map((data) => {
         if (data.status === "전송완료") {
           sentCount++;
@@ -75,27 +58,19 @@ const InfoTA = () => {
       setStatuscount(sentCount);
       setTotalcount(receivedData.length);
 
-      // console.log("statuscount: " + statuscount);
-
-      // console.log("totalcount: " + totalcount);
     });
   };
 
-  // listCO 데이터에 변화 생기면 감지하여 rerendering
   useEffect(() => {
-    // console.log(listCO);
-  }, [listCO, statuscount]);
+    const currentDateTime = new Date();
+    setFmt(currentDateTime);
+  }, [])
+
 
   // 신고현황 버튼 클릭 시 버튼 변경 및 정보 추가
   const onClickRptBtn = (e, CO) => {
     e.preventDefault();
 
-    // console.log("covalue: " + CO.bizno);
-
-    const currentDateTime = new Date();
-    const fmt = currentDateTime.toISOString().substring(0, 10);
-
-    // console.log(CO.status);
     switch (CO.status) {
       case "신고서제출":
         axios
@@ -111,21 +86,9 @@ const InfoTA = () => {
             status: "납부서전송"
           })
           .then((res) => {
-            //응답받은 데이터
-            // const newData = res.data;
-            // //일치하지 않는 데이터들
-            // const restList = [...listCO].filter(
-            //   (item) => item.id !== newData.id
-            // );
-            // //위에 데이터 합
-            // const result = [...restList, newData];
+
             setListCO(res.data);
 
-            // axios
-            //   .get(`http://localhost:8081/info/infoTA/year?year=${year}`)
-            //   .then((res) => {
-            //     const receivedData = res.data;
-            //   });
           })
           .catch((error) => console.log('에러: ' + error));
         break;
@@ -180,18 +143,22 @@ const InfoTA = () => {
   // 신고기한 내에는 언제든지 신고내역을 수정하여 제출할 수 있습니다.
   // 4. 확인 버튼 클릭 시 자동 신고 되도록 하기(버튼 바꾸기, 서류 입력, 날짜 입력, 그래프 변경)
 
-  const clickBirdTalk = () => {
-    console.log("채팅창이 열립니다.");
-  }
+  // const clickBirdTalk = () => {
+  //   console.log("채팅창이 열립니다.");
+  // }
 
 
-  const openBot = () => {
-    setShowBot((prevShowbot) => !prevShowbot);
-  }
+  // const openBot = () => {
+  //   setShowBot((prevShowbot) => !prevShowbot);
+  // }
 
   // const closeBot = () => {
   //   setShowBot(false);
   // }
+  
+
+
+
 
   return (
     <div style={{ height: "100vh" }}>
@@ -314,14 +281,14 @@ const InfoTA = () => {
                         value={year}
                         min="1900"
                         max="2100"
-                        onChange={onChangeYear}
+                        onChange={(e) => { onChangeYear(e) }}
                         className="m-2"
                       ></input>
                       <button
                         type="submit"
                         className="btn btn-outline-secondary"
                         id="onClickYear"
-                        onClick={onClickYear}
+                        onClick={(e) => { onClickYear(e) }}
                       >
                         조회
                       </button>
@@ -444,6 +411,8 @@ const InfoTA = () => {
 
                       <tbody id="maketd">
                         {listCO.map((CO) => {
+                          const formattedBizIncome = parseInt(CO.bizincome).toLocaleString(); // 숫자에 쉼표 추가
+                          const formattedTax = parseInt(CO.tax).toLocaleString(); // 숫자에 쉼표 추가
                           return (
                             <tr className={bizno} key={CO.bizno}>
                               <td>
@@ -455,8 +424,8 @@ const InfoTA = () => {
                                 />
                               </td>
                               <td>{CO.year}</td>
-                              <td>{CO.bizincome}</td>
-                              <td>{CO.tax}</td>
+                              <td>{formattedBizIncome}</td>
+                              <td>{formattedTax}</td>
                               <td>{CO.reportdate}</td>
                               <td>{CO.reportdoc}</td>
                               <td>{CO.paymentslip}</td>
@@ -482,8 +451,8 @@ const InfoTA = () => {
 
 
                     {/* <div className="rsc tutorial">
-                      <a class="rsc-float-button sc-fjdhpX godhbL float-end"><svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></a>
-                      <div class="rsc-container sc-iwsKbI losXwd" width="350px" height="520px"><div class="rsc-header sc-gqjmRU glfuN"><h2 class="rsc-header-title sc-VigVT lifvqk">RSC Support</h2><a class="rsc-header-close-button sc-jTzLTM kMqZix"><svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></a></div><div class="rsc-content sc-gZMcBi hvGjDQ" height="520px"><div class="rsc-ts rsc-ts-bot sc-dnqmqq efROPc"><div class="rsc-ts-image-container sc-htoDjs vmYlS"><img class="rsc-ts-image sc-gzVnrw cwuCQv" src="data:image/svg+xml,%3csvg version='1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3e%3cpath d='M303 70a47 47 0 1 0-70 40v84h46v-84c14-8 24-23 24-40z' fill='%2393c7ef'/%3e%3cpath d='M256 23v171h23v-84a47 47 0 0 0-23-87z' fill='%235a8bb0'/%3e%3cpath fill='%2393c7ef' d='M0 240h248v124H0z'/%3e%3cpath fill='%235a8bb0' d='M264 240h248v124H264z'/%3e%3cpath fill='%2393c7ef' d='M186 365h140v124H186z'/%3e%3cpath fill='%235a8bb0' d='M256 365h70v124h-70z'/%3e%3cpath fill='%23cce9f9' d='M47 163h419v279H47z'/%3e%3cpath fill='%2393c7ef' d='M256 163h209v279H256z'/%3e%3cpath d='M194 272a31 31 0 0 1-62 0c0-18 14-32 31-32s31 14 31 32z' fill='%233c5d76'/%3e%3cpath d='M380 272a31 31 0 0 1-62 0c0-18 14-32 31-32s31 14 31 32z' fill='%231e2e3b'/%3e%3cpath d='M186 349a70 70 0 1 0 140 0H186z' fill='%233c5d76'/%3e%3cpath d='M256 349v70c39 0 70-31 70-70h-70z' fill='%231e2e3b'/%3e%3c/svg%3e" alt="avatar"/></div><div class="rsc-ts-bubble sc-bZQynM hQsUiY">Hi! Do you need some help?</div></div><div class="rsc-os sc-EHOje jvzENE"><ul class="rsc-os-options sc-ifAKCX gkhNlr"><li class="rsc-os-option sc-htpNat GgOGn"><a class="rsc-os-option-element sc-bxivhb jdhdOZ">Yes</a></li></ul></div></div><div class="rsc-footer sc-cSHVUG hDUXUW"><input type="textarea" class="rsc-input sc-kAzzGY jZfzBr" placeholder="Type the message ..." disabled="" value=""/><button class="rsc-submit-button sc-chPdSV iUYVrA" disabled=""><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 500 500"><g><g><polygon points="0,497.25 535.5,267.75 0,38.25 0,216.75 382.5,267.75 0,318.75"></polygon></g></g></svg></button></div></div>
+                      <a className="rsc-float-button sc-fjdhpX godhbL float-end"><svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></a>
+                      <div className="rsc-container sc-iwsKbI losXwd" width="350px" height="520px"><div className="rsc-header sc-gqjmRU glfuN"><h2 className="rsc-header-title sc-VigVT lifvqk">RSC Support</h2><a className="rsc-header-close-button sc-jTzLTM kMqZix"><svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></a></div><div className="rsc-content sc-gZMcBi hvGjDQ" height="520px"><div className="rsc-ts rsc-ts-bot sc-dnqmqq efROPc"><div className="rsc-ts-image-container sc-htoDjs vmYlS"><img className="rsc-ts-image sc-gzVnrw cwuCQv" src="data:image/svg+xml,%3csvg version='1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3e%3cpath d='M303 70a47 47 0 1 0-70 40v84h46v-84c14-8 24-23 24-40z' fill='%2393c7ef'/%3e%3cpath d='M256 23v171h23v-84a47 47 0 0 0-23-87z' fill='%235a8bb0'/%3e%3cpath fill='%2393c7ef' d='M0 240h248v124H0z'/%3e%3cpath fill='%235a8bb0' d='M264 240h248v124H264z'/%3e%3cpath fill='%2393c7ef' d='M186 365h140v124H186z'/%3e%3cpath fill='%235a8bb0' d='M256 365h70v124h-70z'/%3e%3cpath fill='%23cce9f9' d='M47 163h419v279H47z'/%3e%3cpath fill='%2393c7ef' d='M256 163h209v279H256z'/%3e%3cpath d='M194 272a31 31 0 0 1-62 0c0-18 14-32 31-32s31 14 31 32z' fill='%233c5d76'/%3e%3cpath d='M380 272a31 31 0 0 1-62 0c0-18 14-32 31-32s31 14 31 32z' fill='%231e2e3b'/%3e%3cpath d='M186 349a70 70 0 1 0 140 0H186z' fill='%233c5d76'/%3e%3cpath d='M256 349v70c39 0 70-31 70-70h-70z' fill='%231e2e3b'/%3e%3c/svg%3e" alt="avatar"/></div><div className="rsc-ts-bubble sc-bZQynM hQsUiY">Hi! Do you need some help?</div></div><div className="rsc-os sc-EHOje jvzENE"><ul className="rsc-os-options sc-ifAKCX gkhNlr"><li className="rsc-os-option sc-htpNat GgOGn"><a className="rsc-os-option-element sc-bxivhb jdhdOZ">Yes</a></li></ul></div></div><div className="rsc-footer sc-cSHVUG hDUXUW"><input type="textarea" className="rsc-input sc-kAzzGY jZfzBr" placeholder="Type the message ..." disabled="" value=""/><button className="rsc-submit-button sc-chPdSV iUYVrA" disabled=""><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 500 500"><g><g><polygon points="0,497.25 535.5,267.75 0,38.25 0,216.75 382.5,267.75 0,318.75"></polygon></g></g></svg></button></div></div>
                     </div> */}
                   </div>
 
@@ -508,70 +477,8 @@ const InfoTA = () => {
 
             </div>
           </section>
-          {/* <button className="btn btn-primary float-end rounded-circle">캬캬</button> */}
-          <div
-            className="d-flex justify-content-center"
-          // style={{ 
-          //   // width: "200px", height: "200px"
-          //   boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"
-          // }}
-          >
-            <button type="button"
-              className="btn btn-outline-secondary btn-lg rounded-start-pill border"
-              // style={{ width: "70px", height: "70px", boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"}}
-              onClick={clickBirdTalk}
-              style={{
-                // width: "200px", height: "200px"
-                boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"
-              }}
-            >
-              <BlurbirdTalk />
-            </button>
-            <button type="button"
-              className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-              // className="btn btn-outline-secondary btn-lg rounded-end-pill border"
-              // style={{ width: "70px", height: "70px", boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"}}
-              // onClick={openBot}
-              style={{
-                // width: "200px", height: "200px"
-                boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"
-              }}
-            >
-              채팅봇
-            </button>
-
-          </div>
-
-
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-           
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-                <div class="modal-body">
-                  <ThemeProvider theme={theme}>
-                    <ChatBot steps={steps} className='mx-auto' />
-                  </ThemeProvider>
-                </div>
-                {/* <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div> */}
-              </div>
-            </div>
-          </div>
-
-          {/* { 
-            showBot &&
-            <ChattingBot
-            />
-          } */}
         </main>
-
       </div>
-
     </div>
   );
 };
