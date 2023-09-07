@@ -6,11 +6,10 @@ const LoginTA = () => {
   const [password, setPassword] = useState('');
   const [user, setUser] = useState([]);
 
-  /*
   const handleLogin = async () => {
     try {
       const response = await axios.post('http://127.0.0.1:8081/user/login'
-      , { username, password },/*{ 
+      , { username, password },{ 
         withCredentials: true,
       });
 
@@ -19,7 +18,7 @@ const LoginTA = () => {
         alert('로그인에 실패했습니다.');
     }
   };
-  */
+
   useEffect(()=>{
     console.log(user.bizname);
     console.log(user.membername);
@@ -98,7 +97,7 @@ const LoginTA = () => {
                           <button 
                             type="button"
                             className="btn btn-primary w-100"
-                            //onClick={handleLogin}
+                            onClick={handleLogin}
                           >
                             로그인
                           </button>

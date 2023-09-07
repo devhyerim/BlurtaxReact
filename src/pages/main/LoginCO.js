@@ -6,11 +6,10 @@ const LoginCO = () => {
   const [password, setPassword] = useState('');
   const [member, setMember] = useState([]);
 
-  /*
   const handleLogin = async () => {
     try {
       const response = await axios.post('http://127.0.0.1:8081/user/login'
-      , { username, password },/*{ 
+      , { username, password },{ 
         withCredentials: true,
       });
 
@@ -19,7 +18,7 @@ const LoginCO = () => {
         alert('로그인에 실패했습니다.');
     }
   };
-  */
+
   return(
     <div>
       <main>
@@ -89,7 +88,7 @@ const LoginCO = () => {
                           <button 
                             class="btn btn-primary w-100" 
                             type="button"
-                            //onClick={handleLogin}
+                            onClick={handleLogin}
                           >
                             로그인
                           </button>
