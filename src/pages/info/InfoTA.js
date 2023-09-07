@@ -155,31 +155,7 @@ const InfoTA = () => {
   // const closeBot = () => {
   //   setShowBot(false);
   // }
-  const steps = [
-    {
-      id: '201',
-      component: <InfoBot />,
-      // ,<InvalidBiz />
-      trigger: '202'
-    },
-    {
-      id: '202',
-      options: [
-        { value: 1, label: '재검토 목록 보기', trigger: '203' },
-        { value: 2, label: '자동신고 목록 보기', trigger: '204' },
-      ],
-    },
-    {
-      id: '203',
-      component: <InvalidBiz/>,
-      trigger: '201'
-    },
-    {
-      id: '204',
-      component: <ValidBiz/>,
-      trigger: '201'
-    }
-  ];
+  
 
 
 
