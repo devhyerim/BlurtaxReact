@@ -1,11 +1,20 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 
-function ModalSlip() {
+function ModalSlip({ FormToData }) {
   const [show, setShow] = useState(false);
-
+  console.log(FormToData);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleCashSlip = () => {
+    axios
+      .post("http://localhost:8081/receipt/cashslipConfirmed", FormToData)
+      .then((res) => {
+        console.log(res.data);
+        handleClose();
+      });
+  };
   return (
     <>
       <button
@@ -44,7 +53,7 @@ function ModalSlip() {
             className="confirmedBtn btn btn-primary"
             value="1"
             data-bs-dismiss="modal"
-            onClick={handleClose}
+            onClick={handleCashSlip}
           >
             확인
           </button>

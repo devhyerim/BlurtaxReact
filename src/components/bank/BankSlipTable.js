@@ -93,9 +93,11 @@ const BankSlipTable = ({slips, activeTab, requestFrom}) => {
     enddate: endDate
   }
 
+  let link = "";
+
   const getAllBanksAndSlips = () => {
     // {params}로 쓰면 오류..
-    axios.post('http://localhost:8081/bank/getHistoryAndSlip', params)
+    axios.post(link, params)
       .then((res) => {
         dispatch(setWholeBanks(res.data.historyList));
         dispatch(setWholeSlips(res.data.slipList));
@@ -116,14 +118,12 @@ const BankSlipTable = ({slips, activeTab, requestFrom}) => {
       bhstateno: param
     }));
 
-    console.log(requestBody);
-
     axios.post('http://localhost:8081/bank/modifySlipState', requestBody, {
       headers: {
         'Content-Type': 'application/json'
       }})
     .then((res) => {
-      alert('수정이 완료되었습니다.');
+      link = res.data.href;
       getAllBanksAndSlips();
     });
   }

@@ -9,7 +9,7 @@ const InvalidBiz = () => {
     const [invalidBiz, setInvalidBiz] = useState([]);
     const [validBizCount, setValidBizCount] = useState('');
     const [invalidBizCount, setInvalidBizCount] = useState('');
-    const invalids = JSON.stringify(invalidBiz);
+
 
     const currentDateTime = new Date();
     function formatDate(date) {
@@ -20,30 +20,30 @@ const InvalidBiz = () => {
         // 특정 포맷으로 날짜 문자열 생성
         return `${year}년 ${month}월 ${day}일`;
     }
-
+    const fmt = currentDateTime;
     const formattedDate = formatDate(currentDateTime);
     const year2 = formattedDate.substring(0, 4);
 
 
     const invalidList = () => {
-
+        
         axios.get(`http://localhost:8081/info/infoTA/year?year=${year2}`).then((res) => {
             const receivedData2 = res.data;
 
             receivedData2.map((data) => {
                 console.log(data.tax);
-                if (((data.tax / data.bizincome)) * 100 <= 1) {
+                if (((data.tax / data.bizincome) * 100) <= 1) {
                     setInvalidBizCount((prev) => {
                         const invalidCount = Number(prev) + 1;
+                        setInvalidBiz((prev) => [...prev, data]);
                         return invalidCount;
                     })
-                    setInvalidBiz([...invalidBiz, data]);
-                } else if (((data.status === '신고서제출') && (data.tax / data.bizincome)) * 100 > 1) {
+                } else if(((data.status === '신고서제출') && (data.tax / data.bizincome)) * 100 > 1){
                     setValidBizCount((prev) => {
                         const vaildCount = Number(prev) + 1;
+                        setValidBiz((prev) => [...prev, data]);
                         return vaildCount;
                     });
-                    setValidBiz([...validBiz, data]);
                 }
 
             })
@@ -52,14 +52,10 @@ const InvalidBiz = () => {
     }
 
     useEffect(() => {
-        invalidList();
-        console.log(invalidBiz);
+    invalidList();
+}, [])
 
-        console.log("invalidBizCount : " + invalidBizCount);
-        console.log("invalidBiz: " + invalidBiz);
-        console.log("validBizCount : " + validBizCount);
-        console.log("validBiz: " + validBiz);
-    }, [])
+    console.log(invalidBiz);
 
 
 
@@ -67,15 +63,41 @@ const InvalidBiz = () => {
     
     return (
         <div>
-            {invalids.map((biz) => {
-                return (
-                    <div>
-                        aaa
-                    </div>
+        <table className="table table-hover table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th scope="col" className="tabletop">
+                        수임처
+                    </th>
+                    <th scope="col" className="tabletop">
+                        소득금액
+                    </th>
+                    <th scope="col" className="tabletop">
+                        결정세액
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="maketd">
+                {invalidBiz.map((biz) => {
+                    const formattedBizIncome = parseInt(biz.bizincome).toLocaleString(); // 숫자에 쉼표 추가
+                    const formattedTax = parseInt(biz.tax).toLocaleString(); // 숫자에 쉼표 추가
+                    return (
+                        <tr key={biz.bizno}>
+                          <td>
+                            {biz.bizname}
+                          </td>
+                          <td>
+                            {formattedBizIncome}
+                          </td>
+                          <td>
+                            {formattedTax}
+                          </td>
+                        </tr>
                     )
-            })}
-
-        </div>
+                })}
+            </tbody>
+        </table>
+    </div>
     );
 }
 

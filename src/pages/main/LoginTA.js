@@ -1,5 +1,33 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const LoginTA = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [user, setUser] = useState([]);
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://127.0.0.1:8081/user/login'
+      , { username, password },{ 
+        withCredentials: true,
+      });
+
+      setUser(response.data);
+    } catch (error) {
+        alert('로그인에 실패했습니다.');
+    }
+  };
+
+  useEffect(()=>{
+    console.log(user.bizname);
+    console.log(user.membername);
+    console.log(user.memberno);
+    console.log(user.bizno);
+    console.log(user.authorities);
+  }, [user]);
+
+
   return(
     <div>
       <main>
@@ -26,20 +54,36 @@ const LoginTA = () => {
                         <p className="text-center small">Enter your username & password to login</p>
                       </div>
 
-                      <form role="form" className="row g-3 needs-validation" method="post" action="/login">
+                      <form role="form" className="row g-3 needs-validation">
 
                         <div className="col-12">
                           <label for="yourUsername" className="form-label">아이디</label>
                           <div className="input-group has-validation">
                             <span className="input-group-text" id="inputGroupPrepend">@</span>
-                            <input type="text" name="username" className="form-control" id="yourUsername" required/>
+                            <input 
+                              type="text" 
+                              name="username" 
+                              className="form-control" 
+                              id="yourUsername"
+                              value={username}
+                              onChange={(e)=>setUsername(e.target.value)}
+                              required
+                            />
                             <div className="invalid-feedback">아이디를 입력하세요.</div>
                           </div>
                         </div>
 
                         <div className="col-12">
                           <label for="yourPassword" className="form-label">비밀번호</label>
-                          <input type="password" name="password" className="form-control" id="yourPassword" required/>
+                          <input 
+                            type="password" 
+                            name="password" 
+                            className="form-control" 
+                            id="yourPassword" 
+                            value={password}
+                            onChange={(e)=>setPassword(e.target.value)}
+                            required
+                          />
                           <div className="invalid-feedback">비밀번호를 입력하세요.</div>
                         </div>
 
@@ -50,7 +94,13 @@ const LoginTA = () => {
                           </div>
                         </div>
                         <div className="col-12">
-                          <button className="btn btn-primary w-100" type="submit">로그인</button>
+                          <button 
+                            type="button"
+                            className="btn btn-primary w-100"
+                            onClick={handleLogin}
+                          >
+                            로그인
+                          </button>
                         </div>
                         <div className="col-12">
                         <div className="loginoption">

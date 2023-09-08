@@ -1,14 +1,7 @@
 import axios from "axios";
-import ChattingBot from '../../components/common/ChattingBot.js'
-import BlurbirdTalk from '../../components/common/BlurbirdTalk.js'
-import ChatBot from "react-simple-chatbot";
-import { ThemeProvider } from 'styled-components';
-import InvalidBiz from "../../components/info/InvalidBiz.js";
-import ValidBiz from "../../components/info/ValidBiz.js";
-
 import { useEffect, useState } from "react";
-import InfoBot from "../../components/info/InfoBot.js";
-// import FloatingButton from "../components/common/FloatingButton";
+import { Modal, Button } from 'react-bootstrap';
+import InfoModal from "../../components/info/InfoModal";
 
 
 const InfoTA = () => {
@@ -18,6 +11,10 @@ const InfoTA = () => {
   const [statuscount, setStatuscount] = useState("");
   const [totalcount, setTotalcount] = useState("");
   const [fmt, setFmt] = useState("");
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   // const [percentage, setPercentage] = useState('');
 
 
@@ -25,21 +22,6 @@ const InfoTA = () => {
   const onChangeYear = (e) => {
     e.preventDefault();
     setYear(e.target.value);
-  };
-
-
-
-
-  const theme = {
-    background: 'white',
-    fontFamily: 'Helvetica Neue',
-    headerBgColor: '#4169e1',
-    headerFontColor: '#fff',
-    headerFontSize: '15px',
-    botBubbleColor: '#4169e1',
-    botFontColor: '#fff',
-    userBubbleColor: '#fff',
-    userFontColor: '#4a4a4a',
   };
 
 
@@ -160,37 +142,14 @@ const InfoTA = () => {
   // const closeBot = () => {
   //   setShowBot(false);
   // }
-  const steps = [
-    {
-      id: '201',
-      component: <InvalidBiz/>,
-      // <InfoBot />,
-      trigger: '202'
-    },
-    {
-      id: '202',
-      options: [
-        { value: 1, label: '재검토 목록 보기', trigger: '203' },
-        { value: 2, label: '자동신고 목록 보기', trigger: '204' },
-      ],
-    },
-    {
-      id: '203',
-      component: <InvalidBiz/>,
-      trigger: '201'
-    },
-    {
-      id: '204',
-      component: <ValidBiz/>,
-      trigger: '201'
-    }
-  ];
+
 
 
 
 
   return (
     <div style={{ height: "100vh" }}>
+
 
       <div className="nonsidebar m-3">
         {/* <Sidebar/> */}
@@ -442,23 +401,28 @@ const InfoTA = () => {
                         {listCO.map((CO) => {
                           const formattedBizIncome = parseInt(CO.bizincome).toLocaleString(); // 숫자에 쉼표 추가
                           const formattedTax = parseInt(CO.tax).toLocaleString(); // 숫자에 쉼표 추가
+                          const formattedReportdate = CO.reportdate ? new Date(CO.reportdate).toLocaleDateString() : ''; // 원하는 형식으로 날짜 포맷팅
+                          const formattedTransdate = CO.transdate ? new Date(CO.transdate).toLocaleDateString() : ''; // 원하는 형식으로 날짜 포맷팅
+
                           return (
-                            <tr className={bizno} key={CO.bizno}>
+
+                            <tr id={CO.bizno} key={CO.bizno} >
+                              
                               <td>
-                                {CO.bizname}
+                                <InfoModal CO={CO}/>
                                 <input
                                   type="hidden"
-                                  name="bizno"
                                   value={CO.bizno}
                                 />
+
                               </td>
                               <td>{CO.year}</td>
                               <td>{formattedBizIncome}</td>
                               <td>{formattedTax}</td>
-                              <td>{CO.reportdate}</td>
+                              <td>{formattedReportdate}</td>
                               <td>{CO.reportdoc}</td>
                               <td>{CO.paymentslip}</td>
-                              <td>{CO.transdate}</td>
+                              <td>{formattedTransdate}</td>
                               <td>
                                 <input
                                   type="button"
@@ -506,67 +470,8 @@ const InfoTA = () => {
 
             </div>
           </section>
-          {/* <button className="btn btn-primary float-end rounded-circle">캬캬</button> */}
-          <div
-            className="d-flex justify-content-center"
-          // style={{ 
-          //   // width: "200px", height: "200px"
-          //   boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"
-          // }}
-          >
-            <button type="button"
-              className="btn btn-outline-secondary btn-lg rounded-start-pill border"
-              // style={{ width: "70px", height: "70px", boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"}}
-              // onClick={clickBirdTalk}
-              style={{
-                // width: "200px", height: "200px"
-                boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"
-              }}
-            >
-              <BlurbirdTalk />
-            </button>
-            <button type="button"
-              className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-              // className="btn btn-outline-secondary btn-lg rounded-end-pill border"
-              // style={{ width: "70px", height: "70px", boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"}}
-              // onClick={openBot}
-              style={{
-                // width: "200px", height: "200px"
-                boxShadow: "rgba(149, 157, 165, 0.7) 0px 0px 15px"
-              }}
-            >
-              채팅봇
-            </button>
-
-          </div>
-
-
-          <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                  <ThemeProvider theme={theme}>
-                    <ChatBot steps={steps} className='mx-auto' />
-                  </ThemeProvider>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-          {/* { 
-            showBot &&
-            <ChattingBot
-            />
-          } */}
         </main>
-
       </div>
-
     </div>
   );
 };

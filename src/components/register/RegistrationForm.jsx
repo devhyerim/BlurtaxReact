@@ -46,7 +46,7 @@ function RegistrationForm() {
               href="../main/mainTA"
               className="logo d-flex align-items-center w-auto"
             >
-              <img src="assets/img/logo.png" alt="" />
+              <img src="/img/logo.png" alt="" />
               <span className="d-none d-lg-block">BlurTax.</span>
             </a>
           </div>
