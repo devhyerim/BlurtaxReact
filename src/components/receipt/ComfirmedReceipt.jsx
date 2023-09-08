@@ -34,6 +34,7 @@ function ComfirmedReceipt({ receipts, selectedRadio }) {
   // 모달 열기
   const openModal = () => {
     setShowModal(true);
+    console.log(FormToData);
   };
 
   const FormToData = {
@@ -58,20 +59,11 @@ function ComfirmedReceipt({ receipts, selectedRadio }) {
     setAmount(e.target.value);
   };
 
-  const handleStatusChange = (receiptId = 1) => {
-    // axios.patch 요청을 보내서 해당 영수증의 status를 변경
+  const handleStatusChange = () => {
     axios
-      .patch(`http://localhost:8081/receipt/${receiptId}`, {
-        status: "부적합", // 변경하려는 status 값
-      })
+      .post("http://localhost:8081/receipt/cashslipConfirmed", FormToData)
       .then((res) => {
-        // 요청이 성공하면 적절한 처리를 수행
-        console.log(`Receipt ${receiptId}의 상태가 부적합으로 변경되었습니다.`);
-        // 여기서 상태를 업데이트하거나 필요한 작업을 수행할 수 있습니다.
-      })
-      .catch((error) => {
-        // 요청이 실패한 경우 에러 처리
-        console.error(`상태 변경에 실패했습니다: ${error}`);
+        alert(res.data);
       });
   };
 
