@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Card, Image } from "react-bootstrap";
 
 function ReceiptCO() {
+  const [image, setImage] = useState("/img/upload2.png");
   const [uploadFiles, setUploadFiles] = useState([]);
   const [purpose, setPurpose] = useState("");
 
@@ -20,6 +21,8 @@ function ReceiptCO() {
 
     // 선택한 파일들을 기존 파일 배열에 추가
     setUploadFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+    setImage("/img/" + selectedFiles[0].name);
+    console.log(selectedFiles[0].name);
   };
 
   const handlePurposeChange = (e) => {
@@ -54,7 +57,7 @@ function ReceiptCO() {
         headers: {
           "Content-Type": "multipart/form-data", // 파일 업로드를 위한 헤더 설정
         },
-        params: dataToPost, // 기타 데이터는 URL 매개변수로 보낼 수 있습니다.
+        params: dataToPost, // 기타 데이터는 URL 매개변수로 보낼 수 있음
       })
       .then(() => {
         alert("등록이 완료되었습니다!");
@@ -74,7 +77,7 @@ function ReceiptCO() {
         <Card className="card">
           <Card.Body className="card-body">
             <div className="left" style={{ marginLeft: "0%", width: "50%" }}>
-              <Image src={"/img/upload2.png"} alt="receipt" fluid />
+              <Image src={image} alt="receipt" fluid />
             </div>
             <div className="right" style={{ width: "50%" }}>
               <Card className="mb-3 card">
