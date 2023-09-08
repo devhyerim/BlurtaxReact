@@ -2,11 +2,16 @@ import '../../resources/assets/css/BankCO.css';
 import BankSearch from '../../components/bank/BankSearch';
 import BankContents from '../../components/bank/BankContents';
 import BankSlip from '../../components/bank/BankSlip';
+import { useSelector } from 'react-redux';
 
 const BankCO = () => {
 
+  const wholeBanks = useSelector((state)=> state.bank.wholeBanks);
+  const wholeSlips = useSelector((state)=> state.bank.wholeSlips);
+  
+
   return(
-    <div id="main" className="nonsidebar">
+    <div id="main" className="nonsidebar bankmainbody">
       <div className="pagetitle">
         <h1>통장관리</h1>
       </div>
@@ -26,11 +31,17 @@ const BankCO = () => {
               <BankSearch requestFrom="co"/>
       
               <div className="left" id="leftbank">
-                <BankContents requestFrom="co"/>
+                {
+                  !(wholeBanks.length === 0 && wholeSlips.length === 0) 
+                        && <BankContents requestFrom="co"/>
+                }
               </div>
               
               <div className="right" id="rightbank">
-                <BankSlip requestFrom="co"/>
+                {
+                    !(wholeBanks.length === 0 && wholeSlips.length === 0) 
+                        && <BankSlip requestFrom="co"/>
+                }      
               </div>
 
             </div>

@@ -16,13 +16,12 @@ const ModifySlip = () => {
   const startDate = useSelector((state)=> state.bank.startDate);
   const endDate = useSelector((state)=> state.bank.endDate);
 
-  // 사용자가 선택한 은행 내역, 전표 내역, 무엇을 선택했는지
+  // 사용자가 선택한 은행 내역, 전표 내역
   const banks = useSelector((state)=> state.bank.banks);
   const slips = useSelector((state)=> state.bank.slips);
 
-  const { control, handleSubmit, register, getValues, reset } = useForm();
-  const { fields, append, prepend,
-         swap, move, insert, remove } = useFieldArray({
+  const { control, handleSubmit, register, getValues } = useForm();
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "modifySlip"
   });
@@ -130,7 +129,6 @@ const ModifySlip = () => {
     setShowModal(false);
 
     if(selectedRowIndex!==null){
-      
       // 선택한 행의 인덱스를 이용하여 해당 행의 데이터를 업데이트
       const updatedSelectedAccount = [...selectedAccount]; // 기존 배열 복사
       const rowIndex = selectedRowIndex; // 선택한 행의 인덱스
@@ -148,8 +146,6 @@ const ModifySlip = () => {
 
       // 선택한 행의 데이터 업데이트
       setSelectedAccount(updatedSelectedAccount);
-
-      console.log(selectedAccount);
     }
   }
   //---------------------------------------------------------

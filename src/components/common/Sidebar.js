@@ -49,14 +49,6 @@ const Sidebar = () => {
 
     let params = { bizname: searchBiz };
 
-    /*
-    let params = {
-      bizname_like: searchBiz,
-      _page: page,
-      _limit: limit
-    }
-    */
-
     axios
       .get("http://localhost:8081/common/getBizList", { params })
       .then((res) => {
