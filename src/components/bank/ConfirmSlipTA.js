@@ -13,6 +13,8 @@ const ConfirmSlipTA = ({triggerNextStep}) => {
   const startDate = useSelector((state)=> state.bank.startDate);
   const endDate = useSelector((state)=> state.bank.endDate);
 
+  const link = "";
+
   let params = {
     bizno: "10001",
     bankname: "신한은행",
@@ -34,7 +36,7 @@ const ConfirmSlipTA = ({triggerNextStep}) => {
   }, [canSlip]);
 
   const getAllBanksAndSlips = () => {
-    axios.post('http://localhost:8081/bank/getHistoryAndSlip', params)
+    axios.post(link, params)
     .then((res) => {
       dispatch(setWholeBanks(res.data.historyList));
       dispatch(setWholeSlips(res.data.slipList));
@@ -48,6 +50,7 @@ const ConfirmSlipTA = ({triggerNextStep}) => {
       }));
     });
   }
+  
 
   const confirmSlip = () => {
     const requestBody = [
@@ -61,7 +64,8 @@ const ConfirmSlipTA = ({triggerNextStep}) => {
       headers: {
         'Content-Type': 'application/json'
       }})
-    .then(() => {
+    .then((res) => {
+      link = res.data.href;
       getAllBanksAndSlips();
     });
   }

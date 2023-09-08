@@ -24,7 +24,6 @@ const BankSearch = ({requestFrom}) => {
   }
 
   const getAllBanksAndSlips = () => {
-    // {params}로 쓰면 오류..
     axios.post('http://localhost:8081/bank/getHistoryAndSlip', params)
       .then((res) => {
         dispatch(setWholeBanks(res.data.historyList));

@@ -22,3 +22,55 @@ vertical-align: -0.9em;
 }
 
 
+.service-item {
+  position: relative;
+  z-index: 1;
+  padding: 30px;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+  background-color: #fff;
+  border-radius: 10px;
+  border-top-right-radius: 50px;
+  transition: all .3s;
+}
+.service-item .icon {
+margin-left: 0px;
+margin-bottom: 30px;
+background-repeat: no-repeat;
+width: 50px;
+height: 50px;
+transition: all .3s;
+}
+
+.service-item h4 {
+transition: all .3s;
+font-size: 20px;
+font-weight: 700;
+margin-bottom: 15px;
+}
+
+.service-item p {
+transition: all .3s;
+font-size: 15px;
+margin-bottom: 20px;
+}
+
+.service-item:hover h4,
+.service-item:hover p,
+.service-item:hover .text-button a {
+color: #fff;
+}
+
+.service-item:hover {
+background-position: right top;
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+.importantmenu {
+display: flex;
+flex-wrap: nowrap;
+gap: 10px;
+margin-top: 10px;
+margin-bottom: 10px;
+max-width: 1050px;
+}

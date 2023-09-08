@@ -150,10 +150,11 @@ const BankbookTable = ({ banks, activeTab, requestFrom }) => {
 											<input
 												className="form-check-input"
 												type="checkbox"
+                        checked={checkAll}
 												// 그냥 checked={checkAll}로 적으면
 												// 개별 체크 시 화면에 렌더링 되지 않음
 												// ... -> 객체의 속성을 복사하고 붙여넣는 역할
-												{...(checkAll ? {checked:"checked"} : "")}
+												/*{...(checkAll ? {checked:"checked"} : "")}*/
 												onChange={()=>handleCheckChange(bank)}
 											/>
 										</td>
