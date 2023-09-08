@@ -1,5 +1,24 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const LoginCO = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [member, setMember] = useState([]);
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://127.0.0.1:8081/user/login'
+      , { username, password },{ 
+        withCredentials: true,
+      });
+
+      setMember(response.data);
+    } catch (error) {
+        alert('로그인에 실패했습니다.');
+    }
+  };
+
   return(
     <div>
       <main>
@@ -32,14 +51,30 @@ const LoginCO = () => {
                           <label for="yourUsername" class="form-label">아이디</label>
                           <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            <input type="text" name="username" class="form-control" id="yourUsername" required/>
+                            <input 
+                              type="text" 
+                              name="username" 
+                              className="form-control" 
+                              id="yourUsername"
+                              value={username}
+                              onChange={(e)=>setUsername(e.target.value)}
+                              required
+                            />
                             <div class="invalid-feedback">아이디를 입력하세요.</div>
                           </div>
                         </div>
 
                         <div class="col-12">
                           <label for="yourPassword" class="form-label">비밀번호</label>
-                          <input type="password" name="password" class="form-control" id="yourPassword" required/>
+                          <input 
+                            type="password" 
+                            name="password" 
+                            className="form-control" 
+                            id="yourPassword" 
+                            value={password}
+                            onChange={(e)=>setPassword(e.target.value)}
+                            required
+                          />
                           <div class="invalid-feedback">비밀번호를 입력하세요.</div>
                         </div>
 
@@ -50,7 +85,13 @@ const LoginCO = () => {
                           </div>
                         </div>
                         <div class="col-12">
-                          <button class="btn btn-primary w-100" type="submit">로그인</button>
+                          <button 
+                            class="btn btn-primary w-100" 
+                            type="button"
+                            onClick={handleLogin}
+                          >
+                            로그인
+                          </button>
                         </div>
                         <div class="col-12">
                         <div class="loginoption">
