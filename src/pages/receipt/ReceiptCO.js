@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { Card, Image } from "react-bootstrap";
 
 function ReceiptCO() {
+  const [image, setImage] = useState("/img/upload2.png");
   const [uploadFiles, setUploadFiles] = useState([]);
   const [purpose, setPurpose] = useState("");
-
   const checkExtension = (fileName) => {
     const regex = new RegExp("^(?!.*.(jpg|png|pdf)$).*$");
     if (regex.test(fileName)) {
@@ -20,13 +20,15 @@ function ReceiptCO() {
 
     // 선택한 파일들을 기존 파일 배열에 추가
     setUploadFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+    setImage("/img/" + selectedFiles[0].name);
+    console.log(selectedFiles[0].name);
   };
 
   const handlePurposeChange = (e) => {
     setPurpose(e.target.value);
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (uploadFiles.length === 0) {
       alert("파일을 선택해주세요.");
       return;
@@ -43,18 +45,16 @@ function ReceiptCO() {
       formData.append("multipartFiles", file);
     });
     const dataToPost = {
-      purpose, // 사용자가 입력한 목적을 사용
-      memo: "",
-      status: "미확인",
-      date: formattedDate, // 오늘 날짜
+      purpose: purpose, // 사용자가 입력한 목적을 사용
     };
 
-    axios
+    await axios
       .post("http://localhost:8081/receipt/uploadFiles", formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // 파일 업로드를 위한 헤더 설정
+          "Content-Type": "multipart/form-data",
+          "Access-Control-Allow-Origin": "*", // 파일 업로드를 위한 헤더 설정
         },
-        params: dataToPost, // 기타 데이터는 URL 매개변수로 보낼 수 있습니다.
+        params: dataToPost, // 기타 데이터는 URL 매개변수로 보낼 수 있음
       })
       .then(() => {
         alert("등록이 완료되었습니다!");
@@ -74,7 +74,7 @@ function ReceiptCO() {
         <Card className="card">
           <Card.Body className="card-body">
             <div className="left" style={{ marginLeft: "0%", width: "50%" }}>
-              <Image src={"/img/upload2.png"} alt="receipt" fluid />
+              <Image src={image} alt="receipt" fluid />
             </div>
             <div className="right" style={{ width: "50%" }}>
               <Card className="mb-3 card">
@@ -85,7 +85,7 @@ function ReceiptCO() {
                     onChange={handleFileChange}
                     multiple
                   />
-                  <span className="input-group-text">증빙목적</span>
+                  <span className="input-group-text mt-3">증빙목적</span>
                   <textarea
                     className="form-control"
                     value={purpose}
