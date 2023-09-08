@@ -38,7 +38,7 @@ const DocrequestCOTab = () => {
 
   useEffect(() => {
     docListHandler();
-  }, []);
+  }, [docrequestList]);
 
 
   return (

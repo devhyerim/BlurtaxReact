@@ -11,8 +11,17 @@ const ChatBotButton = () => {
   let steps = [
     {
       id: '1',
-      message: '안녕하세요.',
-      trigger: '300',
+      message: '원하는 메뉴를 선택하세요.',
+      trigger: '2',
+    },
+    {
+      id: '2',
+      options: [
+        { value: '민원서류', label: '민원서류', trigger: '300' },
+        { value: '전표증빙', label: '전표증빙', trigger: '300' },
+        { value: '통장관리', label: '통장관리', trigger: '300' },
+        { value: '신고현황', label: '신고현황', trigger: '300' },
+      ],
     },
     {
       id: '300',
@@ -85,11 +94,11 @@ const ChatBotButton = () => {
     {
       id: 'doctagetdate',
       options: [
-        { value: '2018/01/01', label: '2018/01/01', trigger: '303' },
-        { value: '2019/01/01', label: '2019/01/01', trigger: '303' },
-        { value: '2020/01/01', label: '2020/01/01', trigger: '303' },
-        { value: '2021/01/01', label: '2021/01/01', trigger: '303' },
-        { value: '2022/01/01', label: '2022/01/01', trigger: '303' },
+        { value: '2018-01-01', label: '2018-01-01', trigger: '303' },
+        { value: '2019-01-01', label: '2019-01-01', trigger: '303' },
+        { value: '2020-01-01', label: '2020-01-01', trigger: '303' },
+        { value: '2021-01-01', label: '2021-01-01', trigger: '303' },
+        { value: '2022-01-01', label: '2022-01-01', trigger: '303' },
       ],
     },
     {
