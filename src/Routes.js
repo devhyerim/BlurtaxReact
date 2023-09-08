@@ -14,7 +14,7 @@ import ReceiptTA from "./pages/receipt/ReceiptTA";
 import InfoTA from "./pages/info/InfoTA";
 import InfoCO from "./pages/info/InfoCO";
 import ChatTestPage from "./pages/receipt/ChatTestPage";
-
+import RegisterCO from "./pages/register/RegisterCO";
 const Routes = [
   {
     path: "/main/mainta",
@@ -69,12 +69,12 @@ const Routes = [
     component: BankTA,
   },
   {
-    path: "/register/registerta",
+    path: "/main/registerta",
     component: RegisterTA,
   },
   {
-    path: "/register/registerco",
-    component: RegisterTA,
+    path: "/main/registerco",
+    component: RegisterCO,
   },
   {
     path: "/receipt/receiptta",
