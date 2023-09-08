@@ -32,7 +32,7 @@ const InvalidBiz = () => {
 
             receivedData2.map((data) => {
                 console.log(data.tax);
-                if (((data.tax / data.bizincome)) * 100 <= 1) {
+                if (((data.tax / data.bizincome) * 100) <= 1) {
                     setInvalidBizCount((prev) => {
                         const invalidCount = Number(prev) + 1;
                         setInvalidBiz((prev) => [...prev, data]);
